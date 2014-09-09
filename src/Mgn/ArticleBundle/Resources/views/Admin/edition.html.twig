@@ -1,0 +1,186 @@
+{% extends "MgnArticleBundle::admin.html.twig" %}
+
+{% block title %}
+    Rédaction d'un article - {{ parent() }}
+{% endblock %}
+
+{% block sidebar_articles %}active{% endblock %}
+{% block sidebar_articles_writenext %}active{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+
+		<div class="col-lg-12">
+
+			<section class="panel">
+
+				<header class="panel-heading">
+
+					<h4><i class="fi-pencil"></i> Rédaction d'article</h4>
+
+				</header>
+
+			</section>
+
+			<section class="panel">
+
+				<div class="panel-body">
+
+					<h1 id="article-edit-title" class="article-content-edit" style="color: #ff6c5f; font-weight: bold; margin-bottom: 20px;" data-path="{{ path('mgn_admin_article_edit_title', {'article': article.id, 'action': 'edit'}) }}">{{ article.title }} <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" /></h1>
+
+					{% if article.header is empty %}
+
+			        	<img class="img-responsive img-thumbnail" src="{{ asset('admin/img/article_header_default.png') }}" title="" />
+
+			        {% else %}
+
+			        	<img class="img-responsive img-thumbnail" src="{{ article.header }}" title="" />
+
+			        {% endif %}
+
+					<p id="article-edit-introduction" class="article-content-edit text-justify" style="margin-top: 20px;" data-path="{{ path('mgn_admin_article_edit_introduction', {'article': article.id, 'action': 'edit'}) }}"><strong>
+
+						{% if article.introduction is empty %}
+
+				        	Rédigez une introduction <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
+
+				        {% else %}
+
+				        	{{ article.introduction }} <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
+
+				        {% endif %}
+
+			        </strong></p>
+
+				</div>
+
+			</section>
+
+	        <div class="row">
+
+	            <div class="col-lg-12">
+
+	                <div id="contents-load" data-path="{{path('mgn_content_sortable')}}">
+
+	                	{% for content in article.contents %}
+
+	                		{% if content.type == 'paragraph' %}
+
+								{% include "MgnContentBundle:Contents:paragraph.html.twig" %}
+
+							{% elseif content.type == 'title' %}
+
+								{% include "MgnContentBundle:Contents:title.html.twig" %}
+
+							{% elseif content.type == 'subtitle' %}
+
+								{% include "MgnContentBundle:Contents:subtitle.html.twig" %}
+
+							{% elseif content.type == 'picture' %}
+
+								{% include "MgnContentBundle:Contents:picture.html.twig" %}
+
+							{% elseif content.type == 'video' %}
+
+								{% include "MgnContentBundle:Contents:video.html.twig" %}
+
+							{% elseif content.type == 'quote' %}
+
+								{% include "MgnContentBundle:Contents:quote.html.twig" %}
+
+							{% endif %}
+
+	                	{% endfor %}
+
+	                </div>
+
+	            </div>
+
+	        </div>
+
+	        <div class="row">
+
+	            <div class="col-lg-12">
+
+	                <div class="contents-add panel panel-default text-center" style="height: 90px;">
+
+	                    <div class="panel-body">
+
+	                        <div class="contents-add-out"><i class="fa fa-plus fa-2x text-info" style="margin-top: 15px;"></i></div>
+
+	                        <div class="contents-add-over">
+
+	                            <a type="button" class="btn btn-primary contents-add-link" href="{{ url('mgn_content', {'container': 'article', 'id': article.id, 'content': 'new', 'type': 'paragraph'})}}">
+	                                <span class="fa fa-pencil fa-2x"></span> Paragraphe
+	                            </a>
+
+	                            {#<a type="button" class="btn btn-primary contents-add-link" href="{{ url('mgn_content', {'container': 'article', 'id': article.id, 'content': 'new', 'type': 'title'})}}">
+	                                <span class="fa fa-text-height fa-2x"></span> Titre
+	                            </a>#}
+
+	                            <a type="button" class="btn btn-primary contents-add-link" href="{{ url('mgn_content', {'container': 'article', 'id': article.id, 'content': 'new', 'type': 'subtitle'})}}">
+	                                <span class="fa fa-text-height fa-2x"></span> Sous-titre
+	                            </a>
+
+	                            <a type="button" class="btn btn-primary contents-add-link" href="{{ url('mgn_content', {'container': 'article', 'id': article.id, 'content': 'new', 'type': 'picture'})}}">
+	                                <span class="fa fa-picture-o fa-2x"></span> Image
+	                            </a>
+
+	                            <a type="button" class="btn btn-primary contents-add-link" href="{{ url('mgn_content', {'container': 'article', 'id': article.id, 'content': 'new', 'type': 'video'})}}">
+	                                <span class="fa fa-film fa-2x"></span> Vidéo
+	                            </a>
+
+	                            <a type="button" class="btn btn-primary contents-add-link" href="{{ url('mgn_content', {'container': 'article', 'id': article.id, 'content': 'new', 'type': 'quote'})}}">
+	                                <span class="fa fa-quote-right fa-2x"></span> Citation
+	                            </a>
+
+	                            {#<button type="button" class="btn btn-primary">
+	                                <span class="fa fa-list-ul fa-2x"></span> Liste
+	                            </button>#}
+
+	                        </div>
+
+	                    </div>
+
+	                </div>
+
+	            </div>
+
+	        </div>
+
+	        <div class="row">
+
+	            <div class="col-lg-12">
+
+	                <div class="pull-right">
+
+	                	{% if article.status == 'draft' %}
+
+	                		<a type="button" class="btn btn-primary" href="{{ path('mgn_admin_article_list', {'status': 'draft'}) }}">
+			                    Sauvegarder
+			                </a>
+
+	                	{% else %}
+
+			                <a type="button" class="btn btn-primary" href="{{ path('mgn_admin_article_list', {'status': 'publish'}) }}">
+			                    Sauvegarder
+			                </a>
+
+		                {% endif %}
+
+		                <a type="button" class="btn btn-success" href="{{ path('mgn_admin_article_publish', {'id': article.id}) }}">
+		                    Publier
+		                </a>
+
+	                </div>
+
+	            </div>
+
+	        </div>
+
+		</div>
+
+	</div>
+
+{% endblock %}
