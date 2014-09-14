@@ -13,6 +13,7 @@ class ConfigExtension extends \Twig_Extension
 {
 	protected $doctrine;
 	protected $config;
+	protected $em;
 	
 	public function getName()
 	{
@@ -31,10 +32,25 @@ class ConfigExtension extends \Twig_Extension
 		$this->doctrine = $doctrine;
 		
 		if ($this->config === null) {
-			$this->config = $this->doctrine
+			$configConstruct = $this->doctrine
                          ->getManager()
                          ->getRepository('MgnCoreBundle:Config')
                          ->findOneBy(array('cms' => 'mutagene'));
+
+            if ($configConstruct == null)
+            {
+            	$configNew = new Config;
+
+			    // Enregistrement en bdd pour générer un id    
+			    $this->em = $doctrine->getManager();
+				$this->em->persist($configNew);
+
+				$this->em->flush();
+
+				$configConstruct = $configNew;
+            }
+
+            $this->config = $configConstruct;
 		}
 	}
 

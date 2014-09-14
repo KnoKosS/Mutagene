@@ -191,6 +191,39 @@ class Config {
      */
     private $totalTopics;
 
+    public function __construct()
+    {
+        $datetime = new \Datetime();
+        $this->cms = 'mutagene';
+        $this->siteTitle = 'Mutagène';
+        $this->siteDescription = 'Un CMS nouvelle génération';
+        $this->email = 'demo@mutagene.fr';
+        $this->cmsForum = true;
+        $this->cmsArticle = true;
+        $this->homepage = 'article';
+        $this->forumPostPage = 20;
+        $this->forumTopicPage = 5;
+        $this->forumIndexLigne = 2;
+        $this->articleCountIndex = 0;
+        $this->reglement = null;
+        $this->theme = 'mutagene';
+        $this->themeDate = $datetime;
+        $this->profileFirstName = true;
+        $this->profileLastName = true;
+        $this->profileBirthday = true;
+        $this->profileSignature = true;
+        $this->profileTwitter = true;
+        $this->profileFacebook = true;
+        $this->profileGoogleplus = true;
+        $this->profileSteam = true;
+        $this->totalArticles = 0;
+        $this->totalArticlesPublish = 0;
+        $this->totalArticlesPending = 0;
+        $this->totalArticlesDraft = 0;
+        $this->totalPosts = 0;
+        $this->totalTopics = 0;
+    }
+
 	public function setCms($cms) {
 		$this->cms = $cms;
 	}
