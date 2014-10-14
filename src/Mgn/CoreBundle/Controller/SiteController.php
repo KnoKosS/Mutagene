@@ -17,7 +17,7 @@ class SiteController extends Controller
     {
     	if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
         {
-			throw new AccessDeniedHttpException('Vous devez disposer des droits SuperAdmin');
+			throw new AccessDeniedException('Vous devez disposer des droits SuperAdmin');
 		}
 
 		$config = $this->getDoctrine()
@@ -62,7 +62,7 @@ class SiteController extends Controller
     {
     	if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
         {
-			throw new AccessDeniedHttpException('Vous devez disposer des droits SuperAdmin');
+			throw new AccessDeniedException('Vous devez disposer des droits SuperAdmin');
 		}
 
 		$config = $this->getDoctrine()

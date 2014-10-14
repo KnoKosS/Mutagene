@@ -154,4 +154,9 @@ class UserController extends Controller
             'user' => $user,
         ));
     }
+
+    public function listeAction()
+    {
+        
+    }
 }

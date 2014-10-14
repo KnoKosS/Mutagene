@@ -1,9 +1,3 @@
-mgn_media_picture:
-    pattern:   /medias/get/{name}
-    defaults:  { _controller: MgnMediaBundle:Action:get }
-    requirements:
-        id:  \d+
-
 mgn_admin_media_gallery:
     pattern:   /admin/medias/galeries
     defaults:  { _controller: MgnMediaBundle:Admin:gallery }
