@@ -9,6 +9,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Mgn\ForumBundle\Entity\Forum;
 use Mgn\ForumBundle\Entity\Category;
 use Mgn\ForumBundle\Entity\Topic;
+use Mgn\ForumBundle\Entity\Mark;
 
 use Mgn\ForumBundle\Form\TopicType;
 
