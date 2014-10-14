@@ -46,10 +46,11 @@ class ForumController extends Controller
             {
                 throw new AccessDeniedException('Vous n\'êtes pas authentifié.');
             }
+                
+            $em = $this->getDoctrine()->getManager();
 
             foreach($forums as $forum)
             {
-                $em = $this->getDoctrine()->getManager();
             
                 $mark_cat = $em->getRepository('MgnForumBundle:Mark')
                              ->findMark($user, $forum);
@@ -158,32 +159,8 @@ class ForumController extends Controller
             {
                 throw new AccessDeniedException('Vous n\'êtes pas authentifié.');
             }
-            
-            $em = $this->getDoctrine()->getManager();
-            
-            $mark_cat = $em->getRepository('MgnForumBundle:Mark')
-                         ->findMark($user, $forum);
 
-            if( $mark_cat == null )
-            {
-                $mark_cat_new = $em->getRepository('MgnForumBundle:Mark');
-                
-                $mark_cat_new = new Mark;
-
-                $mark_cat_new->setuser($user);
-                $mark_cat_new->setForum($forum);
-                $mark_cat_new->setDate(new \Datetime());
-
-                $em->persist($mark_cat_new);
-            }
-            else
-            {
-                $mark_cat->setuser($user);
-                $mark_cat->setForum($forum);
-                $mark_cat->setDate(new \Datetime());
-            }
-            
-            $em->flush();
+            $this->markAction($user, $forum);
         }
                          
         $thereOneWeek = new \Datetime();
@@ -216,5 +193,34 @@ class ForumController extends Controller
             'forumAclTopic' => $forumAclTopic,
             'form' => $form->createView(),
         ));
+    }
+
+    private function markAction($user, $forum)
+    {
+        $em = $this->getDoctrine()->getManager();
+            
+        $mark_cat = $em->getRepository('MgnForumBundle:Mark')
+                     ->findMark($user, $forum);
+
+        if( $mark_cat == null )
+        {
+            $mark_cat_new = $em->getRepository('MgnForumBundle:Mark');
+            
+            $mark_cat_new = new Mark;
+
+            $mark_cat_new->setuser($user);
+            $mark_cat_new->setForum($forum);
+            $mark_cat_new->setDate(new \Datetime());
+
+            $em->persist($mark_cat_new);
+        }
+        else
+        {
+            $mark_cat->setuser($user);
+            $mark_cat->setForum($forum);
+            $mark_cat->setDate(new \Datetime());
+        }
+        
+        $em->flush();
     }
 }
