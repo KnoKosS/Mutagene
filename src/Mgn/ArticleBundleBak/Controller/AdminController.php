@@ -204,7 +204,7 @@ class AdminController extends Controller
 						$article->getAuthor()->setCountArticle($countArticle-1);
 						$config->setTotalArticles($config->getTotalArticles()-1);
 					}
-					elseif ($article2->getStatus() == 0 AND $article->getStatus() == 1)
+					elseif ($article2->getStatus() == 0 && 1)
 					{
 						$countArticle = $article->getAuthor()->getCountArticle();
 						$article->getAuthor()->setCountArticle($countArticle+1);
@@ -235,7 +235,7 @@ class AdminController extends Controller
 						$countNews = $article->getCategory()->getCountNews();
 						$article->getCategory()->setCountNews($countNews-1);
 					}
-					elseif ($article2->getStatus() == 0 AND $article->getStatus() == 1)
+					elseif ($article2->getStatus() == 0 && 1)
 					{
 						$countNews = $article->getCategory()->getCountNews();
 						$article->getCategory()->setCountNews($countNews+1);
