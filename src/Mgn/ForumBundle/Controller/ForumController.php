@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ForumController extends Controller
 {
-	private function isActive()
+	private function active()
     {
         $config = $this->container->get('mgn.config');
         
@@ -29,7 +29,7 @@ class ForumController extends Controller
 
     public function allAction($mark)
     {
-        $this->isActive();
+        $this->active();
 
     	//ici on recuperera la liste des categories et sections
         $forums = $this->getDoctrine()
@@ -100,7 +100,7 @@ class ForumController extends Controller
 
     public function viewAction($id, $page, $mark)
     {
-        $this->isActive();
+        $this->active();
 
         // On ne sait pas combien de pages il y a, mais on sait qu'une page
         // doit être supérieure ou égale à 1.

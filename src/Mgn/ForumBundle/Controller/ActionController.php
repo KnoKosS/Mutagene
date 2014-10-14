@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ActionController extends Controller
 {
-    private function isActive()
+    private function Active()
     {
         $config = $this->container->get('mgn.config');
         
@@ -35,7 +35,7 @@ class ActionController extends Controller
 
     public function addTopicAction($forum)
 	{
-		$this->isActive();
+		$this->active();
 
     	// Et pour vérifier que l'utilisateur est authentifié (et non un anonyme)
 		if( ! is_object($user = $this->container->get('security.context')->getToken()->getUser()) )
@@ -151,7 +151,7 @@ class ActionController extends Controller
 
     public function deletePostAction($postId, $page)
     {
-    	$this->isActive();
+    	$this->active();
 
         $em = $this->getDoctrine()->getManager();
 
@@ -272,7 +272,7 @@ class ActionController extends Controller
 
     public function postitTopicAction($topicId)
     {
-    	$this->isActive();
+    	$this->active();
 
     	//on récupère les informations sur le topic
 		$topic = $this->getDoctrine()
@@ -331,7 +331,7 @@ class ActionController extends Controller
 
     public function moveTopicAction($topicId, $forumId)
     {
-    	$this->isActive();
+    	$this->active();
 
     	$em = $this->getDoctrine()->getManager();
 
@@ -475,7 +475,7 @@ class ActionController extends Controller
 
     public function deleteTopicAction($topic)
     {
-    	$this->isActive();
+    	$this->active();
 
     	//on récupère les informations sur le topic
 		$topic = $this->getDoctrine()

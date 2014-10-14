@@ -21,7 +21,7 @@ use Mgn\ForumBundle\Form\MoveTopicType;
 
 class TopicController extends Controller
 {
-    private function isActive()
+    private function active()
     {
         $config = $this->container->get('mgn.config');
         
@@ -33,7 +33,7 @@ class TopicController extends Controller
 
     public function readAction($id, $slug, $page, $postediter, $topicediter, $topicfermer, $postmodo)
 	{
-		$this->isActive();
+		$this->active();
 
     	// On ne sait pas combien de pages il y a, mais on sait qu'une page
         // doit être supérieure ou égale à 1.
