@@ -308,6 +308,8 @@ class AdminController extends Controller
                       	 ->getRepository('MgnArticleBundle:Article')
                       	 ->findOneArticle($id);
 
+        $form = $this->createForm(new ArticlePublishType, $article);
+
 		// On récupère le formulaire et on le traite
 		$request = $this->get('request');
 
@@ -360,6 +362,7 @@ class AdminController extends Controller
 	    	return $this->render('MgnArticleBundle:Admin:edition.html.twig', array(
 	            'categories' => $categories,
 	            'article' => $article,
+            	'form' => $form->createView(),
 			));
 	    }
 		
