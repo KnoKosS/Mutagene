@@ -25,9 +25,7 @@ class MCodeExtension extends \Twig_Extension
  
     public function mcode($cible, $action, $type, $url)
     {
-    	//$cible = preg_replace('`\n`isU', '<br />', $cible);
-
-        if ($action == 'menu')
+    	if ($action == 'menu')
     	{
     		return $this->menu($cible, $type, $url);
     	}
@@ -168,14 +166,6 @@ class MCodeExtension extends \Twig_Extension
 
     public function parsermcode($cible, $type, $url)
     {
-        //" = &quot;
-        //' = &#39;
-        //< = &lt;
-        //> = &gt;
-        //& = &amp;
-
-        //$text = preg_replace("#[^]]http://[a-z0-9._\#\!\?/-]+#i", "<a target=\"_blank\" href=\"$0\">$0</a>", $text);
-
         if ($type == 'comments')
         {
             $cible = $this->parserTypo($cible);

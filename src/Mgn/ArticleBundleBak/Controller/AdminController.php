@@ -656,7 +656,6 @@ class AdminController extends Controller
 	    	$em = $this->container->get('doctrine')->getManager();
 
 	    	$order = explode(',', $request->request->get('order'));
-	    	//$order = explode(',', $_POST['order']);
 
 	    	
 		    	$counter = 0;

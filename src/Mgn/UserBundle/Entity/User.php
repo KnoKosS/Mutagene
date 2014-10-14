@@ -221,7 +221,6 @@ class User implements AdvancedUserInterface, \Serializable
     $this->registered = new \Datetime();
     $this->lastLogin = null;
     $this->addRole('ROLE_USER');
-    //$this->groups = new ArrayCollection();
     $this->firstName = null;
     $this->lastName = null;
     $this->birthday = null;
