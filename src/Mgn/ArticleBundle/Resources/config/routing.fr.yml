@@ -25,7 +25,7 @@ mgn_admin_article_picture_add:
 
 mgn_admin_article_list:
     pattern:   /admin/articles/liste/{status}
-    defaults:  { _controller: MgnArticleBundle:Admin:articleList, status: publish }
+    defaults:  { _controller: MgnArticleBundle:Admin:articleList, status: NULL }
 
 mgn_admin_article_category:
     pattern:   /admin/articles/categories

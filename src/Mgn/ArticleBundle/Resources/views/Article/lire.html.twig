@@ -34,23 +34,67 @@
                 <i class="fa fa-comments"></i> <a  href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}#comments">{{ article.countComments }} {% if article.countComments <= 1 %}Commentaire{% else %}Commentaires{% endif %}</a>
             </p>
 
-            <span>
+        </div>
 
-                <img class="thumbnail" style="max-width: 100%;" src="{{ article.header }}" title="" />
+        <div class="col-lg-12">
 
-            </span>
+            {% if article.header == null %}<img class="thumbnail" style="max-width: 100%;" src="{{ app.request.schemeAndHttpHost }}/img/article_header_default.png" title="" />{% else %}<img class="thumbnail" style="max-width: 100%;" src="{{ article.header }}" title="" />{% endif %}
 
         </div>
 
-        <div class="col-lg-12 text-justify">
+        <div class="col-lg-12">
 
-            <p>
+            <h1><strong>{{ article.title }}</strong></h1>
 
-            {% set url = app.request.schemeAndHttpHost %}
+        </div>
 
-            {{ article.contents|nl2br|mcode('parser', 'article', url)|raw }}
+        <div class="col-lg-12">
 
-            </p>
+            {% if article.contents != null %}
+
+                {% for content in article.contents %}
+
+                    {% if content.subtitle != null %}<h3>{{ content.subtitle }}</h3>{% endif %}
+
+                    {% if content.picture != null %}<p><img class="img-responsive img-thumbnail" src="{{ content.picture }}" title="" /><p>{% endif %}
+
+                    {% if content.paragraph != null %}<p class="text-justify">{{ content.paragraph|nl2br }}</p>{% endif %}
+
+                    {% if content.video != null %}<p><div class="flex-video widescreen" style="margin: 0 auto;text-align:center;">{{ content.video|mcodevideo|raw }}</div></p>{% endif %}
+
+                    {% if content.quote != null %}
+                    <blockquote>
+
+                        <p class="text-justify">{{ content.quote|nl2br }}</p>
+
+                        {% if content.quoteName != null or content.quoteLink != null %}
+
+                            <footer>
+
+                                {% if content.quoteLink != null and content.quoteName != null %}
+
+                                    <cite title="Source Title"><a href="{{ content.quoteLink }}" target="_blank">{{ content.quoteName }}</a></cite>
+
+                                {% elseif content.quoteLink != null %}
+
+                                    <cite title="Source Title"><a href="{{ content.quoteLink }}" target="_blank">{{ content.quoteLink }}</a></cite>
+
+                                {% else %}
+
+                                    <cite title="Source Title">{{ content.quoteName }}</cite>
+
+                                {% endif %}
+
+                            </footer>
+
+                        {% endif %}
+
+                    </blockquote>
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endif %}
 
         </div>
 

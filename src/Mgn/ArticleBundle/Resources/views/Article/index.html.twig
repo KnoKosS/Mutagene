@@ -45,7 +45,7 @@
 
                             <a href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}" class="thumbnail">
 
-                                <img style="max-width: 100%;" src="{{ article.header }}" title="" />
+                                {% if article.header == null %}<img style="max-width: 100%;" src="{{ app.request.schemeAndHttpHost }}/img/article_header_default.png" title="" />{% else %}<img style="max-width: 100%;" src="{{ article.header }}" title="" />{% endif %}
 
                             </a>
 

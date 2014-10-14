@@ -49,7 +49,7 @@ class AdminController extends Controller
 				            NULL                  // A partir du $offset ième
 				        );
         }
-        if ( $status == 'pending' )
+        elseif ( $status == 'pending' )
         {
         	$articles = $repository->findBy(
 				            array('status' => 'pending'),                 // Pas de critère
@@ -58,10 +58,19 @@ class AdminController extends Controller
 				            NULL                  // A partir du $offset ième
 				        );
         }
-        if ( $status == 'draft' )
+        elseif ( $status == 'draft' )
         {
         	$articles = $repository->findBy(
 				            array('status' => 'draft'),                 // Pas de critère
+				            array('dateTop' => 'DESC'), // On tri par date décroissante
+				            NULL,       // On sélectionne $nb_articles_page articles
+				            NULL                  // A partir du $offset ième
+				        );
+        }
+        else
+        {
+        	$articles = $repository->findBy(
+				            array(),                 // Pas de critère
 				            array('dateTop' => 'DESC'), // On tri par date décroissante
 				            NULL,       // On sélectionne $nb_articles_page articles
 				            NULL                  // A partir du $offset ième
@@ -163,7 +172,7 @@ class AdminController extends Controller
 				$em->flush();
 				
 				//message de confirmation
-				$this->get('session')->getFlashBag()->add('success', 'Votre galerie à bien été modifié.');
+				$this->get('session')->getFlashBag()->add('success', 'Votre catégorie à bien été mise à jour.');
 				
 				// On redirige vers la page d'accueil, par exemple.
 	            return $this->redirect( $this->generateUrl('mgn_admin_article_category'));
@@ -213,6 +222,8 @@ class AdminController extends Controller
 			$em->persist($article);
 		}
 
+		$countArticleMove = $category->getCountNews();
+
         $categoryDefault->setCountNews($categoryDefault->getCountNews() + $category->getCountNews());
 
         $em->flush();
@@ -224,7 +235,18 @@ class AdminController extends Controller
         $em->flush();
 			
 		//message de confirmation
-		$this->get('session')->getFlashBag()->add('success', 'Votre catégorie à bien été supprimé.');
+        if ($countArticleMove <= 0)
+        {
+			$this->get('session')->getFlashBag()->add('success', 'Votre catégorie à bien été supprimé.');
+		}
+		elseif ($countArticleMove == 1)
+		{
+			$this->get('session')->getFlashBag()->add('success', 'Votre catégorie à bien été supprimé, l\'article à été déplacé dans "Non classé".');
+		}
+		else
+		{
+			$this->get('session')->getFlashBag()->add('success', 'Votre catégorie à bien été supprimé, les articles ont été déplacés dans "Non classé".');
+		}
 		
 		// On redirige vers la page d'accueil, par exemple.
         return $this->redirect( $this->generateUrl('mgn_admin_article_category'));
@@ -492,6 +514,8 @@ class AdminController extends Controller
 
         $article->setUrl($article->getSlug());
 
+        $article->setStatus('publish');
+
         $form = $this->createForm(new ArticlePublishType, $article);
 
         // On récupère le formulaire et on le traite
@@ -575,7 +599,35 @@ class AdminController extends Controller
 				// Gestion du comptage total des articles
 				if ($article2->getStatus() != $article->getStatus())
 				{
-					
+					if ($article2->getStatus() == 'publish')
+					{
+						$config->setTotalArticlesPublish($config->getTotalArticlesPublish()-1);
+					}
+
+					if ($article2->getStatus() == 'draft')
+					{
+						$config->setTotalArticlesDraft($config->getTotalArticlesDraft()-1);
+					}
+
+					if ($article2->getStatus() == 'pending')
+					{
+						$config->setTotalArticlesPending($config->getTotalArticlesPending()-1);
+					}
+
+					if ($article->getStatus() == 'publish')
+					{
+						$config->setTotalArticlesPublish($config->getTotalArticlesPublish()+1);
+					}
+
+					if ($article->getStatus() == 'draft')
+					{
+						$config->setTotalArticlesDraft($config->getTotalArticlesDraft()+1);
+					}
+
+					if ($article->getStatus() == 'pending')
+					{
+						$config->setTotalArticlesPending($config->getTotalArticlesPending()+1);
+					}
 				}
 
 				$em->persist($article);

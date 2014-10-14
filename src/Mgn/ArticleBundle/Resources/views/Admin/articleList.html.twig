@@ -4,33 +4,32 @@
     Liste des articles - {{ parent() }}
 {% endblock %}
 
-{% block sidebar_articles %}active{% endblock %}
-{% block sidebar_articles_list %}active{% endblock %}
-{% block listinline_articles_all %}active{% endblock %}
+{% block sidebar_articles %}nav-expanded nav-active{% endblock %}
+{% block article_submenu_articles %} class="active"{% endblock %}
 
-{% block body %}
+{% block article_filtre %}
+<li class="right" data-sort-source data-sort-id="media-gallery">
+	<ul class="nav nav-pills nav-pills-primary">
+		<li>
+			<label>Filtres:</label>
+		</li>
+		<li{% if status != 'publish' and status != 'pending' and status != 'draft' %} class="active"{% endif %}>
+			<a href="{{ path('mgn_admin_article_list') }}">Tous</a>
+		</li>
+		<li{% if status == 'publish' %} class="active"{% endif %}>
+			<a href="{{ path('mgn_admin_article_list', {'status': 'publish'}) }}">Publiés</a>
+		</li>
+		<li{% if status == 'pending' %} class="active"{% endif %}>
+			<a href="{{ path('mgn_admin_article_list', {'status': 'pending'}) }}">En attente</a>
+		</li>
+		<li{% if status == 'draft' %} class="active"{% endif %}>
+			<a href="{{ path('mgn_admin_article_list', {'status': 'draft'}) }}">Brouillons</a>
+		</li>
+	</ul>
+</li>
+{% endblock %}
 
-	<div class="row">
-
-		<div class="col-lg-12">
-
-			<section class="panel">
-
-				<header class="panel-heading">
-
-					<h3>
-
-						<i class="fi-pencil"></i> Liste des articles
-
-						<a data-toggle="tooltip" class="btn btn-primary pull-right tips" data-placement="left" title="Ajouter un article" href="{{ path('mgn_admin_article_redaction') }}">
-							<i class="fi-plus"></i>
-						</a>
-
-					</h3>
-
-				</header>
-
-			</section>
+{% block article_body %}
 
 			{% for message in app.session.flashbag.get('success') %}
 			<div class="alert alert-success">
@@ -39,55 +38,67 @@
 	        </div>
 	        {% endfor %}
 
-			<section class="panel">
+	        <section class="panel">
+				<header class="panel-heading">
+					<div class="panel-actions">
+						<a data-toggle="tooltip" class="btn-primary pull-right tips" data-placement="left" title="Ajouter un article" href="{{ path('mgn_admin_article_redaction') }}">
+						<i class="fa fa-plus"></i>
+					</a>
+					</div>
 
-				<header class="panel-heading tab-bg-dark-navy-blue ">
-
-					<ul class="nav nav-tabs">
-
-						<li {% if status == 'publish' %}class="active"{% endif %}>
-							<a href="{{ path('mgn_admin_article_list', {'status': 'publish'}) }}">Publiés <span class="badge">{{ Config('totalArticlesPublish') }}</span></a>
-						</li>
-
-						<li {% if status == 'pending' %}class="active"{% endif %}>
-							<a href="{{ path('mgn_admin_article_list', {'status': 'pending'}) }}">Validations <span class="badge">{{ Config('totalArticlesPending') }}</span></a>
-						</li>
-
-						<li {% if status == 'draft' %}class="active"{% endif %}>
-							<a href="{{ path('mgn_admin_article_list', {'status': 'draft'}) }}">Brouillons <span class="badge">{{ Config('totalArticlesDraft') }}</span></a>
-						</li>
-
-					</ul>
-
+					<h2 class="panel-title">Tous les articles</h2>
 				</header>
-
 				<div class="panel-body">
-
+					
 					{% if articles is empty %}
 
-						{% if status == 'publish' %}
-					        <div class="alert alert-info">
-					            Vous n'avez publié encore aucun article.
-					        </div>
-					    {% elseif status == 'pending' %}
-					        <div class="alert alert-info">
-					            Il n'y a aucun article en attente de validation.
-					        </div>
-					    {% elseif status == 'draft' %}
-					        <div class="alert alert-info">
-					            Il n'y a aucun article en cours de rédaction.
-					        </div>
-						{% endif %}
+						<div class="row">
+					    	<div class="col-lg-4 form-group pull-right">
+									<input type="text" class="form-control" placeholder="Recherche" id="articleSearch">
+							</div>
+						</div>
 
-				    {% else %}
-
-				    	<table class="table table-striped table-hover">
+						<table class="table table-hover" id="articleList">
 				            <thead>
 				                <tr>
 				                    <th>Titre</th>
 				                    <th>Auteur</th>
-				                    <th>Catégories</th>
-				                    <th><i class="fi-comment"/></i></th>
+				                    <th>Catégorie</th>
+				                    <th><i class="fa fa-comment"/></i></th>
+				                    <th>Date</th>
+				                </tr>
+				            </thead>
+				        </table>
+
+						{% if status == 'publish' %}
+					    	<div class="alert alert-dark">
+								<strong>Information :</strong> Vous n'avez publié encore aucun article.
+							</div>
+					    {% elseif status == 'pending' %}
+					    	<div class="alert alert-dark">
+								<strong>Information :</strong> Il n'y a aucun article en attente de validation.
+							</div>
+					    {% elseif status == 'draft' %}
+					    	<div class="alert alert-dark">
+								<strong>Information :</strong> Il n'y a aucun article en cours de rédaction.
+							</div>
+						{% endif %}
+
+				    {% else %}
+
+				    	<div class="row">
+					    	<div class="col-lg-4 form-group pull-right">
+									<input type="text" class="form-control" placeholder="Recherche" id="articleSearch">
+							</div>
+						</div>
+
+				    	<table class="table table-hover" id="articleList">
+				            <thead>
+				                <tr>
+				                    <th>Titre</th>
+				                    <th>Auteur</th>
+				                    <th>Catégorie</th>
+				                    <th><i class="fa fa-comment"/></i></th>
 				                    <th>Date</th>
 				                </tr>
 				            </thead>
@@ -95,14 +106,21 @@
 				                {% for article in articles %}
 				                
 				                <tr>
+				                
 				                    <td>
-				                    	<h5><a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}"><strong>{{ article.title }}</strong></a>{% if article.status == 0 %}<small> - Brouillon</small>{% endif %}</h5>
+
+				                    	<h5><a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}"><strong>{{ article.title }}</strong></a>{% if article.status == 0 %}<small>{% if article.status == 'publish' %} - Publié{% endif %}{% if article.status == 'pending' %} - En attente{% endif %}{% if article.status == 'draft' %} - Brouillon{% endif %}</small>{% endif %}</h5>
+
 				                    	<span class="hidde">
+
 				                    		<small>
 				                    			<a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}">Modifier</a> | <a href="#modalDelete{{ article.id }}" role="button" class="text-danger" data-toggle="modal">Mettre à la corbeille</a>
 				                    		</small>
+
 				                    	</span>
+
 				                    </td>
+
 				                    <td>{{ article.author.username }}</td>
 				                    <td>{{ article.category.name }}</td>
 				                    <td>{{ article.countComments }}</td>
@@ -125,7 +143,7 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-												<a class="btn btn-danger" href="{{ path('mgn_admin_article_delete', {'id': article.id}) }}">Supprimer</a>
+												<a class="btn btn-danger" disabled="disabled" href="{{ path('mgn_admin_article_delete', {'id': article.id}) }}">Supprimer</a>
 											</div>
 										</div><!-- /.modal-content -->
 									</div><!-- /.modal-dialog -->
@@ -134,18 +152,10 @@
 				                {% endfor %}
 				            </tbody>
 				        </table>
+
 				    {% endif %}
 
 				</div>
-
 			</section>
-
-		</div>
-
-        <div class="col-lg-12">
-
-        </div>
-
-	</div>
 
 {% endblock %}

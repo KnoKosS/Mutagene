@@ -75,14 +75,24 @@ class DatetimeExtension extends \Twig_Extension
         }
         else
         {
+            $mois = $date->format('m');
+            if ( $date->format('m') == 1 ){ $mois = 'janvier'; }
             if ( $date->format('m') == 01 ){ $mois = 'janvier'; }
+            if ( $date->format('m') == 2 ){ $mois = 'février'; }
             if ( $date->format('m') == 02 ){ $mois = 'février'; }
+            if ( $date->format('m') == 3 ){ $mois = 'mars'; }
             if ( $date->format('m') == 03 ){ $mois = 'mars'; }
+            if ( $date->format('m') == 4 ){ $mois = 'avril'; }
             if ( $date->format('m') == 04 ){ $mois = 'avril'; }
+            if ( $date->format('m') == 5 ){ $mois = 'mai'; }
             if ( $date->format('m') == 05 ){ $mois = 'mai'; }
+            if ( $date->format('m') == 6 ){ $mois = 'juin'; }
             if ( $date->format('m') == 06 ){ $mois = 'juin'; }
+            if ( $date->format('m') == 7 ){ $mois = 'juillet'; }
             if ( $date->format('m') == 07 ){ $mois = 'juillet'; }
+            if ( $date->format('m') == 8 ){ $mois = 'août'; }
             if ( $date->format('m') == 08 ){ $mois = 'août'; }
+            if ( $date->format('m') == 9 ){ $mois = 'septembre'; }
             if ( $date->format('m') == 09 ){ $mois = 'septembre'; }
             if ( $date->format('m') == 10 ){ $mois = 'octobre'; }
             if ( $date->format('m') == 11 ){ $mois = 'novembre'; }

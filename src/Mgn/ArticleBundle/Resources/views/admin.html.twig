@@ -1,9 +1,37 @@
 {% extends "::admin.html.twig" %}
 
+{% block pagetitle %}Articles{% endblock %}
+
 {% block arianne %}
     {{ parent() }}
 {% endblock %}
 
 {% block body %}
- 
+ <div class="row">
+
+	<div class="col-lg-12">
+						
+		<div class="inner-toolbar clearfix">
+
+			<ul>
+				<li{% block article_submenu_articles %}{% endblock %}>
+					<a href="{{ path('mgn_admin_article_list') }}">Tous les articles</a>
+				</li>
+				<li{% block article_submenu_category %}{% endblock %}>
+					<a href="{{ path('mgn_admin_article_category') }}">Catégories</a>
+				</li>
+				{% block article_filtre %}{% endblock %}
+			</ul>
+
+		</div>
+
+	</div>
+
+	<div class="col-lg-12 body-with-menu-toolbar">
+
+		{% block article_body %}{% endblock %}
+
+	</div>
+
+</div>
 {% endblock %}

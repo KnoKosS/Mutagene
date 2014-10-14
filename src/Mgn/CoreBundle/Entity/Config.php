@@ -152,13 +152,6 @@ class Config {
     /**
      * @var integer
      *
-     * @ORM\Column(name="totalArticles", type="bigint", nullable=true)
-     */
-    private $totalArticles;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="totalArticlesPublish", type="bigint", nullable=true)
      */
     private $totalArticlesPublish;
@@ -204,7 +197,7 @@ class Config {
         $this->forumPostPage = 20;
         $this->forumTopicPage = 5;
         $this->forumIndexLigne = 2;
-        $this->articleCountIndex = 0;
+        $this->articleCountIndex = 6;
         $this->reglement = null;
         $this->theme = 'mutagene';
         $this->themeDate = $datetime;
@@ -216,7 +209,6 @@ class Config {
         $this->profileFacebook = true;
         $this->profileGoogleplus = true;
         $this->profileSteam = true;
-        $this->totalArticles = 0;
         $this->totalArticlesPublish = 0;
         $this->totalArticlesPending = 0;
         $this->totalArticlesDraft = 0;
@@ -523,29 +515,6 @@ class Config {
     public function getProfileSignature()
     {
         return $this->profileSignature;
-    }
-
-    /**
-     * Set totalArticles
-     *
-     * @param integer $totalArticles
-     * @return Config
-     */
-    public function setTotalArticles($totalArticles)
-    {
-        $this->totalArticles = $totalArticles;
-    
-        return $this;
-    }
-
-    /**
-     * Get totalArticles
-     *
-     * @return integer 
-     */
-    public function getTotalArticles()
-    {
-        return $this->totalArticles;
     }
 
     /**

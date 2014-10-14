@@ -1,0 +1,20 @@
+/* Add here all your CSS customizations */
+a:hover
+{
+	text-decoration: none;
+}
+
+.body-with-menu-toolbar
+{
+	margin-top: 50px;
+}
+
+.inner-toolbar ul .active a
+{
+	color: #d64b4b;
+}
+
+.inner-toolbar
+{
+	margin-bottom: 50px;
+}

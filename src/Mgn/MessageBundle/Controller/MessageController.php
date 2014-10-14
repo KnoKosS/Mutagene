@@ -30,7 +30,7 @@ class MessageController extends Controller
             throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
         }
 		
-        if( $article->getStatus() != 1 )
+        if( $article->getStatus() != 'publish' )
         {
             throw $this->createNotFoundException('Article non publié');
         }

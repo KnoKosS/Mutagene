@@ -1,31 +1,205 @@
 {% extends "MgnAdminBundle::layout.html.twig" %}
 
+{% block pagetitle %}Tableau de bord{% endblock %}
+
 {% block arianne %}
     {{ parent() }}
-    </li>
-    <li class="active">
-        {{ 'admin.ariane.dashboard'|trans }}
+    <li class="">
+        Tableau de bord
     </li>
 {% endblock %}
 
-{% block sidebar_dashboard %}active{% endblock %}
+{% block sidebar_dashboard %}nav-expanded nav-active{% endblock %}
 
 {% block body %}
 
-	<div class="row state-overview">
-		<div class="col-lg-3 col-sm-6">
-			<section class="panel">
-				<div class="symbol terques">
-					<i class="fa fa-pencil"></i>
+	<div class="col-xl-9 col-lg-9 col-md-12">
+		<section class="panel">
+			<header class="panel-heading panel-heading">
+				<div class="panel-actions">
 				</div>
-				<div class="value">
-					<h1 class="countArticle">
-					0
-					</h1>
-					<p>Articles</p>
+
+				<h2 class="panel-title">Activité du site</h2>
+			</header>
+			<div class="panel-body">
+				<div class="timeline">
+					<div class="tm-body">
+						<div class="tm-title">
+							<h3 class="h5 text-uppercase">Septembre 2014</h3>
+						</div>
+						<ol class="tm-items">
+							<li>
+								<div class="tm-info">
+									<div class="tm-icon"><i class="fi-results-demographics"></i></div>
+									<time class="tm-datetime" datetime="2013-11-22 19:13">
+										<div class="tm-datetime-date">Aujourd'hui.</div>
+										<div class="tm-datetime-time">07:13</div>
+								</time>
+								</div>
+								<div class="tm-box">
+									<p>
+										<a href=""><h4>Votre avis sur notre nouveau site</h4></a>
+									</p>
+									<div class="tm-meta">
+										<span>
+											<i class="fa fa-user"></i> Par <a href="#">KnoKosS !</a>
+										</span>
+										<span>
+											<i class="fa fa-list"></i> <a href="#">Causerie</a>
+										</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="tm-info">
+									<div class="tm-icon"><i class="fi-torsos-all"></i></div>
+									<time class="tm-datetime" datetime="2013-11-22 19:13">
+										<div class="tm-datetime-date">Hier.</div>
+										<div class="tm-datetime-time">16:41</div>
+								</time>
+								</div>
+								<div class="tm-box">
+									<p>
+										Un nouvel utilisateur s'est inscrit sur votre site, <a href="">JoueurDuGrenier</a>
+									</p>
+								</div>
+							</li>
+							<li>
+								<div class="tm-info">
+									<div class="tm-icon"><i class="fa fa-pencil"></i></div>
+									<time class="tm-datetime" datetime="2013-11-22 19:13">
+										<div class="tm-datetime-date">Il y a 2 jours.</div>
+										<div class="tm-datetime-time">11:08</div>
+								</time>
+								</div>
+								<div class="tm-box">
+									<p>
+										<a href=""><h4>Création et jeux vidéos : la tendance</h4></a>
+									</p>
+									<div class="thumbnail-gallery">
+										<div class="row">
+											<div class="col-lg-3">
+												<a class="img-thumbnail lightbox" href="http://cdn-static.gamekult.com/gamekult-com/images/photos/30/50/23/23/titanfall-screenshot-ME3050232378_2.jpg" data-plugin-options='{ "type":"image" }'>
+													<img class="img-responsive" width="215" src="http://cdn-static.gamekult.com/gamekult-com/images/photos/30/50/23/23/titanfall-screenshot-ME3050232378_2.jpg">
+													<span class="zoom">
+														<i class="fa fa-search"></i>
+													</span>
+												</a>
+											</div>
+											<div class="col-lg-9">
+												<p style="padding-top:4px;">
+													Et Epigonus quidem amictu tenus philosophus, ut apparuit, prece frustra temptata, sulcatis lateribus mortisque metu admoto turpi confessione cogitatorum socium, quae nulla erant, fuisse firmavit cum nec vidisset quicquam nec audisset penitus expers forensium rerum; Eusebius vero obiecta fidentius negans, suspensus in eodem gradu constantiae stetit latrocinium illud esse, non iudicium clamans.
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ol>
+					</div>
 				</div>
-			</section>
-		</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="col-md-6 col-lg-3 col-xl-3">
+		<section class="panel panel-featured-left panel-featured-secondary">
+			<div class="panel-body">
+				<div class="widget-summary">
+					<div class="widget-summary-col widget-summary-col-icon">
+						<div class="summary-icon bg-secondary">
+							<i class="fa fa-pencil"></i>
+						</div>
+					</div>
+					<div class="widget-summary-col">
+						<div class="summary">
+							<h4 class="title">Articles publiés</h4>
+							<div class="info">
+								<strong class="amount">0</strong>
+							</div>
+						</div>
+						<div class="summary-footer">
+							<a href="{{ path('mgn_admin_article_list') }}" class="text-muted text-uppercase">(Tous les voir)</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="col-md-6 col-lg-3 col-xl-3">
+		<section class="panel panel-featured-left panel-featured-secondary">
+			<div class="panel-body">
+				<div class="widget-summary">
+					<div class="widget-summary-col widget-summary-col-icon">
+						<div class="summary-icon bg-secondary">
+							<i class="fi-torsos-all"></i>
+						</div>
+					</div>
+					<div class="widget-summary-col">
+						<div class="summary">
+							<h4 class="title">Utilisateurs inscrit</h4>
+							<div class="info">
+								<strong class="amount">0</strong>
+							</div>
+						</div>
+						<div class="summary-footer">
+							<a href="{{ path('mgn_admin_article_list') }}" class="text-muted text-uppercase">(Tous les voir)</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="col-md-6 col-lg-3 col-xl-3">
+		<section class="panel panel-featured-left panel-featured-secondary">
+			<div class="panel-body">
+				<div class="widget-summary">
+					<div class="widget-summary-col widget-summary-col-icon">
+						<div class="summary-icon bg-secondary">
+							<i class="fi-results-demographics"></i>
+						</div>
+					</div>
+					<div class="widget-summary-col">
+						<div class="summary">
+							<h4 class="title">Topics créés</h4>
+							<div class="info">
+								<strong class="amount">0</strong>
+							</div>
+						</div>
+						<div class="summary-footer">
+							<a href="{{ path('mgn_admin_article_list') }}" class="text-muted text-uppercase">(Tous les voir)</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="col-md-6 col-lg-3 col-xl-3">
+		<section class="panel panel-featured-left panel-featured-secondary">
+			<div class="panel-body">
+				<div class="widget-summary">
+					<div class="widget-summary-col widget-summary-col-icon">
+						<div class="summary-icon bg-secondary">
+							<i class="fi-comments"></i>
+						</div>
+					</div>
+					<div class="widget-summary-col">
+						<div class="summary">
+							<h4 class="title">Messages</h4>
+							<div class="info">
+								<strong class="amount">0</strong>
+							</div>
+						</div>
+						<div class="summary-footer">
+							<a href="{{ path('mgn_admin_article_list') }}" class="text-muted text-uppercase">(Tous les voir)</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
 
 {% endblock %}

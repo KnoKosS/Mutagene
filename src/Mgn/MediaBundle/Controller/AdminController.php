@@ -191,7 +191,8 @@ class AdminController extends Controller
 	            $picture->setUserUpload($user->getId());
 	            $picture->setUserIp($request->getClientIp());
 
-	            $extension = $picture->getExtension();
+	            $ext = $picture->getExtension();
+	            $extension=strtolower($ext);
 
 	            if ($extension != 'jpg' and $extension != 'jpeg' and $extension != 'gif' and $extension != 'png' and $extension != 'bmp')
 	            {
@@ -207,7 +208,7 @@ class AdminController extends Controller
 
 	            $url = $baseurl.$picture->getWebPath();
 
-	            $this->get('session')->getFlashBag()->add('success', 'L\'image à bien été uploadé.');
+	            $this->get('session')->getFlashBag()->add('success', $url);
 
 				return $this->render('MgnMediaBundle:Admin:addPicture.html.twig', array(
 					'form' => $form->createView(),
