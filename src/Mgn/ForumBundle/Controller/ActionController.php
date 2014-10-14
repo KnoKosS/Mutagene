@@ -18,6 +18,8 @@ use Mgn\ForumBundle\Form\PostType;
 use Mgn\ForumBundle\Form\TopicTitreType;
 use Mgn\ForumBundle\Form\MoveTopicType;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 class ActionController extends Controller
 {

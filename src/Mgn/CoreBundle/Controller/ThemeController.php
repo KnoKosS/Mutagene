@@ -4,7 +4,7 @@ namespace Mgn\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Mgn\CoreBundle\Entity\Theme;
 use Mgn\CoreBundle\Form\EditorHeadType;

@@ -9,7 +9,7 @@ use Mgn\CoreBundle\Form\ConfigType;
 use Mgn\CoreBundle\Form\ModulesType;
 use Symfony\Component\HttpFoundation\Request;
 
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class SiteController extends Controller
 {

@@ -12,6 +12,8 @@ use Mgn\ForumBundle\Entity\Topic;
 
 use Mgn\ForumBundle\Form\TopicType;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 class ForumController extends Controller
 {
 	private function isActive()
