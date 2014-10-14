@@ -194,7 +194,7 @@ class AdminController extends Controller
 	            $ext = $picture->getExtension();
 	            $extension=strtolower($ext);
 
-	            if ($extension != 'jpg' and $extension != 'jpeg' and $extension != 'gif' and $extension != 'png' and $extension != 'bmp')
+	            if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'gif' && $extension != 'png' && $extension != 'bmp')
 	            {
 				    throw $this->createNotFoundException('Extension incorrect');
 				}

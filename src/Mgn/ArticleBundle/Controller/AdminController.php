@@ -575,7 +575,7 @@ class AdminController extends Controller
 						$countNews = $article->getCategory()->getCountNews();
 						$article->getCategory()->setCountNews($countNews-1);
 					}
-					elseif ($article2->getStatus() != 'publish' AND $article->getStatus() == 'publish')
+					elseif ($article2->getStatus() != 'publish' && $article->getStatus() == 'publish')
 					{
 						$countNews = $article->getCategory()->getCountNews();
 						$article->getCategory()->setCountNews($countNews+1);

@@ -166,7 +166,7 @@ class AclController extends Controller
 
               return $this->redirect( $this->generateUrl('mgn_admin_core_acls_forGroup', array('groupId' => $group->getId(), 'groupSlug' => $group->getSlug())));
         }
-        elseif( $groupId != null and $groupSlug != null and $role == null and $forumId == null )
+        elseif( $groupId != null && $groupSlug != null && $role == null && $forumId == null )
         {
           //on récupère les informations sur le groupe
         $group = $this->getDoctrine()
@@ -360,7 +360,7 @@ class AclController extends Controller
 
           return $this->redirect( $this->generateUrl('mgn_admin_core_acls_forUser', array('userId' => $user->getId(), 'usernameCanonical' => $user->getUsernameCanonical())));
     }
-        elseif( $userId != null and $usernameCanonical != null and $role == null and $forumId == null )
+        elseif( $userId != null && $usernameCanonical != null && $role == null && $forumId == null )
         {
           //on récupère les informations sur le groupe
       $user = $this->getDoctrine()
@@ -440,7 +440,7 @@ class AclController extends Controller
 
           return $this->redirect( $this->generateUrl('mgn_admin_core_acls_forUser', array('userId' => $user->getId(), 'usernameCanonical' => $user->getUsernameCanonical())));
     }
-        elseif( $forumId != null and $forumSlug != null and $role == null )
+        elseif( $forumId != null && $forumSlug != null && $role == null )
         {
           //on appel le template
           return $this->render('MgnCoreBundle:Acl:aclsForForum.html.twig', array(

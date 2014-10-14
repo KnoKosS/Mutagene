@@ -34,7 +34,7 @@ class DatetimeExtension extends \Twig_Extension
         	{
         		$date = "il y a moins d'une minute";
         	}
-            elseif ( $interval->y == 0 and $interval->m == 0 and $interval->d == 0 and $interval->h == 0 and $interval->i <= 59  )
+            elseif ( $interval->y == 0 && $interval->m == 0 && $interval->d == 0 && $interval->h == 0 && $interval->i <= 59  )
             {
                 if ( $interval->i == 1 )
                 {
@@ -45,7 +45,7 @@ class DatetimeExtension extends \Twig_Extension
                     $date = "il y a environ ".$interval->i." minutes";
                 }
             }
-            elseif ( $interval->y == 0 and $interval->m == 0 and $interval->d == 0 and $interval->h <= 23  )
+            elseif ( $interval->y == 0 && $interval->m == 0 && $interval->d == 0 && $interval->h <= 23  )
             {
                 if ( $interval->i == 1 )
                 {
@@ -57,11 +57,11 @@ class DatetimeExtension extends \Twig_Extension
                 }
             }
         }
-        elseif ( $interval->y == 0 and $interval->m == 0 and $dateNow->format('d') == $date->format('d') + 1 )
+        elseif ( $interval->y == 0 && $interval->m == 0 && $dateNow->format('d') == $date->format('d') + 1 )
         {
             $date = "hier, à ".$date->format('H:i');
         }
-        elseif ( $interval->y == 0 and $interval->m == 0 and $interval->d <= 6 )
+        elseif ( $interval->y == 0 && $interval->m == 0 && $interval->d <= 6 )
         {
             if ( $date->format('w') == 0 ){ $jour = 'dimanche'; }
             if ( $date->format('w') == 1 ){ $jour = 'lundi'; }

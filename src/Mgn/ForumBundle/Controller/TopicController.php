@@ -135,7 +135,7 @@ class TopicController extends Controller
 		// On calcule le nombre total de pages
         $nb_pages = ceil($topic->getCountPosts()/$nb_posts_page);
 		
-		if( $page < 1 OR $page > $nb_pages )
+		if( $page < 1 || $page > $nb_pages )
         {
             throw $this->createNotFoundException('Page inexistante (page = '.$page.')');
         }
@@ -246,7 +246,7 @@ class TopicController extends Controller
         	}
         }
         
-        if( $postediter == NULL and $topicediter == NULL )
+        if( $postediter == NULL && $topicediter == NULL )
         {
         	//on cré le formulaire de réponse
 			$message = new Message;
@@ -308,7 +308,7 @@ class TopicController extends Controller
 
 		        	return $this->redirect( $this->generateUrl('mgn_forum_topic_read', array('id' => $topic->getId(), 'slug' => $topic->getSlug(), 'page' => $page)) );
 		        }
-		        elseif( $postediter == NULL and $topicediter == NULL )
+		        elseif( $postediter == NULL && $topicediter == NULL )
 		        {
 		        	// On l'enregistre notre objet $article dans la base de données.
 		            // On met à jour le message

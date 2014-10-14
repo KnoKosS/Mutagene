@@ -48,7 +48,7 @@ class UserController extends Controller
                 {
                     $extension = $user->getExtension();
 
-                    if ($extension != 'jpg' and $extension != 'jpeg' and $extension != 'gif' and $extension != 'png' and $extension != 'bmp')
+                    if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'gif' && $extension != 'png' && $extension != 'bmp')
                     {
                         $this->get('session')->getFlashBag()->add('info', 'L\'extension du fichier de votre avatar est incorrect.');
 
@@ -57,7 +57,7 @@ class UserController extends Controller
 
                     $size = GetImageSize($user->getAvatarFile());
 
-                    if ( $size[0] != 150 or $size[1] != 150 )
+                    if ( $size[0] != 150 || $size[1] != 150 )
                     {
                         $this->get('session')->getFlashBag()->add('info', 'La taille de votre avatar doit être de 150px par 150px.');
 
