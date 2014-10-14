@@ -21,7 +21,7 @@ use Mgn\ForumBundle\Form\MoveTopicType;
 
 class ActionController extends Controller
 {
-    public function isActive()
+    private function isActive()
     {
         $config = $this->container->get('mgn.config');
         

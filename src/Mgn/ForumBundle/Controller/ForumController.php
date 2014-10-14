@@ -14,7 +14,7 @@ use Mgn\ForumBundle\Form\TopicType;
 
 class ForumController extends Controller
 {
-	public function isActive()
+	private function isActive()
     {
         $config = $this->container->get('mgn.config');
         
@@ -160,8 +160,13 @@ class ForumController extends Controller
             
             $mark_cat = $em->getRepository('MgnForumBundle:Mark')
                          ->findMark($user, $forum);
-                         
+
             if( $mark_cat == null )
+            {
+                $new_mark_cat = true;
+            }
+                         
+            if( $new_mark_cat == true )
             {
                 $mark_cat = $em->getRepository('MgnForumBundle:Mark');
                 
@@ -171,8 +176,12 @@ class ForumController extends Controller
             $mark_cat->setuser($user);
             $mark_cat->setForum($forum);
             $mark_cat->setDate(new \Datetime());
+
+            if( $new_mark_cat == true )
+            {
+                $em->persist($mark_cat);
+            }
             
-            $em->persist($mark_cat);
             $em->flush();
         }
                          
