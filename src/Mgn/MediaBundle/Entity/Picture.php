@@ -25,12 +25,12 @@ class Picture
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path;
+    private $path;
 
     /**
      * @Assert\File(maxSize="6M")
      */
-    public $file;
+    private $file;
 
     /**
      * @var integer $userUpload

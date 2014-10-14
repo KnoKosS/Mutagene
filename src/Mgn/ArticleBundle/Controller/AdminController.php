@@ -541,12 +541,12 @@ class AdminController extends Controller
 	            // Gestion du comptage pour les auteurs des articles
 				if ($article2->getAuthor() == $article->getAuthor())
 				{
-					if ($article2->getStatus() == 'publish' AND $article->getStatus() != 'publish')
+					if ($article2->getStatus() == 'publish' && $article->getStatus() != 'publish')
 					{
 						$countArticle = $article->getAuthor()->getCountArticle();
 						$article->getAuthor()->setCountArticle($countArticle-1);
 					}
-					elseif ($article2->getStatus() != 'publish' AND $article->getStatus() == 'publish')
+					elseif ($article2->getStatus() != 'publish' && $article->getStatus() == 'publish')
 					{
 						$countArticle = $article->getAuthor()->getCountArticle();
 						$article->getAuthor()->setCountArticle($countArticle+1);
@@ -570,7 +570,7 @@ class AdminController extends Controller
 				// Gestion du comptage dans les catégories d'article
 				if ($article2->getCategory() == $article->getCategory())
 				{
-					if ($article2->getStatus() == 'publish' AND $article->getStatus() != 'publish')
+					if ($article2->getStatus() == 'publish' && $article->getStatus() != 'publish')
 					{
 						$countNews = $article->getCategory()->getCountNews();
 						$article->getCategory()->setCountNews($countNews-1);
