@@ -243,10 +243,11 @@ class ContentController extends Controller
 
 	                $content->setPosition($counter);
 					$em->persist($content);
-					$em->flush();
 
 			        $counter++;
 			    }
+
+			    $em->flush();
 
 			    $return=array("responseCode"=>200, "info"=>"success");
 				$return=json_encode($return);//jscon encode the array
