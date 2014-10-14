@@ -166,15 +166,15 @@ class ForumController extends Controller
 
             if( $mark_cat == null )
             {
-                $mark_cat = $em->getRepository('MgnForumBundle:Mark');
+                $mark_cat_new = $em->getRepository('MgnForumBundle:Mark');
                 
-                $mark_cat = new Mark;
+                $mark_cat_new = new Mark;
 
-                $mark_cat->setuser($user);
-                $mark_cat->setForum($forum);
-                $mark_cat->setDate(new \Datetime());
+                $mark_cat_new->setuser($user);
+                $mark_cat_new->setForum($forum);
+                $mark_cat_new->setDate(new \Datetime());
 
-                $em->persist($mark_cat);
+                $em->persist($mark_cat_new);
             }
             else
             {
