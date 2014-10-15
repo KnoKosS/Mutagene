@@ -38,7 +38,7 @@ class ArticleController extends Controller
                       	 ->getRepository('MgnArticleBundle:Article')
                       	 ->findOneArticle($id);
 		
-		if( $article == null )
+		if( $article === null )
         {
             throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
         }

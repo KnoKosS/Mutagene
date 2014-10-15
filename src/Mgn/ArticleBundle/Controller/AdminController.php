@@ -97,7 +97,7 @@ class AdminController extends Controller
                 // On l'enregistre notre objet $category dans la base de données.
 	            $em = $this->getDoctrine()->getManager();
 
-	            if ($category->getUrl() == null)
+	            if ($category->getUrl() === null)
 	            {
 	            	$category->setUrl($category->getName());
 	            }
@@ -142,7 +142,7 @@ class AdminController extends Controller
                 // On l'enregistre notre objet $category dans la base de données.
 	            $em = $this->getDoctrine()->getManager();
 
-	            if ($category->getUrl() == null)
+	            if ($category->getUrl() === null)
 	            {
 	            	$category->setUrl($category->getName());
 	            }
@@ -180,7 +180,7 @@ class AdminController extends Controller
                       	 ->getRepository('MgnArticleBundle:Category')
                       	 ->find($id);
 
-        if( $category == null )
+        if( $category === null )
         {
             throw $this->createNotFoundException('Categorie [id='.$id.'] inexistant');
         }
@@ -306,7 +306,7 @@ class AdminController extends Controller
 	        {
 	        	$em = $this->container->get('doctrine')->getManager();
 
-	        	if ($article->getTitle() == null)
+	        	if ($article->getTitle() === null)
 	        	{
 	        		$article->setTitle('Sans titre');
 	        	}
@@ -394,7 +394,7 @@ class AdminController extends Controller
 		        {
 		        	$em = $this->container->get('doctrine')->getManager();
 
-		        	if ($article->getTitle() == null)
+		        	if ($article->getTitle() === null)
 		        	{
 		        		$article->setTitle('Sans titre');
 		        	}
@@ -520,7 +520,7 @@ class AdminController extends Controller
 	            // On l'enregistre notre objet $article dans la base de données.
 	            $em = $this->getDoctrine()->getManager();
 
-	            if ($article->getUrl() == null)
+	            if ($article->getUrl() === null)
 	            {
 	            	$article->setUrl($article->getTitle());
 	            }

@@ -174,7 +174,7 @@ class AdminController extends Controller
                          ->getRepository('MgnUserBundle:Group')
                          ->find($groupid);
 
-        if( $group == null )
+        if( $group === null )
         {
             throw $this->createNotFoundException('Group [id='.$groupid.'] inexistant');
         }
@@ -189,7 +189,7 @@ class AdminController extends Controller
                             NULL                  // A partir du $offset ième
                         );
 
-        if( $userToGroup == null )
+        if( $userToGroup === null )
         {
             throw $this->createNotFoundException('UserToGroup inexistant');
         }
@@ -218,7 +218,7 @@ class AdminController extends Controller
                          ->getRepository('MgnUserBundle:Group')
                          ->find($id);
 
-        if( $group == null )
+        if( $group === null )
         {
             throw $this->createNotFoundException('Group [id='.$id.'] inexistant');
         }

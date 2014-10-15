@@ -35,7 +35,7 @@ class ResettingController extends Controller
             return $this->container->get('templating')->renderResponse('MgnUserBundle:Resetting:request.html.twig', array('invalid_username' => $username));
         }
 
-        if ($user->getIsActive() == false)
+        if ($user->getIsActive() === false)
         {
         	$user->setConfirmationToken(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
 

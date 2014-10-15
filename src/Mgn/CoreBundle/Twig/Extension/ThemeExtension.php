@@ -33,12 +33,12 @@ class ThemeExtension extends \Twig_Extension
 		$this->config = $config;
 		$this->doctrine = $doctrine;
 
-		if ( $this->securityContext->getToken() != null )
+		if ( $this->securityContext->getToken() !== null )
 		{
 			$user = $this->securityContext->getToken()->getUser();
 		}
 		
-		if ( $this->securityContext->getToken() != null AND $this->securityContext->isGranted('ROLE_USER') )
+		if ( $this->securityContext->getToken() !== null AND $this->securityContext->isGranted('ROLE_USER') )
 		{
 			if ( $this->config->get('themeDate') >= $this->securityContext->getToken()->getUser()->getThemeDate() )
 			{
@@ -56,7 +56,7 @@ class ThemeExtension extends \Twig_Extension
 
 		$themeConstruct = $this->doctrine->getManager()->getRepository('MgnCoreBundle:Theme')->findOneBy(array('slug' => $themeSelect));
 
-        if ($themeConstruct == null)
+        if ($themeConstruct === null)
         {
         	$themeNew = new Theme;
 

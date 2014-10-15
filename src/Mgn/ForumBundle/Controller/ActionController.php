@@ -17,7 +17,7 @@ class ActionController extends Controller
     {
         $config = $this->container->get('mgn.config');
         
-        if( $config->get('cmsForum') == false )
+        if( $config->get('cmsForum') === false )
         {
             throw $this->createNotFoundException('Forum désactiver');
         }
@@ -40,7 +40,7 @@ class ActionController extends Controller
                         ->getRepository('MgnForumBundle:Forum')
                         ->find($forum);
 						
-		if( $forum == null )
+		if( $forum === null )
         {
             return $this->render('MgnForumBundle:NotFound:forum.html.twig');
         }
@@ -154,7 +154,7 @@ class ActionController extends Controller
                         ->find($postId);
 		
 		// Si le message n'existe pas, on affiche une erreur 404
-        if( $message == null )
+        if( $message === null )
         {
             throw $this->createNotFoundException('message[id='.$postId.'] inexistant');
         }
@@ -166,7 +166,7 @@ class ActionController extends Controller
                         ->find($message->getTopic()->getId());
 		
 		// Si le topic n'existe pas, on affiche une erreur 404
-        if( $topic == null )
+        if( $topic === null )
         {
             throw $this->createNotFoundException('Topic[id='.$topicId.'] inexistant');
         }
@@ -178,7 +178,7 @@ class ActionController extends Controller
                         ->find($topic->getForum()->getId());
 		
 		// Si le forum n'existe pas, on affiche une erreur 404
-        if( $forum == null )
+        if( $forum === null )
         {
             throw $this->createNotFoundException('Forum inexistant');
         }
@@ -232,7 +232,7 @@ class ActionController extends Controller
         }
 
         // on met à jour les views
-        if( $views != null )
+        if( $views !== null )
         {
         	foreach($views as $view)
 	    	{
@@ -271,7 +271,7 @@ class ActionController extends Controller
                         ->find($topicId);
 		
 		// Si le topic n'existe pas, on affiche une erreur 404
-        if( $topic == null )
+        if( $topic === null )
         {
             throw $this->createNotFoundException('Topic[id='.$topicId.'] inexistant');
         }
@@ -345,7 +345,7 @@ class ActionController extends Controller
                         ->findOneByIdWithLastPost($topicId);
 		
 		// Si le topic n'existe pas, on affiche une erreur 404
-        if( $topic == null )
+        if( $topic === null )
         {
             throw $this->createNotFoundException('Topic[id='.$topicId.'] inexistant');
         }
@@ -363,7 +363,7 @@ class ActionController extends Controller
 	                        ->find($topic->getForum()->getId());
 
 	        // Si le topic n'existe pas, on affiche une erreur 404
-	        if( $forumOld == null )
+	        if( $forumOld === null )
 	        {
 	            throw $this->createNotFoundException('Categorie[id='.$topic->getForum()->getId().'] inexistante');
 	        }
@@ -374,7 +374,7 @@ class ActionController extends Controller
 	                        ->findOneByIdWithLastMessage($forumId);
 
 	        // Si le topic n'existe pas, on affiche une erreur 404
-	        if( $forumNew == null )
+	        if( $forumNew === null )
 	        {
 	            throw $this->createNotFoundException('Categorie[slug='.$forumId.'] inexistante');
 	        }
@@ -394,7 +394,7 @@ class ActionController extends Controller
 			$forumNew->setCountTopics($forumNew->getCountTopics() + 1);
 			$forumNew->setCountPosts($forumNew->getCountPosts() + $topic->getCountPosts());
 
-			if( $forumNew->getLastMessage() != null )
+			if( $forumNew->getLastMessage() !== null )
 			{
 				if( $topic->getLastMessage()->getDate() >= $forumNew->getLastMessage()->getDate() )
 				{
@@ -425,7 +425,7 @@ class ActionController extends Controller
 			// on valide le tout
         	$em->flush();
 
-        	if( $forumOld->getLastTopic() == null )
+        	if( $forumOld->getLastTopic() === null )
         	{
         		$lastTopics = $this->getDoctrine()
 		                        ->getManager()
@@ -435,7 +435,7 @@ class ActionController extends Controller
 		                                     1,
 		                                     0);
 
-		            if( $lastTopics == null )
+		            if( $lastTopics === null )
 		            {
 		            	$forumOld->setLastTopic(null);
 
@@ -474,7 +474,7 @@ class ActionController extends Controller
                         ->find($topic);
 		
 		// Si le topic n'existe pas, on affiche une erreur 404
-        if( $topic == null )
+        if( $topic === null )
         {
             throw $this->createNotFoundException('Topic[id='.$topic.'] inexistant');
         }
@@ -486,7 +486,7 @@ class ActionController extends Controller
                         ->find($topic->getForum()->getId());
 		
 		// Si le forum n'existe pas, on affiche une erreur 404
-        if( $forum == null )
+        if( $forum === null )
         {
             throw $this->createNotFoundException('Forum inexistant');
         }
@@ -574,7 +574,7 @@ class ActionController extends Controller
                                      1,
                                      0);
 
-            if( $lastTopics == null )
+            if( $lastTopics === null )
             {
             	$forum->setLastTopic(null);
 

@@ -17,7 +17,7 @@ class ForumController extends Controller
     {
         $config = $this->container->get('mgn.config');
         
-        if( $config->get('cmsForum') == false )
+        if( $config->get('cmsForum') === false )
         {
             throw $this->createNotFoundException('Forum désactiver');
         }
@@ -51,7 +51,7 @@ class ForumController extends Controller
                 $mark_cat = $em->getRepository('MgnForumBundle:Mark')
                              ->findMark($user, $forum);
                              
-                if( $mark_cat == null )
+                if( $mark_cat === null )
                 {
                     $mark_cat = $em->getRepository('MgnForumBundle:Mark');
                     
@@ -113,7 +113,7 @@ class ForumController extends Controller
                         ->findOneForum($id);
         
         // Si le forum n'existe pas, on affiche une erreur 404
-        if( $forum == null )
+        if( $forum === null )
         {
             return $this->render('MgnForumBundle:NotFound:forum.html.twig');
         }
@@ -198,7 +198,7 @@ class ForumController extends Controller
         $mark_cat = $em->getRepository('MgnForumBundle:Mark')
                      ->findMark($user, $forum);
 
-        if( $mark_cat == null )
+        if( $mark_cat === null )
         {
             $mark_cat_new = $em->getRepository('MgnForumBundle:Mark');
             

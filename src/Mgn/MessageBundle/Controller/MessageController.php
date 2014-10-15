@@ -25,7 +25,7 @@ class MessageController extends Controller
                         ->getRepository('MgnArticleBundle:Article')
                         ->findOneArticle($id);
 						
-		if( $article == null )
+		if( $article === null )
         {
             throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
         }
@@ -35,7 +35,7 @@ class MessageController extends Controller
             throw $this->createNotFoundException('Article non publié');
         }
 		
-        if( $article->getComments() == false )
+        if( $article->getComments() === false )
         {
             throw $this->createNotFoundException('Commentaires désactivés');
         }

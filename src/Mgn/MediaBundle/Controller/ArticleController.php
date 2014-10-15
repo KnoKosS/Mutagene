@@ -30,7 +30,7 @@ class ArticleController extends Controller
 	        // (Nous verrons la validation des objets en détail plus bas dans ce chapitre.)
 	        if( $form->isValid() )
 	        {
-	            if ($picture->getExtension() == null)
+	            if ($picture->getExtension() === null)
 	            {
 	            	$this->get('session')->getFlashBag()->add('error', 'Vous devez sélectionner une image.');
 

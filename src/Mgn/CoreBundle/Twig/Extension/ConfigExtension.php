@@ -33,7 +33,7 @@ class ConfigExtension extends \Twig_Extension
                          ->getRepository('MgnCoreBundle:Config')
                          ->findOneBy(array('cms' => 'mutagene'));
 
-            if ($configConstruct == null)
+            if ($configConstruct === null)
             {
             	$configNew = new Config;
 

@@ -15,7 +15,7 @@ class TopicController extends Controller
     {
         $config = $this->container->get('mgn.config');
         
-        if( $config->get('cmsForum') == false )
+        if( $config->get('cmsForum') === false )
         {
             throw $this->createNotFoundException('Forum désactiver');
         }
@@ -42,7 +42,7 @@ class TopicController extends Controller
                         ->findOneWithPosts($id, $page, $nb_posts_page);
 		
 		// Si le forum n'existe pas, on affiche une erreur 404
-        if( $topic == null )
+        if( $topic === null )
         {
             return $this->render('MgnForumBundle:NotFound:topic.html.twig');
         }
@@ -183,7 +183,7 @@ class TopicController extends Controller
 	            throw $this->createNotFoundException('Acl insuffisant');
 	        }
 
-        	if( $topic->getTopicLock() == true )
+        	if( $topic->getTopicLock() === true )
         	{
         		$topic->setTopicLock(false);
 
@@ -218,7 +218,7 @@ class TopicController extends Controller
 
             $topic->setCountViews($topic->getCountViews() - 2);
 
-        	if( $postlock->getMessageLock() == true )
+        	if( $postlock->getMessageLock() === true )
         	{
         		$postlock->setMessageLock(false);
 		        

@@ -37,7 +37,7 @@ class AdminController extends Controller
                 // On l'enregistre notre objet $gallery dans la base de données.
 	            $em = $this->getDoctrine()->getManager();
 
-	            if ($gallery->getUrl() == null)
+	            if ($gallery->getUrl() === null)
 	            {
 	            	$gallery->setUrl($gallery->getName());
 	            }
@@ -79,7 +79,7 @@ class AdminController extends Controller
                 // On l'enregistre notre objet $category dans la base de données.
 	            $em = $this->getDoctrine()->getManager();
 
-	            if ($gallery->getUrl() == null)
+	            if ($gallery->getUrl() === null)
 	            {
 	            	$gallery->setUrl($gallery->getName());
 	            }
@@ -114,7 +114,7 @@ class AdminController extends Controller
                       	 ->getRepository('MgnMediaBundle:Gallery')
                       	 ->find($id);
 
-        if( $gallery == null )
+        if( $gallery === null )
         {
             throw $this->createNotFoundException('Galerie [id='.$id.'] inexistant');
         }
@@ -127,7 +127,7 @@ class AdminController extends Controller
 
 		$em = $this->getDoctrine()->getManager();
 
-		if( $pictures != null )
+		if( $pictures !== null )
         {
         	foreach($pictures as $picture)
 	    	{
@@ -172,7 +172,7 @@ class AdminController extends Controller
 	        // (Nous verrons la validation des objets en détail plus bas dans ce chapitre.)
 	        if( $form->isValid() )
 	        {
-	            if ($picture->getExtension() == null)
+	            if ($picture->getExtension() === null)
 	            {
 	            	$this->get('session')->getFlashBag()->add('error', 'Vous devez sélectionner une image.');
 

@@ -28,7 +28,7 @@ class AclController extends Controller
               ->getRepository('MgnForumBundle:Forum')
               ->findAllWithCategories();
 
-        if( $groupId != null and $groupSlug != null and $role != null and $forumId != null )
+        if( $groupId !== null and $groupSlug !== null and $role !== null and $forumId !== null )
         {
           //on récupère les informations sur le groupe
           $group = $this->getDoctrine()
@@ -37,7 +37,7 @@ class AclController extends Controller
                               ->find($groupId);
           
           // Si le topic n'existe pas, on affiche une erreur 404
-              if( $group == null )
+              if( $group === null )
               {
                   throw $this->createNotFoundException('Groupe[id='.$groupId.'] inexistant');
               }
@@ -49,7 +49,7 @@ class AclController extends Controller
                               ->find($forumId);
           
           // Si le topic n'existe pas, on affiche une erreur 404
-              if( $forum == null )
+              if( $forum === null )
               {
                   throw $this->createNotFoundException('Forum [id='.$forumId.'] inexistante');
               }
@@ -61,9 +61,9 @@ class AclController extends Controller
               if( $role == 'BASE' )
               {
                 if( 
-                  $group->hasRole('ROLE_FORUM_READ_'.$forum->getId()) == true and 
-                  $group->hasRole('ROLE_FORUM_POST_'.$forum->getId()) == true and 
-                  $group->hasRole('ROLE_FORUM_TOPIC_'.$forum->getId()) == true 
+                  $group->hasRole('ROLE_FORUM_READ_'.$forum->getId()) === true and 
+                  $group->hasRole('ROLE_FORUM_POST_'.$forum->getId()) === true and 
+                  $group->hasRole('ROLE_FORUM_TOPIC_'.$forum->getId()) === true 
                 )
                 {
                   $group->removeRole('ROLE_FORUM_READ_'.$forum->getId());
@@ -72,17 +72,17 @@ class AclController extends Controller
                 }
                 else
                 {
-                  if( $group->hasRole('ROLE_FORUM_READ_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_READ_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_READ_'.$forum->getId());
                   }
 
-                  if( $group->hasRole('ROLE_FORUM_POST_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_POST_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_POST_'.$forum->getId());
                   }
 
-                  if( $group->hasRole('ROLE_FORUM_TOPIC_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_TOPIC_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_TOPIC_'.$forum->getId());
                   }
@@ -91,10 +91,10 @@ class AclController extends Controller
               elseif( $role == 'MODO' )
               {
                 if( 
-                  $group->hasRole('ROLE_FORUM_LOCK_'.$forum->getId()) == true and 
-                  $group->hasRole('ROLE_FORUM_POSTIT_'.$forum->getId()) == true and 
-                  $group->hasRole('ROLE_FORUM_ANNONCE_'.$forum->getId()) == true and 
-                  $group->hasRole('ROLE_FORUM_MOVE_'.$forum->getId()) == true 
+                  $group->hasRole('ROLE_FORUM_LOCK_'.$forum->getId()) === true and 
+                  $group->hasRole('ROLE_FORUM_POSTIT_'.$forum->getId()) === true and 
+                  $group->hasRole('ROLE_FORUM_ANNONCE_'.$forum->getId()) === true and 
+                  $group->hasRole('ROLE_FORUM_MOVE_'.$forum->getId()) === true 
                 )
                 {
                   $group->removeRole('ROLE_FORUM_LOCK_'.$forum->getId());
@@ -104,22 +104,22 @@ class AclController extends Controller
                 }
                 else
                 {
-                  if( $group->hasRole('ROLE_FORUM_LOCK_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_LOCK_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_LOCK_'.$forum->getId());
                   }
 
-                  if( $group->hasRole('ROLE_FORUM_POSTIT_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_POSTIT_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_POSTIT_'.$forum->getId());
                   }
 
-                  if( $group->hasRole('ROLE_FORUM_ANNONCE_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_ANNONCE_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_ANNONCE_'.$forum->getId());
                   }
 
-                  if( $group->hasRole('ROLE_FORUM_MOVE_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_MOVE_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_MOVE_'.$forum->getId());
                   }
@@ -128,8 +128,8 @@ class AclController extends Controller
               elseif( $role == 'ADMIN' )
               {
                 if( 
-                  $group->hasRole('ROLE_FORUM_EDIT_'.$forum->getId()) == true and 
-                  $group->hasRole('ROLE_FORUM_DELETE_'.$forum->getId()) == true 
+                  $group->hasRole('ROLE_FORUM_EDIT_'.$forum->getId()) === true and 
+                  $group->hasRole('ROLE_FORUM_DELETE_'.$forum->getId()) === true 
                 )
                 {
                   $group->removeRole('ROLE_FORUM_EDIT_'.$forum->getId());
@@ -137,12 +137,12 @@ class AclController extends Controller
                 }
                 else
                 {
-                  if( $group->hasRole('ROLE_FORUM_EDIT_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_EDIT_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_EDIT_'.$forum->getId());
                   }
 
-                  if( $group->hasRole('ROLE_FORUM_DELETE_'.$forum->getId()) == false )
+                  if( $group->hasRole('ROLE_FORUM_DELETE_'.$forum->getId()) === false )
                   {
                     $group->addRole('ROLE_FORUM_DELETE_'.$forum->getId());
                   }
@@ -150,7 +150,7 @@ class AclController extends Controller
               }
               else
               {
-                if( $group->hasRole('ROLE_FORUM_'.$role.'_'.$forum->getId()) == true )
+                if( $group->hasRole('ROLE_FORUM_'.$role.'_'.$forum->getId()) === true )
                 {
                   $group->removeRole('ROLE_FORUM_'.$role.'_'.$forum->getId());
                 }
@@ -164,7 +164,7 @@ class AclController extends Controller
 
               return $this->redirect( $this->generateUrl('mgn_admin_core_acls_forGroup', array('groupId' => $group->getId(), 'groupSlug' => $group->getSlug())));
         }
-        elseif( $groupId != null && $groupSlug != null && $role == null && $forumId == null )
+        elseif( $groupId !== null && $groupSlug !== null && $role === null && $forumId === null )
         {
           //on récupère les informations sur le groupe
         $group = $this->getDoctrine()
@@ -173,7 +173,7 @@ class AclController extends Controller
                             ->find($groupId);
         
         // Si le topic n'existe pas, on affiche une erreur 404
-            if( $group == null )
+            if( $group === null )
             {
                 throw $this->createNotFoundException('Groupe[id='.$groupId.'] inexistant');
             }
@@ -222,7 +222,7 @@ class AclController extends Controller
               ->getRepository('MgnForumBundle:Forum')
               ->findAllWithCategories();
 
-        if( $userId != null and $usernameCanonical != null and $role != null and $forumId != null )
+        if( $userId !== null and $usernameCanonical !== null and $role !== null and $forumId !== null )
     {
       //on récupère les informations sur le groupe
       $user = $this->getDoctrine()
@@ -231,7 +231,7 @@ class AclController extends Controller
                           ->find($userId);
       
       // Si le topic n'existe pas, on affiche une erreur 404
-          if( $user == null )
+          if( $user === null )
           {
               throw $this->createNotFoundException('User[id='.$userId.'] inexistant');
           }
@@ -243,7 +243,7 @@ class AclController extends Controller
                           ->find($forumId);
       
       // Si le topic n'existe pas, on affiche une erreur 404
-          if( $forum == null )
+          if( $forum === null )
           {
               throw $this->createNotFoundException('Forum[id='.$forumId.'] inexistante');
           }
@@ -255,9 +255,9 @@ class AclController extends Controller
           if( $role == 'BASE' )
           {
             if( 
-              $user->hasRole('ROLE_FORUM_READ_'.$forum->getId()) == true and 
-              $user->hasRole('ROLE_FORUM_POST_'.$forum->getId()) == true and 
-              $user->hasRole('ROLE_FORUM_TOPIC_'.$forum->getId()) == true 
+              $user->hasRole('ROLE_FORUM_READ_'.$forum->getId()) === true and 
+              $user->hasRole('ROLE_FORUM_POST_'.$forum->getId()) === true and 
+              $user->hasRole('ROLE_FORUM_TOPIC_'.$forum->getId()) === true 
             )
             {
               $user->removeRole('ROLE_FORUM_READ_'.$forum->getId());
@@ -266,17 +266,17 @@ class AclController extends Controller
             }
             else
             {
-              if( $user->hasRole('ROLE_FORUM_READ_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_READ_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_READ_'.$forum->getId());
               }
 
-              if( $user->hasRole('ROLE_FORUM_POST_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_POST_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_POST_'.$forum->getId());
               }
 
-              if( $user->hasRole('ROLE_FORUM_TOPIC_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_TOPIC_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_TOPIC_'.$forum->getId());
               }
@@ -285,10 +285,10 @@ class AclController extends Controller
           elseif( $role == 'MODO' )
           {
             if( 
-              $user->hasRole('ROLE_FORUM_LOCK_'.$forum->getId()) == true and 
-              $user->hasRole('ROLE_FORUM_POSTIT_'.$forum->getId()) == true and 
-              $user->hasRole('ROLE_FORUM_ANNONCE_'.$forum->getId()) == true and 
-              $user->hasRole('ROLE_FORUM_MOVE_'.$forum->getId()) == true 
+              $user->hasRole('ROLE_FORUM_LOCK_'.$forum->getId()) === true and 
+              $user->hasRole('ROLE_FORUM_POSTIT_'.$forum->getId()) === true and 
+              $user->hasRole('ROLE_FORUM_ANNONCE_'.$forum->getId()) === true and 
+              $user->hasRole('ROLE_FORUM_MOVE_'.$forum->getId()) === true 
             )
             {
               $user->removeRole('ROLE_FORUM_LOCK_'.$forum->getId());
@@ -298,22 +298,22 @@ class AclController extends Controller
             }
             else
             {
-              if( $user->hasRole('ROLE_FORUM_LOCK_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_LOCK_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_LOCK_'.$forum->getId());
               }
 
-              if( $user->hasRole('ROLE_FORUM_POSTIT_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_POSTIT_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_POSTIT_'.$forum->getId());
               }
 
-              if( $user->hasRole('ROLE_FORUM_ANNONCE_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_ANNONCE_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_ANNONCE_'.$forum->getId());
               }
 
-              if( $user->hasRole('ROLE_FORUM_MOVE_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_MOVE_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_MOVE_'.$forum->getId());
               }
@@ -322,8 +322,8 @@ class AclController extends Controller
           elseif( $role == 'ADMIN' )
           {
             if( 
-              $user->hasRole('ROLE_FORUM_EDIT_'.$forum->getId()) == true and 
-              $user->hasRole('ROLE_FORUM_DELETE_'.$forum->getId()) == true 
+              $user->hasRole('ROLE_FORUM_EDIT_'.$forum->getId()) === true and 
+              $user->hasRole('ROLE_FORUM_DELETE_'.$forum->getId()) === true 
             )
             {
               $user->removeRole('ROLE_FORUM_EDIT_'.$forum->getId());
@@ -331,12 +331,12 @@ class AclController extends Controller
             }
             else
             {
-              if( $user->hasRole('ROLE_FORUM_EDIT_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_EDIT_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_EDIT_'.$forum->getId());
               }
 
-              if( $user->hasRole('ROLE_FORUM_DELETE_'.$forum->getId()) == false )
+              if( $user->hasRole('ROLE_FORUM_DELETE_'.$forum->getId()) === false )
               {
                 $user->addRole('ROLE_FORUM_DELETE_'.$forum->getId());
               }
@@ -344,7 +344,7 @@ class AclController extends Controller
           }
           else
           {
-            if( $user->hasRole('ROLE_FORUM_'.$role.'_'.$forum->getId()) == true )
+            if( $user->hasRole('ROLE_FORUM_'.$role.'_'.$forum->getId()) === true )
             {
               $user->removeRole('ROLE_FORUM_'.$role.'_'.$forum->getId());
             }
@@ -358,7 +358,7 @@ class AclController extends Controller
 
           return $this->redirect( $this->generateUrl('mgn_admin_core_acls_forUser', array('userId' => $user->getId(), 'usernameCanonical' => $user->getUsernameCanonical())));
     }
-        elseif( $userId != null && $usernameCanonical != null && $role == null && $forumId == null )
+        elseif( $userId !== null && $usernameCanonical !== null && $role === null && $forumId === null )
         {
           //on récupère les informations sur le groupe
       $user = $this->getDoctrine()
@@ -367,7 +367,7 @@ class AclController extends Controller
                           ->find($userId);
       
       // Si le topic n'existe pas, on affiche une erreur 404
-          if( $user == null )
+          if( $user === null )
           {
               throw $this->createNotFoundException('User[id='.$userId.'] inexistant');
           }
@@ -392,7 +392,7 @@ class AclController extends Controller
                         ->find($forumId);
     
     // Si le topic n'existe pas, on affiche une erreur 404
-        if( $forum == null )
+        if( $forum === null )
         {
             throw $this->createNotFoundException('Categorie[id='.$forumId.'] inexistante');
         }
@@ -407,7 +407,7 @@ class AclController extends Controller
                          ->getRepository('MgnUserBundle:User')
                          ->findAll();
 
-        if( $forumId != null and $forumSlug != null and $role != null )
+        if( $forumId !== null and $forumSlug !== null and $role !== null )
     {
       //on récupère les informations sur le groupe
       $user = $this->getDoctrine()
@@ -416,7 +416,7 @@ class AclController extends Controller
                           ->find($userId);
       
       // Si le topic n'existe pas, on affiche une erreur 404
-          if( $user == null )
+          if( $user === null )
           {
               throw $this->createNotFoundException('User[id='.$userId.'] inexistant');
           }
@@ -425,7 +425,7 @@ class AclController extends Controller
 
           $role = strtoupper($role);
 
-          if( $user->hasRole('ROLE_FORUM_'.$role.'_'.$forum->getId()) == true )
+          if( $user->hasRole('ROLE_FORUM_'.$role.'_'.$forum->getId()) === true )
           {
             $user->removeRole('ROLE_FORUM_'.$role.'_'.$forum->getId());
           }
@@ -438,7 +438,7 @@ class AclController extends Controller
 
           return $this->redirect( $this->generateUrl('mgn_admin_core_acls_forUser', array('userId' => $user->getId(), 'usernameCanonical' => $user->getUsernameCanonical())));
     }
-        elseif( $forumId != null && $forumSlug != null && $role == null )
+        elseif( $forumId !== null && $forumSlug !== null && $role === null )
         {
           //on appel le template
           return $this->render('MgnCoreBundle:Acl:aclsForForum.html.twig', array(
