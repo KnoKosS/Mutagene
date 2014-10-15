@@ -32,11 +32,6 @@ class ThemeExtension extends \Twig_Extension
 		$this->securityContext = $securityContext;
 		$this->config = $config;
 		$this->doctrine = $doctrine;
-
-		/*if ( $this->securityContext->getToken() !== null )
-		{
-			$user = $this->securityContext->getToken()->getUser();
-		}*/
 		
 		if ( $this->securityContext->getToken() !== null AND $this->securityContext->isGranted('ROLE_USER') )
 		{

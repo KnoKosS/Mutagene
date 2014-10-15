@@ -282,11 +282,6 @@ class AdminController extends Controller
                       	 ->getRepository('MgnArticleBundle:Category')
                       	 ->findAll();
 
-        /*$config = $this->getDoctrine()
-                         ->getManager()
-                         ->getRepository('MgnCoreBundle:Config')
-                         ->findOneBy(array('cms' => 'mutagene'));*/
-
        	$article = $this->getDoctrine()
                       	 ->getManager()
                       	 ->getRepository('MgnArticleBundle:Article')
@@ -470,13 +465,7 @@ class AdminController extends Controller
    	*/
 	public function deleteAction($id)
 	{
-		// On récupère les entitées dont on aura besoin
-		/*$article = $this->getDoctrine()
-                      	 ->getManager()
-                      	 ->getRepository('MgnArticleBundle:Article')
-                      	 ->find($id);*/
-
-        //$em = $this->container->get('doctrine')->getManager();
+		
 	}
 
 	/**

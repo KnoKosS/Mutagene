@@ -69,8 +69,6 @@ class AdminController extends Controller
             {
                 $em = $this->getDoctrine()->getManager();
 
-                //$config = $this->container->get('mgn.config');
-
                 $em->persist($group);
                 $em->flush();
                 

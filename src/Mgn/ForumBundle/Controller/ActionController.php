@@ -83,7 +83,6 @@ class ActionController extends Controller
 	        if( $form->isValid() )
 	        {
 	            // On l'enregistre notre objet $article dans la base de données.
-	            //$date = new \Datetime();
 	            
 	            $em = $this->getDoctrine()->getEntityManager();
 
@@ -144,8 +143,6 @@ class ActionController extends Controller
     	$this->active();
 
         $em = $this->getDoctrine()->getManager();
-
-		//$user = $this->container->get('security.context')->getToken()->getUser();
 
 		//on récupère les informations sur le message
 		$message = $this->getDoctrine()
