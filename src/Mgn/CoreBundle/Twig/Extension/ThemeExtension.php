@@ -5,6 +5,7 @@ namespace Mgn\CoreBundle\Twig\Extension;
 
 use Mgn\CoreBundle\Entity\Config;
 use Mgn\CoreBundle\Entity\ConfigRepository;
+use Mgn\CoreBundle\Entity\Theme;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\DoctrineBundle\Registry;
@@ -18,6 +19,7 @@ class ThemeExtension extends \Twig_Extension
 	protected $securityContext;
 	protected $config;
 	protected $theme;
+	protected $em;
 	
 	public function getName()
 	{
@@ -58,7 +60,22 @@ class ThemeExtension extends \Twig_Extension
 			$themeSelect = $this->config->get('theme');
 		}
 
-		$this->theme = $this->doctrine->getManager()->getRepository('MgnCoreBundle:Theme')->findOneBy(array('slug' => $themeSelect));
+		$themeConstruct = $this->doctrine->getManager()->getRepository('MgnCoreBundle:Theme')->findOneBy(array('slug' => $themeSelect));
+
+        if ($themeConstruct == null)
+        {
+        	$themeNew = new Theme;
+
+		    // Enregistrement en bdd pour générer un id    
+		    $this->em = $doctrine->getManager();
+			$this->em->persist($themeNew);
+
+			$this->em->flush();
+
+			$themeConstruct = $themeNew;
+        }
+
+		$this->theme = $themeConstruct;
 	}
 
 	public function get($variable)

@@ -13,440 +13,120 @@ class Configs implements FixtureInterface
   public function load(ObjectManager $manager)
   {
     $layout = '
-      <div class="">
+      <div class="body">
 
-        <div class="masthead">
-
-            <header id="header">
-
-                <div class="container">
-
-                    <h1>{{ Config("siteTitre") }} <small>{{ Config("siteDescription") }} - {{ Theme("themeTitle") }}</small></h1>
-
-                </div>
-
-            </header>
-
-            <nav id="nav" class="navbar yamm navbar-inverse navbar-default affix-top" role="navigation" data-spy="affix" data-offset-top="100">
-<div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                </button>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                    <ul class="nav navbar-nav">
-
-                        <li><a href="{{ path("mgn_home") }}">Acceuil</a></li>
-
-                        <li><a href="{{ path("mgn_forum") }}">Forums</a></li>
-
-                        <li class="dropdown yamm-fw full-width">
-
-
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Plus <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="yamm-content">
-                                        <div class="row">
-                                        <div class="col-lg-12">
-                                            plop
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            
-                        </li>
-                    
-                    </ul>
-
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    
-                        <ul class="nav navbar-nav navbar-right">
-                        
-                            <li class="dropdown">
-
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                <li><a href="{{ path("mgn_user_edit_password") }}"><i class="fa fa-lock"></i> Mot de passe</a></li>
-                                <li><a href="{{ path("mgn_user_edit_profile") }}"><i class="fa fa-user"></i> Profil</a></li>
-                                <li class="divider"></li>
-                                {% if is_granted("ROLE_ADMIN") %}
-                                <li><a href="{{ path("mgn_admin_homepage") }}"><i class="fa fa-wrench"></i> Administration</a></li>
-                                <li class="divider"></li>
-                                {% endif %}
-                                <li><a href="{{ path("logout") }}"><i class="fa fa-power-off"></i> Déconnexion</a></li>
-                                </ul>
-                                
-                            </li>
-
-                        </ul>
-
-                    {% else %}
-
-                        <ul class="nav navbar-nav navbar-right" style="margin-right: -6px;">
-
-                            <a type="button" class="btn btn-default navbar-btn" href="{{ path("user.connexion") }}"><i class="icon-home"></i> Connexion</a>
-                            <a type="button" class="btn btn-primary navbar-btn" href="{{ path("user.register") }}"><i class="icon-user"></i> Inscription</a>
-                        </ul>
-
-                    {% endif %}
-
-                </div><!-- /.navbar-collapse -->
-</div>
-            </nav>
-
+    <div class="container">
+    
+        <div class="jumbotron">
+        <h1>{{ Config('siteTitle') }}</h1>
+        <p>{{ Config('siteDescription') }}</p>
         </div>
-
-        <div class="container">
-
-            <div class="row">
-
-                <div class="col-lg-12">
-
-                  <ul class="breadcrumb">
-                      <li>
-                      <a href=""><i class="fa fa-home"></i></a> {% block arianne %}{% endblock %}
-                      </li>
-                    </ul>
-
-                </div>
-
-              </div>
-
-            <div class="row">
-
-                <div class="col-lg-12">
-
-                    {% block body %}
-
-                    {% endblock %}
-
-                </div>
-
+    
+        <div class="row">
+        
+            <div class="col-lg-12">
+            
             </div>
-
+        
+        </div>
+    
+        <div class="row">
+        
+            <div class="col-lg-12">
+        
+                {% include template_from_string(Theme('menu')|raw) %}
+            
+            </div>
+            
         </div>
 
-      </div>
-        {% block javascripts %}{% endblock %}
-        <script src="http://code.jquery.com/jquery.js"></script>
+        <div class="row">
 
-        {% if Theme("bootstrap") == true %}
+                    <div class="col-lg-12">
+    
+                <ul class="breadcrumb">
+                
+                    <li><a href="{{ path("mgn_home") }}"><i class="fa fa-home"></i></a></li> {% block arianne %}{% endblock %}
+                    
+                </ul>
+    
+                    </div>
+                    
+                    {% if bundle is defined and bundle == 'forum' %}
+                    <div class="col-lg-12">
+                    {% else %}
+                    <div class="col-lg-9">
+            {% endif %}
+                    
+                        <div class="row">
+                    
+                    {% if bundle is defined and bundle == 'forum' %}
 
-            <script src="{{ asset("js/bootstrap.min.js") }}"></script>
+                <div class="col-lg-12">
+                
+                    <h1>{% block pagetitle %}{% endblock %}</h1>
+                
+                    {% block bundle_forum %}{% endblock %}
+                
+                </div>
+        
+            {% elseif bundle is defined and bundle == 'article' %}
 
-        {% endif %}
+                <div class="col-lg-12">
+                
+                    {% block bundle_article %}{% endblock %}
+                
+                </div>
+        
+            {% else %}
+
+                <div class="col-lg-12">
+                
+                    {% block body %}{% endblock %}
+                
+                </div>
             
-        <script src="{{ asset("js/bootstrap-datepicker.js") }}"></script>
-        <script src="{{ asset("js/mgncode.js") }}"></script>
+            {% endif %}
+            
+                </div>
+                    
+                    </div>
 
-        <script>
-        <!--
-        jQuery(document).ready(function(){
-            $(".dropdown").hover(
-                function() { $(".dropdown-menu", this).fadeIn("fast");
-                },
-                function() { $(".dropdown-menu", this).fadeOut("fast");
-            });
-        });
+            {% if bundle is defined and bundle == 'forum' %}
+            {% else %}
+            
+            <div class="col-lg-3">
+            
+                <aside class="sidebar">
+            
+                {% if bundle is defined and bundle == 'article' %}
+                <h4>Catégories</h4>
+                
+                <ul class="nav nav-list primary push-bottom">
+                    {{ render(controller('MgnArticleBundle:Article:listCategories'))}}
+                </ul>
+                {% endif %}
+                
+                {{ render(controller('MgnCoreBundle:Sidebar:view'))}}
+                
+                </aside>
+            
+            </div>
+            
+            {% endif %}
 
-        $(".datepicker").datepicker();
+        </div>
+        
+        <div class="row footer">
+        
+            
+            
+        </div>
+        
+    </div>
 
-        $(".tips").tooltip();
-        -->
-        </script>
+</div>
     ';
-
-    $css = '
-            #header {
-            height: 100px;
-        }
-        
-        #nav.affix {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 2;
-        }
-        
-        #nav.affix + #mainContent {
-            padding-top: 75px;  
-        }
-
-        .hdrRow .btn-group {
-            
-            background-color: green;
-            
-        }
-
-        /*AUTO WIDTH COL*/
-        .full-width{
-            position:static ;
-        }
-        .full-width .dropdown-menu
-        {
-            
-            left:-1px;
-            width:100%;
-        }
-
-
-
-        .toolbar
-        {
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-
-
-
-
-        .forum-message
-        {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #7b7b7b;
-        }
-
-        .forum-message:hover
-        {
-            background-color: #ececec;
-        }
-
-        .forum-message-header
-        {
-            margin-bottom: 10px;
-            /*background-color: #7b7b7b;*/
-            height: 40px;
-            padding-top: 10px;
-            /*color: #dcdcdc;*/
-        }
-
-        .forum-message-header-pseudo
-        {
-            padding-left: 25px;
-        }
-
-        .forum-message-header-infos
-        {
-            padding-right: 25px;
-        }
-
-        .forum-message-header-action a
-        {
-            margin-left: 5px;
-        }
-
-        .forum-message-header-action a:hover
-        {
-            color: #428bca;
-            color: #000000;
-            text-decoration: none;
-        }
-
-
-
-
-        .forum
-        {
-        background-color: #ececec;
-        margin-bottom: 15px;
-        border-bottom: 4px solid #7b7b7b;
-        }
-
-        .forum-titre
-        {
-        padding: 20px;
-        border-bottom: 1px solid #7b7b7b;
-        }
-
-        .forum-titre:hover
-        {
-        background-color: #d2d2d2;
-        text-decoration: none;
-        }
-
-        .forum-titre a
-        {
-        text-decoration: none;
-        font-weight: bold;
-        }
-
-        .forum-dernier-message
-        {
-        padding: 20px;
-        }
-
-        .forum-dernier-message:hover
-        {
-        background-color: #d2d2d2;
-        }
-
-        .forum-dernier-message a
-        {
-        text-decoration: none;
-        }
-
-        .forum-unread
-        {
-        background-color: #bebebe;
-        border-bottom: 4px solid #7b7b7b;
-        }
-
-        .forum-unread .forum-categorie-titre
-        {
-        padding: 20px;
-        border-bottom: 1px solid #7b7b7b;
-        }
-
-        .forum-unread .forum-categorie-titre:hover
-        {
-        background-color: #d2d2d2;
-        }
-
-        .forum-unread .forum-categorie-dernier-message:hover
-        {
-        background-color: #d2d2d2;
-        }
-
-        .forum-topic
-        {
-        background-color: #ececec;
-        margin-bottom: 5px;
-        border-bottom: 3px solid #7b7b7b;
-        padding-top: 10px;
-        }
-
-        .forum-topic:hover
-        {
-        background-color: #d2d2d2;
-        }
-
-        .topic-unread
-        {
-        background-color: #bebebe;
-        border-color: #7b7b7b;
-        }
-
-        .topic-unread:hover
-        {
-        background-color: #d2d2d2;
-        }
-
-        .forum-signature
-        {
-        background-color: #d2d2d2;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        padding: 10px;
-        }
-
-        .article-index
-        {
-            margin-bottom: 30px;
-        }
-
-        .thumbnail > span {
-          display: block;
-          height: auto;
-          max-width: 100%;
-          margin-right: auto;
-          margin-left: auto;
-        }
-
-        .article-read-header
-        {
-            margin-bottom: 30px;
-        }
-
-        /* Comments */
-div.post-comments {
-    margin-top: 45px;
-}
-
-ul.comments {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-ul.comments div.comment-arrow {
-    border-bottom: 15px solid transparent;
-    border-right: 15px solid #F4F4F4;
-    border-top: 15px solid transparent;
-    height: 0;
-    left: -15px;
-    position: absolute;
-    top: 28px;
-    width: 0;
-}
-
-ul.comments div.comment-block {
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    background: #F4F4F4;
-    border-radius: 5px;
-    padding: 20px 20px 30px;
-    position: relative;
-}
-
-ul.comments div.comment-block span.comment-by {
-    display: block;
-    font-size: 1em;
-    line-height: 21px;
-    margin: 0;
-    padding: 0 0 5px 0;
-}
-
-ul.comments div.comment-block span.date {
-    color: #999;
-    font-size: 0.9em;
-}
-
-ul.comments div.comment-block p {
-    font-size: 0.9em;
-    line-height: 21px;
-    margin: 0;
-    padding: 0;
-}
-
-ul.comments li {
-    clear: both;
-    padding: 10px 0 0 115px;
-}
-
-ul.comments li div.img-thumbnail {
-    margin-left: -115px;
-    position: absolute;
-}
-
-ul.comments li div.comment {
-    margin-bottom: 10px;
-}
-
-ul.comments li img.avatar {
-    height: 80px;
-    width: 80px;
-}
-
-ul.comments li ul.reply {
-    margin: 0;
-}
-
-ul.comments li a {
-    text-decoration: none;
-}
-';
 
     $theme = new Theme;
  

@@ -160,7 +160,234 @@ class Theme {
 
     public function __construct()
     {
-        $this->bootstrap = true;
+        $this->themeTitle = 'Mutagène';
+        $this->version = '1.0';
+        $this->author = 'KnoKosS';
+        $this->url = 'http://www.knokoss.com/';
+
+        $this->head = '<meta charset="UTF-8" />
+
+<title>{% block title %}{{ Config(\'siteTitle\') }} - {{ Config(\'siteDescription\') }}{% endblock %}</title>
+
+<!-- Mobile Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="{{ asset(\'themes/\'~Config(\'theme\')~\'/favicon.png\') }}" />
+
+<link href="{{ asset(\'themes/\'~Theme("slug")~\'/css/bootstrap.css\') }}" rel="stylesheet" media="screen">
+        
+<link href="{{ asset(\'css/datepicker.css\') }}" rel="stylesheet" media="screen">
+
+<link rel="stylesheet" href="{{ asset(\'css/font-awesome.min.css\') }}" >
+<link rel="stylesheet" href="{{ asset(\'css/foundation-icons.css\') }}" >
+
+<script type="text/javascript">
+  <!--
+  var port = 6658;
+  var width = \'100%\';
+  var height = 600;
+  var srv = 9;
+  var cl = "000";
+  var bgcolor = "fff";
+  var tc = "11";
+  var tu = "11";
+  //-->
+  </script>
+
+<link rel="stylesheet" href="{{ asset(\'themes/\'~Theme("slug")~\'/css/style.css\') }}" />';
+
+        $this->layout = '<div class="body">
+
+    <div class="container">
+    
+        <div class="jumbotron">
+        <h1>{{ Config(\'siteTitle\') }}</h1>
+        <p>{{ Config(\'siteDescription\') }}</p>
+        </div>
+    
+        <div class="row">
+        
+            <div class="col-lg-12">
+            
+            </div>
+        
+        </div>
+    
+        <div class="row">
+        
+            <div class="col-lg-12">
+        
+                {% include template_from_string(Theme(\'menu\')|raw) %}
+            
+            </div>
+            
+        </div>
+
+        <div class="row">
+
+                    <div class="col-lg-12">
+    
+                <ul class="breadcrumb">
+                
+                    <li><a href="{{ path("mgn_home") }}"><i class="fa fa-home"></i></a></li> {% block arianne %}{% endblock %}
+                    
+                </ul>
+    
+                    </div>
+                    
+                    {% if bundle is defined and bundle == \'forum\' %}
+                    <div class="col-lg-12">
+                    {% else %}
+                    <div class="col-lg-9">
+            {% endif %}
+                    
+                        <div class="row">
+                    
+                    {% if bundle is defined and bundle == \'forum\' %}
+
+                <div class="col-lg-12">
+                
+                    <h1>{% block pagetitle %}{% endblock %}</h1>
+                
+                    {% block bundle_forum %}{% endblock %}
+                
+                </div>
+        
+            {% elseif bundle is defined and bundle == \'article\' %}
+
+                <div class="col-lg-12">
+                
+                    {% block bundle_article %}{% endblock %}
+                
+                </div>
+        
+            {% else %}
+
+                <div class="col-lg-12">
+                
+                    {% block body %}{% endblock %}
+                
+                </div>
+            
+            {% endif %}
+            
+                </div>
+                    
+                    </div>
+
+            {% if bundle is defined and bundle == \'forum\' %}
+            {% else %}
+            
+            <div class="col-lg-3">
+            
+                <aside class="sidebar">
+            
+                {% if bundle is defined and bundle == \'article\' %}
+                <h4>Catégories</h4>
+                
+                <ul class="nav nav-list primary push-bottom">
+                    {{ render(controller(\'MgnArticleBundle:Article:listCategories\'))}}
+                </ul>
+                {% endif %}
+                
+                {{ render(controller(\'MgnCoreBundle:Sidebar:view\'))}}
+                
+                </aside>
+            
+            </div>
+            
+            {% endif %}
+
+        </div>
+        
+        <div class="row footer">
+        
+            
+            
+        </div>
+        
+    </div>
+
+</div>';
+
+        $this->menu = '<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    
+    <ul class="nav navbar-nav">
+
+        <li class="navbar-button{% if bundle is defined and bundle == \'article\' %} active{% endif %}">
+            <a href="{% if Config(\'homepage\') == \'article\' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_article") }}{% endif %}">Accueil</a>
+        </li>
+        <li class="navbar-button{% if bundle is defined and bundle == \'forum\' %} active{% endif %}">
+            <a href="{% if Config(\'homepage\') == \'forum\' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_forum") }}{% endif %}">Forums</a>
+        </li>
+        
+    </ul>
+      
+    <ul class="nav navbar-nav navbar-right">
+    
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="{{ path("mgn_user_profile", {\'username\': app.user.usernameCanonical}) }}"><i class="fa fa-user"></i> Mon compte</a></li>
+            {% if is_granted("ROLE_ADMIN") %}
+            <li class="divider"></li>
+            <li><a href="{{ path("mgn_admin_homepage") }}"><i class="fa fa-wrench"></i> Administration</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li><a href="{{ path("logout") }}"><i class="fa fa-power-off"></i> Déconnexion</a></li>
+            </ul>
+        </li>
+        
+        {% else %}
+        
+            <a class="btn btn-default navbar-btn navbar-btn-login" href="{{ path("user.connexion") }}"><i class="icon-home"></i> Connexion</a>
+            <a class="btn btn-primary navbar-btn navbar-btn-register" href="{{ path("user.register") }}"><i class="icon-user"></i> Inscription</a>
+            
+        {% endif %}
+    
+    </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>';
+
+        $this->javascript = '<script src="http://code.jquery.com/jquery.js"></script>
+<script src="{{ asset(\'themes/\'~Theme("slug")~\'/js/bootstrap.min.js\') }}"></script>
+<script src="{{ asset(\'themes/\'~Theme("slug")~\'/js/bootstrap-datepicker.js\') }}"></script>
+<script src="{{ asset(\'js/mgncode.js\') }}"></script>
+
+<script>
+    <!--
+    $(document).ready(function(){
+
+       $(".dropdown").hover(
+            function() { $(\'.dropdown-menu\', this).fadeIn("fast");
+            },
+            function() { $(\'.dropdown-menu\', this).fadeOut("fast");
+        });
+
+        $(\'.datepicker\').datepicker();
+
+        $(\'.tips\').tooltip();
+
+    });
+    -->
+    </script>';
     }
 
     /**
