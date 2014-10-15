@@ -1,6 +1,4 @@
 <?php
-// src/Sdz/BlogBundle/Form/CategorieType.php
-
 namespace Mgn\ArticleBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
