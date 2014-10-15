@@ -197,7 +197,7 @@ class AclController extends Controller
     */
   public function AclsUserAction($userId, $usernameCanonical, $role, $forumId)
   {
-    $groups = $this->getDoctrine()
+    /*$groups = $this->getDoctrine()
                          ->getManager()
                          ->getRepository('MgnUserBundle:Group')
                          ->findBy(
@@ -205,9 +205,9 @@ class AclController extends Controller
                     array(), // On tri par date décroissante
                     NULL,       // On sélectionne $nb_articles_page articles
                     NULL                  // A partir du $offset ième
-                );
+                );*/
 
-    $users = $this->getDoctrine()
+    /*$users = $this->getDoctrine()
                          ->getManager()
                          ->getRepository('MgnUserBundle:User')
                          ->findBy(
@@ -215,7 +215,7 @@ class AclController extends Controller
                     array('username' => 'ASC'), // On tri par date décroissante
                     NULL,       // On sélectionne $nb_articles_page articles
                     NULL                  // A partir du $offset ième
-                );
+                );*/
 
     $forums = $this->getDoctrine()
               ->getManager()
