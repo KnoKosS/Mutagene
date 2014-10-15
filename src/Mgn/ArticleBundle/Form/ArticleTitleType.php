@@ -3,6 +3,7 @@ namespace Mgn\ArticleBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ArticleTitleType extends AbstractType
 {
@@ -10,7 +11,7 @@ class ArticleTitleType extends AbstractType
     {
         $builder
             ->add('title',    'text')
-            ;
+        ;
     }
 
     public function getName()
