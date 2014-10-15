@@ -4,7 +4,7 @@ namespace Mgn\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use JMS\SecurityExtraBundle\Annotation\Secure;
+
 
 use Mgn\ForumBundle\Entity\Forum;
 use Mgn\ForumBundle\Entity\Category;

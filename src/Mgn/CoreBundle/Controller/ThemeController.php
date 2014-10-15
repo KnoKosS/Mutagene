@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-use Mgn\CoreBundle\Entity\Theme;
+
 use Mgn\CoreBundle\Form\EditorHeadType;
 use Mgn\CoreBundle\Form\EditorLayoutType;
 use Mgn\CoreBundle\Form\EditorMenuType;

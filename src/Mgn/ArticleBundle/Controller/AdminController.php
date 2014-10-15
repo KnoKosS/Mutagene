@@ -6,26 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgn\ArticleBundle\Entity\Category;
 use Mgn\ArticleBundle\Form\CategoryType;
 use Mgn\ArticleBundle\Entity\Article;
-use Mgn\ArticleBundle\Form\ArticleType;
 use Mgn\ArticleBundle\Form\ArticlePublishType;
-use Mgn\ArticleBundle\Form\ArticleEditType;
-use Mgn\CoreBundle\Entity\Config;
-use Mgn\MediaBundle\Entity\Picture;
-use Mgn\MediaBundle\Form\PictureArticleType;
-
-use Mgn\ArticleBundle\Entity\Contents;
-use Mgn\ArticleBundle\Form\ContentsType;
-use Mgn\ArticleBundle\Form\ContentsParagraphType;
 use Mgn\ArticleBundle\Form\ArticleTitleType;
-use Mgn\ArticleBundle\Form\ArticleHeaderType;
 use Mgn\ArticleBundle\Form\ArticleIntroductionType;
-
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
-
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 

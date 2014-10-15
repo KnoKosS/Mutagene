@@ -6,12 +6,9 @@ namespace Mgn\UserBundle\Listener;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Security\Core\SecurityContext;
 use Doctrine\Bundle\DoctrineBundle\Registry as Doctrine; // for Symfony 2.1.x
-use Symfony\Component\HttpFoundation\Session\Session;
+
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Doctrine\ORM\EntityManager;
-
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\HttpKernel\HttpKernel;
 
 use Mgn\UserBundle\Entity\User;
  

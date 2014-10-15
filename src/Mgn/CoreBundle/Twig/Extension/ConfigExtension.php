@@ -4,10 +4,6 @@
 namespace Mgn\CoreBundle\Twig\Extension;
 
 use Mgn\CoreBundle\Entity\Config;
-use Mgn\CoreBundle\Entity\ConfigRepository;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\DoctrineBundle\Registry;
  
 class ConfigExtension extends \Twig_Extension
 {

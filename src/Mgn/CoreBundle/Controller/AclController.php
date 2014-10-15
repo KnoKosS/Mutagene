@@ -4,8 +4,6 @@ namespace Mgn\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class AclController extends Controller

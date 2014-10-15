@@ -3,7 +3,6 @@ namespace Mgn\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Mgn\ArticleBundle\Entity\Article;
 use Mgn\ContentBundle\Entity\Content;
 use Mgn\ContentBundle\Form\ContentParagraphType;
 use Mgn\ContentBundle\Form\ContentTitleType;
@@ -11,23 +10,7 @@ use Mgn\ContentBundle\Form\ContentSubtitleType;
 use Mgn\ContentBundle\Form\ContentPictureType;
 use Mgn\ContentBundle\Form\ContentVideoType;
 use Mgn\ContentBundle\Form\ContentQuoteType;
-
-use Mgn\ArticleBundle\Entity\Category;
-use Mgn\ArticleBundle\Form\CategoryType;
-use Mgn\ArticleBundle\Form\ArticleType;
-use Mgn\ArticleBundle\Form\ArticleEditType;
-use Mgn\CoreBundle\Entity\Config;
-use Mgn\MediaBundle\Entity\Picture;
-use Mgn\MediaBundle\Form\PictureArticleType;
-
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
-
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-
-use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class ContentController extends Controller
 {

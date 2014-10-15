@@ -3,16 +3,8 @@ namespace Mgn\MediaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
-
-use Mgn\MediaBundle\Entity\Gallery;
-use Mgn\MediaBundle\Form\GalleryType;
 use Mgn\MediaBundle\Entity\Picture;
 use Mgn\MediaBundle\Form\PictureType;
-
-use Mgn\CoreBundle\Entity\Config;
-
-use JMS\SecurityExtraBundle\Annotation\Secure;
 
 class ArticleController extends Controller
 {

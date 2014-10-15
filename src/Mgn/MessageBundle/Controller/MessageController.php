@@ -3,11 +3,11 @@
 namespace Mgn\MessageBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
 
-use Mgn\ArticleBundle\Entity\Categorie;
-use Mgn\ArticleBundle\Entity\Article;
+
+
+
+
 use Mgn\MessageBundle\Entity\Message;
 use Mgn\MessageBundle\Form\MessageType;
 

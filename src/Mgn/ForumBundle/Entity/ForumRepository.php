@@ -3,7 +3,6 @@
 namespace Mgn\ForumBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Mgn\MessageBundle\Entity\Message;
 
 /**
  * ForumRepository

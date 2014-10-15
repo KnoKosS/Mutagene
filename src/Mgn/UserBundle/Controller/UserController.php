@@ -3,13 +3,13 @@
 namespace Mgn\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Mgn\UserBundle\Entity\User;
-use Mgn\UserBundle\Entity\Group;
-use Mgn\UserBundle\Entity\UserToGroup;
+
+
+
 use Mgn\UserBundle\Form\EditProfileType;
 use Mgn\UserBundle\Form\ChangePasswordType;
 
-use Symfony\Component\HttpFoundation\Request;
+
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 

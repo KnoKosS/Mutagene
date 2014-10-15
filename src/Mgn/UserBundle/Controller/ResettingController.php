@@ -3,12 +3,12 @@
 namespace Mgn\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContext;
+
 
 use Symfony\Component\HttpFoundation\Request;
-use Mgn\UserBundle\Entity\User;
+
 use Mgn\UserBundle\Form\ResetType;
-use Symfony\Component\Security\Core\Util\SecureRandom;
+
 
 class ResettingController extends Controller
 {

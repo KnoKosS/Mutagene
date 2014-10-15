@@ -4,7 +4,7 @@ namespace Mgn\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgn\UserBundle\Entity\Group;
-use Mgn\UserBundle\Entity\GroupRepository;
+
 use Mgn\UserBundle\Entity\UserToGroup;
 use Mgn\UserBundle\Form\GroupType;
 use Mgn\UserBundle\Form\GroupAdministerType;

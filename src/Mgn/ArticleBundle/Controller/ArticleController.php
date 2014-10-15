@@ -4,7 +4,7 @@ namespace Mgn\ArticleBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Mgn\ArticleBundle\Entity\Article;
+
 use Mgn\MessageBundle\Entity\Message;
 use Mgn\MessageBundle\Form\MessageType;
 

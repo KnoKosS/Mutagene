@@ -4,7 +4,7 @@ namespace Mgn\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgn\UserBundle\Entity\User;
 use Mgn\UserBundle\Form\UserType;
-use Symfony\Component\Security\Core\Util\SecureRandom;
+
 
 class RegistrationController extends Controller
 {

@@ -5,18 +5,8 @@ namespace Mgn\ForumBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Mgn\ForumBundle\Entity\Topic;
-use Mgn\MessageBundle\Entity\Message;
 use Mgn\ForumBundle\Entity\View;
-use Mgn\ForumBundle\Entity\Mark;
-use Mgn\CoreBundle\Entity\Config;
-
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
-
 use Mgn\ForumBundle\Form\TopicType;
-use Mgn\ForumBundle\Form\PostType;
-use Mgn\ForumBundle\Form\TopicTitreType;
-use Mgn\ForumBundle\Form\MoveTopicType;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

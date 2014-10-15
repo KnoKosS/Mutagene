@@ -3,13 +3,7 @@
  
 namespace Mgn\CoreBundle\Twig\Extension;
 
-use Mgn\CoreBundle\Entity\Config;
-use Mgn\CoreBundle\Entity\ConfigRepository;
 use Mgn\CoreBundle\Entity\Theme;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\DoctrineBundle\Registry;
-use Mgn\UserBundle\Entity\User;
 
 use Symfony\Component\Security\Core\SecurityContextInterface;
  

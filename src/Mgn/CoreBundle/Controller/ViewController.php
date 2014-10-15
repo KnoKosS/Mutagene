@@ -3,8 +3,8 @@
 namespace Mgn\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
+
+
 
 
 class ViewController extends Controller

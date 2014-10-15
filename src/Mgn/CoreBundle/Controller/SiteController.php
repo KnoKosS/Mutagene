@@ -4,10 +4,10 @@ namespace Mgn\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Doctrine\ORM\EntityManager;
+
 use Mgn\CoreBundle\Form\ConfigType;
 use Mgn\CoreBundle\Form\ModulesType;
-use Symfony\Component\HttpFoundation\Request;
+
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
