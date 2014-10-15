@@ -490,8 +490,6 @@ class ActionController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-		//$user = $this->container->get('security.context')->getToken()->getUser();
-
 		// acl
         $forumAclDelete = 0;
 
