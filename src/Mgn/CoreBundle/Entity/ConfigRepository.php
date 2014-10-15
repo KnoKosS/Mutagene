@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class ConfigRepository extends EntityRepository
 {
-	public function FindConfigAndTheme()
+	public function findConfigAndTheme()
 	{
 		$qb = $this->createQueryBuilder('c');
 		$qb->leftjoin('c.theme', 't');

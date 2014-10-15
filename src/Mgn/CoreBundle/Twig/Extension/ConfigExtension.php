@@ -60,7 +60,7 @@ class ConfigExtension extends \Twig_Extension
 	/**
 	* @param string $test
 	*/
-	public function Config($variable)
+	public function config($variable)
     {
     	$get = 'get'.$variable;
 		

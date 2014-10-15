@@ -77,7 +77,7 @@ class ThemeExtension extends \Twig_Extension
 	/**
 	* @param string $test
 	*/
-	public function Theme($variable)
+	public function theme($variable)
     {
     	$get = 'get'.$variable;
 		

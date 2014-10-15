@@ -11,7 +11,7 @@ class AclController extends Controller
     /**
     * @Secure(roles="IS_AUTHENTICATED_REMEMBERED, ROLE_SUPER_ADMIN")
     */
-  public function AclsAction($groupId, $groupSlug, $role, $forumId)
+  public function aclsAction($groupId, $groupSlug, $role, $forumId)
   {
     $groups = $this->getDoctrine()
               ->getManager()
@@ -195,7 +195,7 @@ class AclController extends Controller
   /**
     * @Secure(roles="IS_AUTHENTICATED_REMEMBERED, ROLE_SUPER_ADMIN")
     */
-  public function AclsUserAction($userId, $usernameCanonical, $role, $forumId)
+  public function aclsUserAction($userId, $usernameCanonical, $role, $forumId)
   {
     /*$groups = $this->getDoctrine()
                          ->getManager()
@@ -383,7 +383,7 @@ class AclController extends Controller
   /**
     * @Secure(roles="IS_AUTHENTICATED_REMEMBERED, ROLE_SUPER_ADMIN")
     */
-  public function AclsForumAction($forumId, $forumSlug, $role)
+  public function aclsForumAction($forumId, $forumSlug, $role)
   {
     //on récupère les informations sur la categorie
     $forum = $this->getDoctrine()

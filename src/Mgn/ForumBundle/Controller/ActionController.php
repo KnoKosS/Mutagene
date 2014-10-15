@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ActionController extends Controller
 {
-    private function Active()
+    private function active()
     {
         $config = $this->container->get('mgn.config');
         
