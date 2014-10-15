@@ -2,6 +2,16 @@
 
 services:
 
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.loader:
+        class: Twig_Extension_StringLoader
+        tags:
+            - { name: twig.extension }
+
     mgn.config:
         class: Mgn\CoreBundle\Twig\Extension\ConfigExtension
         arguments: [@doctrine]

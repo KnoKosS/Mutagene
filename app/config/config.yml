@@ -79,13 +79,3 @@ stof_doctrine_extensions:
 
 ornicar_gravatar:
     size: 150
-
-services:
-    twig.extension.text:
-        class: Twig_Extensions_Extension_Text
-        tags:
-            - { name: twig.extension }
-    twig.extension.loader:
-        class: Twig_Extension_StringLoader
-        tags:
-            - { name: twig.extension }
