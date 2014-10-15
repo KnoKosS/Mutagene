@@ -10,19 +10,19 @@ class ArticleTitleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',    'text')
+            ->add('title', 'text')
         ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Mgn\ArticleBundle\Entity\Article',
+        ));
     }
 
     public function getName()
     {
         return 'mgn_articlebundle_articletitletype';
-    }
-
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'data_class' => 'Mgn\ArticleBundle\Entity\Article',
-        );
     }
 }
