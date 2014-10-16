@@ -26,7 +26,7 @@ class ArticleEditType extends AbstractType
             ->add('category', 'entity', array(
                                         'class' => 'MgnArticleBundle:Category', 
                                         'property' => 'name',
-                                        'query_builder' => function (EntityRepository $repository) 
+                                        'query_builder' => function ($repository) 
                                         {
                                             $qb = $repository->createQueryBuilder('c'); 
                                             $qb->add('orderBy', 'c.name'); 
@@ -37,7 +37,7 @@ class ArticleEditType extends AbstractType
             ->add('author', 'entity', array(
                                         'class' => 'MgnUserBundle:User', 
                                         'property' => 'username',
-                                        'query_builder' => function (EntityRepository $repository) 
+                                        'query_builder' => function ($repository) 
                                         {
                                             $qb = $repository->createQueryBuilder('u');
                                             $qb->add('where', 'u.isActive = 1'); 

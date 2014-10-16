@@ -15,7 +15,7 @@ class ForumType extends AbstractType
             ->add('category', 'entity', array(
                                         'class' => 'MgnForumBundle:Category', 
                                         'property' => 'name',
-                                        'query_builder' => function (EntityRepository $repository) 
+                                        'query_builder' => function ($repository) 
                                         {
                                             $qb = $repository->createQueryBuilder('c');
                                             $qb->add('orderBy', 'c.sort'); 

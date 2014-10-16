@@ -26,11 +26,10 @@ class ArticleType extends AbstractType
             ->add('category', 'entity', array(
                                         'class' => 'MgnArticleBundle:Category', 
                                         'property' => 'name',
-                                        'query_builder' => function (EntityRepository $repository) 
+                                        'query_builder' => function($er)
                                         {
-                                            $qb = $repository->createQueryBuilder('c'); 
-                                            $qb->add('orderBy', 'c.name'); 
-                                            return $qb;
+                                            return $qb = $er->createQueryBuilder('c')
+                                                ->add('orderBy', 'c.name');
                                         },
                                         'preferred_choices' => array(),
                                         ))

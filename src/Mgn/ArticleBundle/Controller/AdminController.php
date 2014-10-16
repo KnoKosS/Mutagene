@@ -287,6 +287,12 @@ class AdminController extends Controller
                       	 ->getRepository('MgnArticleBundle:Article')
                       	 ->findOneArticle($id);
 
+        if ($article->getStatus() != 'publish')
+        {
+        	$article->setDate(new \Datetime());
+        	$article->setDateTop(new \Datetime());
+        }
+
         $form = $this->createForm(new ArticlePublishType, $article);
 
 		// On récupère le formulaire et on le traite
