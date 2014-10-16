@@ -28,7 +28,7 @@ class ArticleType extends AbstractType
                                         'property' => 'name',
                                         'query_builder' => function($er)
                                         {
-                                            return $qb = $er->createQueryBuilder('c')
+                                            return $er->createQueryBuilder('c')
                                                 ->add('orderBy', 'c.name');
                                         },
                                         'preferred_choices' => array(),
