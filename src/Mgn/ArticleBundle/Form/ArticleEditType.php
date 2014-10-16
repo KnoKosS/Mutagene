@@ -26,7 +26,7 @@ class ArticleEditType extends AbstractType
             ->add('category', 'entity', array(
                                         'class' => 'MgnArticleBundle:Category', 
                                         'property' => 'name',
-                                        'query_builder' => function ($repository) 
+                                        'query_builder' => function (EntityRepository $repository) 
                                         {
                                             $qb = $repository->createQueryBuilder('c'); 
                                             $qb->add('orderBy', 'c.name'); 
