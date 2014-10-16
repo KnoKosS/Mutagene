@@ -309,14 +309,14 @@ class User implements AdvancedUserInterface, \Serializable
       ) = unserialize($serialized);
   }
 
-  public function setIsActive($isActive)
+  public function setActive($isActive)
   {
       $this->isActive = $isActive;
   
       return $this;
   }
 
-  public function getIsActive()
+  public function getActive()
   {
       return $this->isActive;
   }
