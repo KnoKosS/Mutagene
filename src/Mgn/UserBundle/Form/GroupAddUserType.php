@@ -15,7 +15,7 @@ class GroupAddUserType extends AbstractType
             ->add('user', 'entity', array(
                                         'class' => 'MgnUserBundle:User', 
                                         'property' => 'username',
-                                        'query_builder' => function ($repository) 
+                                        'query_builder' => function (EntityRepository $repository) 
                                         {
                                             $qb = $repository->createQueryBuilder('u');
                                             $qb->add('where', 'u.isActive = 1'); 

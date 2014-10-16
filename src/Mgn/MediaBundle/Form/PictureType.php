@@ -15,7 +15,7 @@ class PictureType extends AbstractType
             ->add('gallery', 'entity', array(
                                         'class' => 'MgnMediaBundle:Gallery', 
                                         'property' => 'name',
-                                        'query_builder' => function ($repository) 
+                                        'query_builder' => function (EntityRepository $repository) 
                                         {
                                             $qb = $repository->createQueryBuilder('g'); 
                                             $qb->add('orderBy', 'g.name'); 
