@@ -38,6 +38,38 @@
 	<script src="{{ asset('admin/assets/modernizr/modernizr.js') }}"></script>
 
 	<style>
+	ul#contents-load{
+      list-style:none;
+      /*height:140px;*/
+      padding: 0px;
+      margin: 0px;
+    }
+    /* style des éléments de la liste */
+    #contents-load section{
+      cursor:move;
+      list-style:none;
+      /*height:100px;*/
+      /*width:75px;*/
+      /*float:left;*/
+      /*margin-right:10px;*/
+      background:#fff;
+      color:#212326;
+      /*font-size:12px;*/
+      /*-moz-box-shadow:2px 2px 5px #ccc;*/
+    }
+    /* style de l'élément fantome, qui apparait losque que l'on bouge un élément */
+    #contents-load section.highlight{
+      background:#f8f8f8;
+      border:1px dashed #787878;
+      height: 50px;
+      margin-bottom: 20px;
+    }
+
+    #contents-load h1, #contents-load h2, #contents-load h3, #contents-load p
+    {
+      margin: 0px;
+    }
+
 	.flex-video {
 	position: relative;
 	padding-top: 25px;
@@ -873,6 +905,7 @@
 
 			<!-- Vendor -->
 			<script src="{{ asset('admin/assets/jquery/jquery.js') }}"></script>
+			<script src="{{ asset('admin/assets/jquery-ui/jquery-ui.min.js') }}"></script>
 			<script src="{{ asset('admin/assets/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
 			<script src="{{ asset('admin/assets/bootstrap/js/bootstrap.js') }}"></script>
 			<script src="{{ asset('admin/assets/nanoscroller/nanoscroller.js') }}"></script>
@@ -892,9 +925,271 @@
 			<!-- Theme Initialization Files -->
 			<script src="{{ asset('admin/js/theme.init.js') }}"></script>
 
+    		<script src="{{ asset('admin/assets/jquery-elastic/jquery.elastic.source.js') }}"></script>
+
 			<script>
 			<!--
-			$('input#articleSearch').quicksearch('table#articleList tbody tr');
+			$(document).ready(function()
+			{
+				
+				$('input#articleSearch').quicksearch('table#articleList tbody tr');
+
+		        $( ".textarea_elastic" ).elastic();
+
+				//////////////////////////////////////////////
+				// Gestion articles
+				//////////////////////////////////////////////
+
+		        $( ".loader" ).hide();
+
+		        // edition du contenu
+		        $(document).on('click', '.content-edit', function(e) {
+		            var idsection = $(this).parents('section').attr('id');
+		            var actionedit = $(this).attr('href');
+		            
+		            $.ajax({
+		                type: "GET",
+		                url: actionedit,
+		                timeout: 3000,
+		                success: function(data){
+		                    $("#"+idsection).replaceWith(data);
+		                    $( ".loader" ).hide();
+		                    $( ".textarea_elastic" ).elastic();
+		                    $( ".formcontent").focus();
+		                },
+		                error: function(data) {
+		                   alert(data);
+		                   alert("Une erreur s'est produite pendant l'édition de vos données.");
+		                   $( ".loader" ).hide();
+		                 }
+		            });
+		            e.preventDefault();
+		        });
+
+		        // sauvegarde du contenu
+		        $(document).on('click', '.content-save', function() {
+		            var idform = $(this).parents('form:first').attr('id');
+		            var actionform = $(this).parents('form:first').attr('action');
+		            var form = $(this).parents('form:first');
+		            $( "#"+$(this).parents('form:first').attr('id')+" .loader" ).show();
+		            var idsection = $(this).parents('section').attr('id');
+
+		            $.ajax({
+		                type: "POST",
+		                url: actionform,
+		                data: $(form).serialize(),
+		                timeout: 3000,
+		                success: function(data){
+		                    $( ".loader" ).hide();
+		                    $("#"+idsection).replaceWith(data);
+		                },
+		                error: function(data) {
+		                   //alert(data);
+		                   alert("Une erreur s'est produite pendant l'enregistrement de vos données.");
+		                   $( ".loader" ).hide();
+		                 }
+		            });
+		        });
+
+				// suppression du contenu
+		        $(document).on('click', '.content-delete', function(e) {
+		            var idform = $(this).parents('section').attr('id');
+		            var actiondelete = $(this).attr('href');
+		            $( "#"+$(this).parents('form:first').attr('id')+" .loader" ).show();
+		            
+		            $.ajax({
+		                type: "GET",
+		                url: actiondelete,
+		                timeout: 3000,
+		                success: function(data){
+		                    $( "#"+idform ).remove();
+		                    $( ".loader" ).hide();
+		                },
+		                error: function(data) {
+		                   alert(data);
+		                   alert("Une erreur s'est produite pendant la suppression de vos données.");
+		                   $( ".loader" ).hide();
+		                 }
+		            });
+		            e.preventDefault();
+		        });
+
+		        // Gestion du block d'ajout de contenu
+		        $( ".contents-add-over" ).hide();
+
+		        $('.contents-add').mouseover(function() {
+		            $( ".contents-add-out" ).hide();
+		            $( ".contents-add-over" ).show();
+		        });
+
+		        $('.contents-add').mouseout(function() {
+		            $( ".contents-add-out" ).show();
+		            $( ".contents-add-over" ).hide();
+		        });
+
+		        $('.contents-add-link').click(function(e) {
+		            var href = $(this).attr('href');
+		            $.ajax({
+		                type: "GET",
+		                url: href,
+		                timeout: 3000,
+		                success: function(data){
+		                    $("#contents-load").append(data);
+		                    $( ".loader" ).hide();
+		                    $( ".textarea_elastic" ).elastic();
+		                    $( ".formcontent").focus();
+		                },
+		                error: function(data) {
+		                   alert(data);
+		                   alert("Une erreur s'est produite pendant la génération du contenu.");
+		                   $( ".loader" ).hide();
+		                 }
+		            });
+		            e.preventDefault();
+		        });
+
+		        // Gestion sortable jquery ui
+		        $(document).ready( function(){ // quand la page a fini de se charger
+		            $("#contents-load").sortable({ // initialisation de Sortable sur #list-photos
+		                placeholder: 'highlight', // classe à ajouter à l'élément fantome
+		                update: function(event, ui) {   
+		                    var order = $("#contents-load").sortable('toArray').toString();
+		                    var path = $("#contents-load").attr("data-path");
+
+		                    //alert(order);
+
+		                    $.ajax({
+		                        type: "POST",
+		                        url: path,
+		                        async: true,
+		                        cache: false,
+		                        dataType: "json",
+		                        data:{
+		                            order: order // Passes ID's of list items in  1,3,2 format
+		                        },
+		                        timeout: 3600,
+		                        cache: false,
+		                        success: function(response) {
+		                            //alert(response.info);
+		                            $( ".loader" ).hide(); // Hide the loading animation
+		                            return; 
+		                        },
+		                        error: function(response) {  // This can be expanded to provide more information
+		                            alert(response.info);
+		                            // alert('There was an error saving the updates');
+		                            $( ".loader" ).hide(); // Hide the loading animation
+		                            return; 
+		                        }
+		                    });
+		                }
+		                    
+		            });
+		            $("#contents-load").disableSelection(); // on désactive la possibilité au navigateur de faire des sélections
+		        });
+
+			});
+			-->
+			</script>
+
+			<scrip>
+			<!--
+			$(document).ready(function(){
+
+		        $( "#mgn_articlebundle_articletype_header_loader" ).hide();
+
+
+		        $('#pictureHeaderView').append('<img class="img-responsive img-thumbnail" src="' + $(".picture").val() + '" title="" />');
+
+		        $('.picture').blur(function() {
+		            var pictureView = $(this).val();
+		            // Le loader d'attente
+		            $( "#mgn_articlebundle_articletype_header_loader" ).show();
+
+		            // On retire les img de la div et on insère la nouvelle
+		            $('#pictureHeaderView img').remove();
+		            $('#pictureHeaderView').append('<img class="img-responsive img-thumbnail" src="' + pictureView + '" title="" />');
+
+		            // On enregistre les modifications de l'article
+
+		            // Fin du loader d'attente
+		            $( "#mgn_articlebundle_articletype_header_loader" ).hide();
+		        });
+
+		        $(document).on('click', '.article-content-edit', function(e) {
+		            $( "#"+$(this).attr('id')+" .loader:first" ).show();
+		            var id = $(this).attr('id');
+		            var actionedit = $(this).attr('data-path');
+		            
+		            $.ajax({
+		                type: "GET",
+		                url: actionedit,
+		                timeout: 3000,
+		                success: function(data){
+		                    $("#"+id).replaceWith(data);
+		                    $( ".loader" ).hide();
+		                    $( ".textarea_elastic" ).elastic();
+		                    $( ".form").focus();
+		                },
+		                error: function(data) {
+		                   alert(data);
+		                   alert("Une erreur s'est produite pendant l'édition de vos données.");
+		                   $( ".loader" ).hide();
+		                 }
+		            });
+		            e.preventDefault();
+		        });
+
+		        $(document).on('click', '.article-content-cancel', function(e) {
+		            $( "#"+$(this).parents('form:first').attr('id')+" .loader" ).show();
+		            var id = $(this).parents('form:first').attr('id');
+		            var actioncancel = $(this).attr('data-path');
+		            
+		            $.ajax({
+		                type: "GET",
+		                url: actioncancel,
+		                timeout: 3000,
+		                success: function(data){
+		                    $("#"+id).replaceWith(data);
+		                    $( ".loader" ).hide();
+		                },
+		                error: function(data) {
+		                   alert(data);
+		                   alert("Une erreur s'est produite pendant l'édition de vos données.");
+		                   $( ".loader" ).hide();
+		                 }
+		            });
+		            e.preventDefault();
+		        });
+
+		        $(document).on('click', '.article-content-save', function(e) {
+		            $( "#"+$(this).parents('form:first').attr('id')+" .loader" ).show();
+		            var idform = $(this).parents('form:first').attr('id');
+		            var actionform = $(this).parents('form:first').attr('action');
+		            var form = $(this).parents('form:first');
+
+		            $.ajax({
+		                type: "POST",
+		                url: actionform,
+		                data: $(form).serialize(),
+		                timeout: 3000,
+		                success: function(data){
+		                    $("#"+idform).replaceWith(data);
+		                    $( ".loader" ).hide();
+		                },
+		                error: function(data) {
+		                   //alert(data);
+		                   alert("Une erreur s'est produite pendant l'enregistrement de vos données.");
+		                   $( ".loader" ).hide();
+		                 }
+		            });
+		            e.preventDefault();
+		        });
+
+		        
+
+		        
+
+		    });
 			-->
 			</script>
 		</section>
