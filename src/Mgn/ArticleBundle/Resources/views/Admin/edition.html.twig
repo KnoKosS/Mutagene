@@ -15,19 +15,19 @@
 
 			<section class="panel">
 
-				<header class="panel-heading">
+				<div class="panel-body" style="background-color: #f6f6f6;">
 
-					<h4><i class="fi-pencil"></i> Rédaction d'article</h4>
+					<h1 id="article-edit-title" class="article-content-edit" style="color: #ff6c5f; font-weight: bold; margin-bottom: 20px;" data-path="{{ path('mgn_admin_article_edit_title', {'article': article.id, 'action': 'edit'}) }}">{{ article.title }} <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" /></h1>
 
-				</header>
+					<p><a href="" class="pull-right text-info"><small>Editer</small></a></p>
+
+				</div>
 
 			</section>
 
 			<section class="panel">
 
-				<div class="panel-body">
-
-					<h1 id="article-edit-title" class="article-content-edit" style="color: #ff6c5f; font-weight: bold; margin-bottom: 20px;" data-path="{{ path('mgn_admin_article_edit_title', {'article': article.id, 'action': 'edit'}) }}">{{ article.title }} <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" /></h1>
+				<div class="panel-body" style="background-color: #f6f6f6;">
 
 					{% if article.header is empty %}
 
@@ -38,6 +38,16 @@
 			        	<img class="img-responsive img-thumbnail" src="{{ article.header }}" title="" />
 
 			        {% endif %}
+
+					<p><a href="" class="pull-right text-info"><small>Editer</small></a></p>
+
+				</div>
+
+			</section>
+
+			<section class="panel">
+
+				<div class="panel-body" style="background-color: #f6f6f6;">
 
 					<p id="article-edit-introduction" class="article-content-edit text-justify" style="margin-top: 20px;" data-path="{{ path('mgn_admin_article_edit_introduction', {'article': article.id, 'action': 'edit'}) }}"><strong>
 
@@ -52,6 +62,8 @@
 				        {% endif %}
 
 			        </strong></p>
+
+					<p><a href="" class="pull-right text-info"><small>Editer</small></a></p>
 
 				</div>
 

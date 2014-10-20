@@ -4,6 +4,8 @@
 
 		<div class="flex-video widescreen" style="margin: 0 auto;text-align:center;">{{ content.video|mcodevideo|raw }}</div>
 
+		<img id="loader{{ content.id }}" class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
+
 		<p><a href="{{ path('mgn_content', {'container': 'article', 'id': article.id, 'content': content.id, 'type': 'video', 'action': 'edit'})}}" class="pull-right text-info content-edit"><small>Editer</small></a></p>
 
 	</div>
