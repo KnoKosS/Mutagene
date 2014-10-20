@@ -11,6 +11,8 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="">
 	<meta name="author" content="KnoKosS">
+    <link rel="shortcut icon" href="{{ asset('admin/favicon-mutagene.png') }}">
+
 
 	<!-- Mobile Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -352,7 +354,7 @@
 								<ul class="nav nav-main">
 									<li class="{% block sidebar_dashboard %}{% endblock %}">
 										<a href="{{ path('mgn_admin_homepage') }}">
-											<i class="fa fa-home" aria-hidden="true"></i>
+											<i class="fa fa-line-chart" aria-hidden="true"></i>
 											<span>Tableau de bord</span>
 										</a>
 									</li>
@@ -401,7 +403,7 @@
 									</li>
 									<li class="">
 										<a href="">
-											<i class="fi-monitor"></i>
+											<i class="fa fa-paint-brush"></i>
 											<span>Apparence</span>
 										</a>
 									</li>
@@ -946,6 +948,8 @@
 		        $(document).on('click', '.content-edit', function(e) {
 		            var idsection = $(this).parents('section').attr('id');
 		            var actionedit = $(this).attr('href');
+
+		            $( "#loader"+idsection ).show();
 		            
 		            $.ajax({
 		                type: "GET",
@@ -954,6 +958,7 @@
 		                success: function(data){
 		                    $("#"+idsection).replaceWith(data);
 		                    $( ".loader" ).hide();
+		            		$( "#loader"+idsection ).hide();
 		                    $( ".textarea_elastic" ).elastic();
 		                    $( ".formcontent").focus();
 		                },
@@ -961,6 +966,7 @@
 		                   alert(data);
 		                   alert("Une erreur s'est produite pendant l'édition de vos données.");
 		                   $( ".loader" ).hide();
+		            		$( "#loader"+idsection ).hide();
 		                 }
 		            });
 		            e.preventDefault();
@@ -982,11 +988,13 @@
 		                success: function(data){
 		                    $( ".loader" ).hide();
 		                    $("#"+idsection).replaceWith(data);
+		            		$( "#loader"+idsection ).hide();
 		                },
 		                error: function(data) {
 		                   //alert(data);
 		                   alert("Une erreur s'est produite pendant l'enregistrement de vos données.");
 		                   $( ".loader" ).hide();
+		            		$( "#loader"+idsection ).hide();
 		                 }
 		            });
 		        });
@@ -1087,35 +1095,9 @@
 		            $("#contents-load").disableSelection(); // on désactive la possibilité au navigateur de faire des sélections
 		        });
 
-			});
-			-->
-			</script>
-
-			<scrip>
-			<!--
-			$(document).ready(function(){
-
-		        $( "#mgn_articlebundle_articletype_header_loader" ).hide();
 
 
-		        $('#pictureHeaderView').append('<img class="img-responsive img-thumbnail" src="' + $(".picture").val() + '" title="" />');
-
-		        $('.picture').blur(function() {
-		            var pictureView = $(this).val();
-		            // Le loader d'attente
-		            $( "#mgn_articlebundle_articletype_header_loader" ).show();
-
-		            // On retire les img de la div et on insère la nouvelle
-		            $('#pictureHeaderView img').remove();
-		            $('#pictureHeaderView').append('<img class="img-responsive img-thumbnail" src="' + pictureView + '" title="" />');
-
-		            // On enregistre les modifications de l'article
-
-		            // Fin du loader d'attente
-		            $( "#mgn_articlebundle_articletype_header_loader" ).hide();
-		        });
-
-		        $(document).on('click', '.article-content-edit', function(e) {
+				$(document).on('click', '.article-content-edit', function(e) {
 		            $( "#"+$(this).attr('id')+" .loader:first" ).show();
 		            var id = $(this).attr('id');
 		            var actionedit = $(this).attr('data-path');
@@ -1184,6 +1166,36 @@
 		            });
 		            e.preventDefault();
 		        });
+
+			});
+			-->
+			</script>
+
+			<scrip>
+			<!--
+			$(document).ready(function(){
+
+		        $( "#mgn_articlebundle_articletype_header_loader" ).hide();
+
+
+		        $('#pictureHeaderView').append('<img class="img-responsive img-thumbnail" src="' + $(".picture").val() + '" title="" />');
+
+		        $('.picture').blur(function() {
+		            var pictureView = $(this).val();
+		            // Le loader d'attente
+		            $( "#mgn_articlebundle_articletype_header_loader" ).show();
+
+		            // On retire les img de la div et on insère la nouvelle
+		            $('#pictureHeaderView img').remove();
+		            $('#pictureHeaderView').append('<img class="img-responsive img-thumbnail" src="' + pictureView + '" title="" />');
+
+		            // On enregistre les modifications de l'article
+
+		            // Fin du loader d'attente
+		            $( "#mgn_articlebundle_articletype_header_loader" ).hide();
+		        });
+
+		        
 
 		        
 
