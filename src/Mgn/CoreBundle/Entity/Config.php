@@ -184,6 +184,13 @@ class Config {
      */
     private $totalTopics;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="totalMessages", type="bigint", nullable=true)
+     */
+    private $totalMessages;
+
     public function __construct()
     {
         $datetime = new \Datetime();
@@ -214,6 +221,7 @@ class Config {
         $this->totalArticlesDraft = 0;
         $this->totalPosts = 0;
         $this->totalTopics = 0;
+        $this->totalMessages = 0;
     }
 
 	public function setCms($cms) {
@@ -561,6 +569,29 @@ class Config {
     public function getTotalPosts()
     {
         return $this->totalPosts;
+    }
+
+    /**
+     * Set totalMessages
+     *
+     * @param integer $totalMessages
+     * @return Config
+     */
+    public function setTotalMessages($totalMessages)
+    {
+        $this->totalMessages = $totalMessages;
+    
+        return $this;
+    }
+
+    /**
+     * Get totalMessages
+     *
+     * @return integer 
+     */
+    public function getTotalMessages()
+    {
+        return $this->totalMessages;
     }
 
     /**

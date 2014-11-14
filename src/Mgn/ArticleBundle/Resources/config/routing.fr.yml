@@ -71,6 +71,12 @@ mgn_admin_article_edit_introduction:
     requirements:
         article:  \d+
 
+mgn_admin_article_edit_header:
+    pattern:   /admin/article/edition/entete/{article}/{action}
+    defaults:  { _controller: MgnArticleBundle:Admin:editHeader, action: null }
+    requirements:
+        article:  \d+
+
 mgn_admin_article_publish:
     pattern:   /admin/article/publier/{id}
     defaults:  { _controller: MgnArticleBundle:Admin:publish }

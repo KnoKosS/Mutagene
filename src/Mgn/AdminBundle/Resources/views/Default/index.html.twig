@@ -115,7 +115,7 @@
 						<div class="summary">
 							<h4 class="title">Articles publiés</h4>
 							<div class="info">
-								<strong class="amount">0</strong>
+								<strong class="amount">{{ Config('totalArticlesPublish') }}</strong>
 							</div>
 						</div>
 						<div class="summary-footer">
@@ -158,14 +158,39 @@
 				<div class="widget-summary">
 					<div class="widget-summary-col widget-summary-col-icon">
 						<div class="summary-icon bg-secondary">
-							<i class="fi-results-demographics"></i>
+							<i class="fi-list-thumbnails"></i>
 						</div>
 					</div>
 					<div class="widget-summary-col">
 						<div class="summary">
 							<h4 class="title">Topics créés</h4>
 							<div class="info">
-								<strong class="amount">0</strong>
+								<strong class="amount">{{ Config('totalTopics') }}</strong>
+							</div>
+						</div>
+						<div class="summary-footer">
+							<a href="{{ path('mgn_admin_article_list') }}" class="text-muted text-uppercase">(Tous les voir)</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<div class="col-md-6 col-lg-3 col-xl-3">
+		<section class="panel panel-featured-left panel-featured-secondary">
+			<div class="panel-body">
+				<div class="widget-summary">
+					<div class="widget-summary-col widget-summary-col-icon">
+						<div class="summary-icon bg-secondary">
+							<i class="fi-results-demographics"></i>
+						</div>
+					</div>
+					<div class="widget-summary-col">
+						<div class="summary">
+							<h4 class="title">Posts</h4>
+							<div class="info">
+								<strong class="amount">{{ Config('totalPosts') }}</strong>
 							</div>
 						</div>
 						<div class="summary-footer">
@@ -188,9 +213,9 @@
 					</div>
 					<div class="widget-summary-col">
 						<div class="summary">
-							<h4 class="title">Messages</h4>
+							<h4 class="title">Commentaires</h4>
 							<div class="info">
-								<strong class="amount">0</strong>
+								<strong class="amount">{{ Config('totalMessages') }}</strong>
 							</div>
 						</div>
 						<div class="summary-footer">

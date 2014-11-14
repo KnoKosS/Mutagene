@@ -28,6 +28,12 @@
 
         <div class="col-lg-12">
 
+            <h1><strong>{{ article.title }}</strong></h1>
+
+        </div>
+
+        <div class="col-lg-12">
+
             <p class="article-read-infos">
                 <i class="fa fa-calendar"></i> {{ article.date|datetime|capitalize }} 
                 <i class="fa fa-folder-open"></i> <a href="{{ path('mgn_article_archives', {'filtre': article.category.slug}) }}">{{ article.category.name }}</a> 
@@ -39,12 +45,6 @@
         <div class="col-lg-12">
 
             {% if article.header == null %}<img class="thumbnail" style="max-width: 100%;" src="{{ app.request.schemeAndHttpHost }}/img/article_header_default.png" title="" />{% else %}<img class="thumbnail" style="max-width: 100%;" src="{{ article.header }}" title="" />{% endif %}
-
-        </div>
-
-        <div class="col-lg-12">
-
-            <h1><strong>{{ article.title }}</strong></h1>
 
         </div>
 

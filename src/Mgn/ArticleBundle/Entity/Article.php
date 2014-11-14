@@ -122,6 +122,7 @@ class Article
      * @var integer $idLastComment
      *
      * @ORM\OneToOne(targetEntity="Mgn\MessageBundle\Entity\Message")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $idLastComment;
     
@@ -136,6 +137,7 @@ class Article
      * @var integer $userLastComment
      *
      * @ORM\ManyToOne(targetEntity="Mgn\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $userLastComment;
 

@@ -32,7 +32,7 @@
 {% block article_body %}
 
 			{% for message in app.session.flashbag.get('success') %}
-			<div class="alert alert-success">
+			<div class="alert alert-primary">
 	        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 	            {{ message }}
 	        </div>
@@ -142,8 +142,8 @@
 												Etes-vous sûr de vouloir supprimer l'article "<strong>{{ article.title }}</strong>" ? Cette action est irréversible !
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-												<a class="btn btn-danger" disabled="disabled" href="{{ path('mgn_admin_article_delete', {'id': article.id}) }}">Supprimer</a>
+												<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+												<a class="btn btn-danger" href="{{ path('mgn_admin_article_delete', {'id': article.id}) }}">Supprimer</a>
 											</div>
 										</div><!-- /.modal-content -->
 									</div><!-- /.modal-dialog -->

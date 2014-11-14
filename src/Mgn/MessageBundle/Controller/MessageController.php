@@ -24,6 +24,11 @@ class MessageController extends Controller
                         ->getManager()
                         ->getRepository('MgnArticleBundle:Article')
                         ->findOneArticle($id);
+
+		$config = $this->getDoctrine()
+                         ->getManager()
+                         ->getRepository('MgnCoreBundle:Config')
+                         ->findOneBy(array('cms' => 'mutagene'));
 						
 		if( $article === null )
         {
@@ -78,6 +83,8 @@ class MessageController extends Controller
 				
 				// On hydrate user
 				$user->setCountMessage($user->getCountMessage() + 1);
+
+				$config->setTotalMessages($config->getTotalMessages()+1);
 				
 				$em->persist($message);
 				$em->persist($article);

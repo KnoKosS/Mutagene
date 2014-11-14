@@ -1,0 +1,31 @@
+<section id="article-header" class="panel">
+
+	<div class="panel-body" style="background-color: #f6f6f6;">
+
+		<form id="form_header_{{ article.id }}" action="{{ path('mgn_admin_article_edit_header', {'article': article.id, 'action': 'save'}) }}" method="post" {{ form_enctype(form_article) }} class="form-horizontal" role="form" style="padding-top: 25px; padding-bottom: 20px;">
+
+		    <div class="form-group">
+
+			    <div class="col-lg-12">
+			        
+			        <label for="mgn_articlebundle_articleheadertype">Url de l'image <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" /></label>
+
+			        {{ form_widget(form_article.header, { 'attr' : { 'class' : 'form-control formcontent' } }) }}
+
+			    </div>
+
+		    </div>
+		        
+		    {{ form_rest(form_article) }}
+
+			<div class="pull-right">
+
+				<button type="button" class="btn btn-primary btn-xs content-save">Enregistrer</button>
+
+			</div>
+
+		</form>
+
+	</div>
+
+</section>

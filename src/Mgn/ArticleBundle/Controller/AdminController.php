@@ -6,9 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Mgn\ArticleBundle\Entity\Category;
 use Mgn\ArticleBundle\Form\CategoryType;
 use Mgn\ArticleBundle\Entity\Article;
-use Mgn\ArticleBundle\Form\ArticlePublishType;
+use Mgn\ArticleBundle\Form\ArticleType;
 use Mgn\ArticleBundle\Form\ArticleTitleType;
 use Mgn\ArticleBundle\Form\ArticleIntroductionType;
+use Mgn\ArticleBundle\Form\ArticleHeaderType;
 use Symfony\Component\HttpFoundation\Response;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -287,69 +288,151 @@ class AdminController extends Controller
                       	 ->getRepository('MgnArticleBundle:Article')
                       	 ->findOneArticle($id);
 
+		$config = $this->getDoctrine()
+                         ->getManager()
+                         ->getRepository('MgnCoreBundle:Config')
+                         ->findOneBy(array('cms' => 'mutagene'));
+
+        $article->setUrl($article->getSlug());
+
+        $article2 = clone $article;
+
         if ($article->getStatus() != 'publish')
         {
         	$article->setDate(new \Datetime());
         	$article->setDateTop(new \Datetime());
         }
 
-        $form = $this->createForm(new ArticlePublishType, $article);
+        $form = $this->createForm(new ArticleType, $article);
 
 		// On récupère le formulaire et on le traite
 		$request = $this->get('request');
 
-		// On vérifie qu'elle est de type « AJAX ».
-	    if($request->isXmlHttpRequest())
+		// On vérifie qu'elle est de type « POST ».
+	    if( $request->getMethod() == 'POST' )
 	    {
-	    	$form_article_title->bind($request);
-
-	        if( $form_article_title->isValid() )
+	        // On fait le lien Requête <-> Formulaire.
+	        $form->bind($request);
+	
+	        // On vérifie que les valeurs rentrées sont correctes.
+	        if( $form->isValid() )
 	        {
-	        	$em = $this->container->get('doctrine')->getManager();
+	            // On l'enregistre notre objet $article dans la base de données.
+	            $em = $this->getDoctrine()->getManager();
 
-	        	if ($article->getTitle() === null)
-	        	{
-	        		$article->setTitle('Sans titre');
-	        	}
+	            if ($article->getUrl() === null)
+	            {
+	            	$article->setUrl($article->getTitle());
+	            }
 
-		        $article->setUrl($article->getTitle());
+	            // Gestion du comptage pour les auteurs des articles
+				if ($article2->getAuthor() == $article->getAuthor())
+				{
+					if ($article2->getStatus() == 'publish' && $article->getStatus() != 'publish')
+					{
+						$countArticle = $article->getAuthor()->getCountArticle();
+						$article->getAuthor()->setCountArticle($countArticle-1);
+					}
+					elseif ($article2->getStatus() != 'publish' && $article->getStatus() == 'publish')
+					{
+						$countArticle = $article->getAuthor()->getCountArticle();
+						$article->getAuthor()->setCountArticle($countArticle+1);
+					}
+				}
+				else
+				{
+					if ($article2->getStatus() == 'publish')
+					{
+						$countArticle = $article2->getAuthor()->getCountArticle();
+						$article2->getAuthor()->setCountArticle($countArticle-1);
+					}
 
-		        $em->persist($article);
+					if ($article->getStatus() == 'publish')
+					{
+						$countArticle = $article->getAuthor()->getCountArticle();
+						$article->getAuthor()->setCountArticle($countArticle+1);
+					}
+				}	
+
+				// Gestion du comptage dans les catégories d'article
+				if ($article2->getCategory() == $article->getCategory())
+				{
+					if ($article2->getStatus() == 'publish' && $article->getStatus() != 'publish')
+					{
+						$countNews = $article->getCategory()->getCountNews();
+						$article->getCategory()->setCountNews($countNews-1);
+					}
+					elseif ($article2->getStatus() != 'publish' && $article->getStatus() == 'publish')
+					{
+						$countNews = $article->getCategory()->getCountNews();
+						$article->getCategory()->setCountNews($countNews+1);
+					}
+				}
+				else
+				{
+					if ($article2->getStatus() == 'publish')
+					{
+						$countNews = $article2->getCategory()->getCountNews();
+						$article2->getCategory()->setCountNews($countNews-1);
+					}
+
+					if ($article->getStatus() == 'publish')
+					{
+						$countNews = $article->getCategory()->getCountNews();
+						$article->getCategory()->setCountNews($countNews+1);
+					}
+				}
+
+				// Gestion du comptage total des articles
+				if ($article2->getStatus() != $article->getStatus())
+				{
+					if ($article2->getStatus() == 'publish')
+					{
+						$config->setTotalArticlesPublish($config->getTotalArticlesPublish()-1);
+					}
+
+					if ($article2->getStatus() == 'draft')
+					{
+						$config->setTotalArticlesDraft($config->getTotalArticlesDraft()-1);
+					}
+
+					if ($article2->getStatus() == 'pending')
+					{
+						$config->setTotalArticlesPending($config->getTotalArticlesPending()-1);
+					}
+
+					if ($article->getStatus() == 'publish')
+					{
+						$config->setTotalArticlesPublish($config->getTotalArticlesPublish()+1);
+					}
+
+					if ($article->getStatus() == 'draft')
+					{
+						$config->setTotalArticlesDraft($config->getTotalArticlesDraft()+1);
+					}
+
+					if ($article->getStatus() == 'pending')
+					{
+						$config->setTotalArticlesPending($config->getTotalArticlesPending()+1);
+					}
+				}
+
+				$em->persist($article);
 				$em->flush();
+				
+				//message de confirmation
+				$this->get('session')->getFlashBag()->add('success', 'Votre article à bien été enregistré.');
+				
+				// On redirige vers la page d'accueil, par exemple.
+	            return $this->redirect( $this->generateUrl('mgn_admin_article_list'));
 	        }
-
-	    	$form_article_header->bind($request);
-
-	        if( $form_article_header->isValid() )
-	        {
-	        	$em = $this->container->get('doctrine')->getManager();
-
-		        $em->persist($article);
-				$em->flush();
-	        }
-
-	    	$form_article_introduction->bind($request);
-
-	        if( $form_article_introduction->isValid() )
-	        {
-	        	$em = $this->container->get('doctrine')->getManager();
-
-		        $em->persist($article);
-				$em->flush();
-	        }
-
-			$return=array("responseCode"=>400, "greeting"=>"You have to write your name!");
-			$return=json_encode($return);//jscon encode the array
-   			return new Response($return,200,array('Content-Type'=>'application/json'));//make sure it has the correct content type
 	    }
-	    else
-	    {
-	    	return $this->render('MgnArticleBundle:Admin:edition.html.twig', array(
-	            'categories' => $categories,
-	            'article' => $article,
-            	'form' => $form->createView(),
-			));
-	    }
+	    
+    	return $this->render('MgnArticleBundle:Admin:edition.html.twig', array(
+            'categories' => $categories,
+            'article' => $article,
+        	'form' => $form->createView(),
+		));
 		
 	}
 
@@ -469,164 +552,131 @@ class AdminController extends Controller
 	/**
    	* @Secure(roles="ROLE_ARTICLE_AUTHOR")
    	*/
-	public function deleteAction($id)
-	{
-		
-	}
-
-	/**
-   	* @Secure(roles="ROLE_ARTICLE_AUTHOR")
-   	*/
-	public function publishAction($id)
+	public function editHeaderAction($article, $action)
 	{
 		// On récupère les entitées dont on aura besoin
 		$article = $this->getDoctrine()
                       	 ->getManager()
                       	 ->getRepository('MgnArticleBundle:Article')
-                      	 ->find($id);
-
-		$config = $this->getDoctrine()
-                         ->getManager()
-                         ->getRepository('MgnCoreBundle:Config')
-                         ->findOneBy(array('cms' => 'mutagene'));
+                      	 ->find($article);
 
         $em = $this->container->get('doctrine')->getManager();
 
-        $article2 = clone $article;
-
-        $article->setUrl($article->getSlug());
-
-        $article->setStatus('publish');
-
-        $form = $this->createForm(new ArticlePublishType, $article);
+        $form_article = $this->createForm(new ArticleHeaderType, $article);
 
         // On récupère le formulaire et on le traite
 		$request = $this->get('request');
 
-		// On vérifie qu'elle est de type « POST ».
-	    if( $request->getMethod() == 'POST' )
+		// On vérifie qu'elle est de type « AJAX ».
+	    if($request->isXmlHttpRequest())
 	    {
-	        // On fait le lien Requête <-> Formulaire.
-	        $form->bind($request);
-	
-	        // On vérifie que les valeurs rentrées sont correctes.
-	        if( $form->isValid() )
-	        {
-	            // On l'enregistre notre objet $article dans la base de données.
-	            $em = $this->getDoctrine()->getManager();
+	    	if ($action == 'edit')
+	    	{
+	    		return $this->render('MgnArticleBundle:Forms:articleEditHeader.html.twig', array(
+		            'form_article' => $form_article->createView(),
+		            'article' => $article,
+				));
+	    	}
+	    	elseif ($action == 'cancel')
+	    	{
+	    		return $this->render('MgnArticleBundle:Contents:introduction.html.twig', array(
+		            'article' => $article,
+				));
+	    	}
+	    	elseif ($action == 'save')
+	    	{
+	    		$form_article->bind($request);
 
-	            if ($article->getUrl() === null)
-	            {
-	            	$article->setUrl($article->getTitle());
-	            }
+		        if( $form_article->isValid() )
+		        {
+		        	$em = $this->container->get('doctrine')->getManager();
 
-	            // Gestion du comptage pour les auteurs des articles
-				if ($article2->getAuthor() == $article->getAuthor())
-				{
-					if ($article2->getStatus() == 'publish' && $article->getStatus() != 'publish')
-					{
-						$countArticle = $article->getAuthor()->getCountArticle();
-						$article->getAuthor()->setCountArticle($countArticle-1);
-					}
-					elseif ($article2->getStatus() != 'publish' && $article->getStatus() == 'publish')
-					{
-						$countArticle = $article->getAuthor()->getCountArticle();
-						$article->getAuthor()->setCountArticle($countArticle+1);
-					}
-				}
-				else
-				{
-					if ($article2->getStatus() == 'publish')
-					{
-						$countArticle = $article2->getAuthor()->getCountArticle();
-						$article2->getAuthor()->setCountArticle($countArticle-1);
-					}
+			        $em->persist($article);
+					$em->flush();
+		        }
 
-					if ($article->getStatus() == 'publish')
-					{
-						$countArticle = $article->getAuthor()->getCountArticle();
-						$article->getAuthor()->setCountArticle($countArticle+1);
-					}
-				}	
-
-				// Gestion du comptage dans les catégories d'article
-				if ($article2->getCategory() == $article->getCategory())
-				{
-					if ($article2->getStatus() == 'publish' && $article->getStatus() != 'publish')
-					{
-						$countNews = $article->getCategory()->getCountNews();
-						$article->getCategory()->setCountNews($countNews-1);
-					}
-					elseif ($article2->getStatus() != 'publish' && $article->getStatus() == 'publish')
-					{
-						$countNews = $article->getCategory()->getCountNews();
-						$article->getCategory()->setCountNews($countNews+1);
-					}
-				}
-				else
-				{
-					if ($article2->getStatus() == 'publish')
-					{
-						$countNews = $article2->getCategory()->getCountNews();
-						$article2->getCategory()->setCountNews($countNews-1);
-					}
-
-					if ($article->getStatus() == 'publish')
-					{
-						$countNews = $article->getCategory()->getCountNews();
-						$article->getCategory()->setCountNews($countNews+1);
-					}
-				}
-
-				// Gestion du comptage total des articles
-				if ($article2->getStatus() != $article->getStatus())
-				{
-					if ($article2->getStatus() == 'publish')
-					{
-						$config->setTotalArticlesPublish($config->getTotalArticlesPublish()-1);
-					}
-
-					if ($article2->getStatus() == 'draft')
-					{
-						$config->setTotalArticlesDraft($config->getTotalArticlesDraft()-1);
-					}
-
-					if ($article2->getStatus() == 'pending')
-					{
-						$config->setTotalArticlesPending($config->getTotalArticlesPending()-1);
-					}
-
-					if ($article->getStatus() == 'publish')
-					{
-						$config->setTotalArticlesPublish($config->getTotalArticlesPublish()+1);
-					}
-
-					if ($article->getStatus() == 'draft')
-					{
-						$config->setTotalArticlesDraft($config->getTotalArticlesDraft()+1);
-					}
-
-					if ($article->getStatus() == 'pending')
-					{
-						$config->setTotalArticlesPending($config->getTotalArticlesPending()+1);
-					}
-				}
-
-				$em->persist($article);
-				$em->flush();
-				
-				//message de confirmation
-				$this->get('session')->getFlashBag()->add('success', 'Votre article à bien été publié.');
-				
-				// On redirige vers la page d'accueil, par exemple.
-	            return $this->redirect( $this->generateUrl('mgn_admin_article_list'));
-	        }
+		        return $this->render('MgnArticleBundle:Contents:header.html.twig', array(
+		            'article' => $article,
+				));
+	    	}
 	    }
+	}
 
-        return $this->render('MgnArticleBundle:Admin:publish.html.twig', array(
-            'form' => $form->createView(),
-            'article' => $article,
-            //'categories' => $categories,
-		));
+	/**
+   	* @Secure(roles="ROLE_ARTICLE_AUTHOR")
+   	*/
+	public function deleteAction($id)
+	{
+		$em = $this->getDoctrine()->getManager();
+		//on check la secu
+
+		//on récup l'article, les messages, la config
+		$article = $this->getDoctrine()
+                      	 ->getManager()
+                      	 ->getRepository('MgnArticleBundle:Article')
+                      	 ->find($id);
+
+        if( $article === null )
+        {
+            throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
+        }
+
+        $messages = $this->getDoctrine()
+                      	 ->getManager()
+                      	 ->getRepository('MgnMessageBundle:Message')
+                      	 ->findBy(
+				            array('article' => $id),                 // Pas de critère
+				            array(), // On tri par date décroissante
+				            NULL,       // On sélectionne $nb_articles_page articles
+				            NULL                  // A partir du $offset ième
+				        );
+
+        $config = $this->getDoctrine()
+                         ->getManager()
+                         ->getRepository('MgnCoreBundle:Config')
+                         ->findOneBy(array('cms' => 'mutagene'));
+
+		//on supprime les messages avec le décompte user et config
+        $article->setIdLastComment(null);
+        $article->setUserLastComment(null);
+
+        if( $messages !== null )
+        {
+        	foreach($messages as $message)
+	    	{
+	    		$message->getAuthor()->setCountMessage($message->getAuthor()->getCountMessage() - 1);
+	    		$config->setTotalMessages($config->getTotalMessages() - 1);
+	    		$em->remove($message);
+	    	}
+        }
+
+        $em->flush();
+
+		//on supprime l'article avec le decompte user, config, categorie
+		$article->getAuthor()->setCountArticle($article->getAuthor()->getCountArticle() - 1);
+
+		if ($article->getStatus() == 'publish')
+		{
+			$config->setTotalArticlesPublish($config->getTotalArticlesPublish() - 1);
+		}
+		elseif ($article->getStatus() == 'pending')
+		{
+			$config->setTotalArticlesPending($config->getTotalArticlesPending() - 1);
+		}
+		elseif ($article->getStatus() == 'draft')
+		{
+			$config->setTotalArticlesDraft($config->getTotalArticlesDraft() - 1);
+		}
+
+		$article->getCategory()->setCountNews($article->getCategory()->getCountNews() - 1);
+
+		$em->remove($article);
+
+		$em->flush();
+
+		//on valide et on redirige vers la liste des articles
+		$this->get('session')->getFlashBag()->add('success', 'Votre article à bien été supprimé.');
+
+        return $this->redirect( $this->generateUrl('mgn_admin_article_list'));
 	}
 }

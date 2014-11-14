@@ -3,6 +3,7 @@ namespace Mgn\MessageBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MessageType extends AbstractType
 {
@@ -21,15 +22,7 @@ class MessageType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Mgn\MessageBundle\Entity\Message',
-            'cascade_validation' => true,
+            'data_class' => 'Mgn\MessageBundle\Entity\Message'
         ));
-    }
-
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'data_class' => 'Mgn\MessageBundle\Entity\Message',
-        );
     }
 }

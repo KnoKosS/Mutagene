@@ -13,19 +13,19 @@
 
 		<div class="col-lg-7">
 
-			<section class="panel">
+			<section id="article-title" class="panel">
 
 				<div class="panel-body" style="background-color: #f6f6f6;">
 
-					<h1 id="article-edit-title" class="article-content-edit" style="color: #ff6c5f; font-weight: bold; margin-bottom: 20px;" data-path="{{ path('mgn_admin_article_edit_title', {'article': article.id, 'action': 'edit'}) }}">{{ article.title }} <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" /></h1>
+					<h1 style="color: #ff6c5f; font-weight: bold; margin-bottom: 20px;">{{ article.title }} <img id="loaderarticle-title" class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" /></h1>
 
-					<p><a href="" class="pull-right text-info"><small>Editer</small></a></p>
+					<p><a href="{{ path('mgn_admin_article_edit_title', {'article': article.id, 'action': 'edit'}) }}" class="pull-right text-info content-edit"><small>Editer</small></a></p>
 
 				</div>
 
 			</section>
 
-			<section class="panel">
+			<section id="article-header" class="panel">
 
 				<div class="panel-body" style="background-color: #f6f6f6;">
 
@@ -39,31 +39,33 @@
 
 			        {% endif %}
 
-					<p><a href="" class="pull-right text-info"><small>Editer</small></a></p>
+			        <img id="loaderarticle-header" class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
+
+					<p><a href="{{ path('mgn_admin_article_edit_header', {'article': article.id, 'action': 'edit'}) }}" class="pull-right text-info content-edit"><small>Editer</small></a></p>
 
 				</div>
 
 			</section>
 
-			<section class="panel">
+			<section id="article-introduction" class="panel">
 
 				<div class="panel-body" style="background-color: #f6f6f6;">
 
-					<p id="article-edit-introduction" class="article-content-edit text-justify" style="margin-top: 20px;" data-path="{{ path('mgn_admin_article_edit_introduction', {'article': article.id, 'action': 'edit'}) }}"><strong>
+					<p style="margin-top: 20px;"><strong>
 
 						{% if article.introduction is empty %}
 
-				        	Rédigez une introduction <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
+				        	Rédigez une introduction <img id="loaderarticle-introduction" class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
 
 				        {% else %}
 
-				        	{{ article.introduction }} <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
+				        	{{ article.introduction }} <img id="loaderarticle-introduction" class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
 
 				        {% endif %}
 
-			        </strong></p>
+					</strong></p>
 
-					<p><a href="" class="pull-right text-info"><small>Editer</small></a></p>
+					<p><a href="{{ path('mgn_admin_article_edit_introduction', {'article': article.id, 'action': 'edit'}) }}" class="pull-right text-info content-edit"><small>Editer</small></a></p>
 
 				</div>
 
@@ -165,7 +167,7 @@
 
 		<div class="col-lg-5">
 
-			<div data-spy="affix" data-offset-top="120" data-offset-bottom="200">
+			<div data-spy="affix" data-offset-top="0" data-offset-bottom="200" style="padding-right: 40px;">
 
 			<section class="panel">
 
@@ -179,6 +181,8 @@
 					
 					<div class="row">
 
+						<form method="post" {{ form_enctype(form) }} class="form-horizontal" role="form">
+
 			            <div class="col-lg-12">
 
 			            	<div class="row">
@@ -188,8 +192,6 @@
 									<section id="" class="panel">
 
 										<div class="panel-body">
-
-											<form method="post" {{ form_enctype(form) }} class="form-horizontal" role="form">
 
 											    <div class="">
 
@@ -296,23 +298,21 @@
 
 											                        <div class="row">
 
-											                            <div class="col-lg-6">
+													                    <div class="col-lg-6">
 
-											                                <label for="">Options</label>
+													                        <label for="mgn_articlebundle_articletype_comments">Commentaires</label>
 
-											                                <div class="checkbox">
+													                        {{ form_widget(form.comments, { 'attr' : { 'class' : 'form-control'} }) }}
 
-											                                    <label>
+													                    </div>
 
-											                                        {{ form_widget(form.comments) }}
+													                    <div class="col-lg-6">
 
-											                                        Activer les commentaires
+													                        <label for="mgn_articlebundle_articletype_status">Statut</label>
 
-											                                    </label>
+													                        {{ form_widget(form.status, { 'attr' : { 'class' : 'form-control'} }) }}
 
-											                                </div>
-
-											                            </div>
+													                    </div>
 
 											                        </div>
 
@@ -325,10 +325,6 @@
 											        </div>
 
 											    </div>
-											            
-											    {{ form_widget(form) }}
-
-											</form>
 
 										</div>
 
@@ -340,13 +336,15 @@
 
 			                <div class="pull-right">
 
-			                	<a type="button" class="btn btn-primary" href="{{ path('mgn_admin_article_list', {'status': 'draft'}) }}">
-				                    Enregistrer
-				                </a>
+			                	<button class="btn btn-primary" type="submit" id="_submit" name="_submit">Enregistrer</button>
 
 			                </div>
 
 			            </div>
+											            
+						    {{ form_widget(form) }}
+
+						</form>
 
 			        </div>
 

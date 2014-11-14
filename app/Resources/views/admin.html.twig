@@ -39,6 +39,8 @@
 	<!-- Head Libs -->
 	<script src="{{ asset('admin/assets/modernizr/modernizr.js') }}"></script>
 
+	<link rel="stylesheet" href="{{ asset('admin/test/isotope/jquery.isotope.css') }}" />
+
 	<style>
 	ul#contents-load{
       list-style:none;
@@ -49,6 +51,7 @@
     /* style des éléments de la liste */
     #contents-load section{
       cursor:move;
+      cursor: n-resize;
       list-style:none;
       /*height:100px;*/
       /*width:75px;*/
@@ -95,6 +98,11 @@
 	}
 	@media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: 767px) {
 	.flex-video { padding-top: 0; }
+	}
+
+	.square-thumb {
+	width: 100%;
+	height: 150px;
 	}
 	</style>
 
@@ -364,8 +372,8 @@
 											<span>Articles</span>
 										</a>
 									</li>
-									<li class="">
-										<a href="">
+									<li class="{% block sidebar_medias %}{% endblock %}">
+										<a href="{{ path('mgn_admin_media_gallery') }}">
 											<i class="fi-photo" aria-hidden="true"></i>
 											<span>Médias</span>
 										</a>
@@ -929,11 +937,19 @@
 
     		<script src="{{ asset('admin/assets/jquery-elastic/jquery.elastic.source.js') }}"></script>
 
+			<script src="{{ asset('admin/test/examples.mediagallery.js') }}"></script>
+
+			<script src="{{ asset('admin/test/jquery.nailthumb.1.1.min.js') }}"></script>
+
+			<script src="{{ asset('admin/test/isotope/jquery.isotope.js') }}"></script>
+
 			<script>
 			<!--
 			$(document).ready(function()
 			{
-				
+				jQuery('.nailthumb-container').nailthumb({
+                        replaceAnimation:null
+                    });
 				$('input#articleSearch').quicksearch('table#articleList tbody tr');
 
 		        $( ".textarea_elastic" ).elastic();
@@ -1096,7 +1112,7 @@
 		        });
 
 
-
+				/*
 				$(document).on('click', '.article-content-edit', function(e) {
 		            $( "#"+$(this).attr('id')+" .loader:first" ).show();
 		            var id = $(this).attr('id');
@@ -1165,7 +1181,7 @@
 		                 }
 		            });
 		            e.preventDefault();
-		        });
+		        });*/
 
 			});
 			-->
