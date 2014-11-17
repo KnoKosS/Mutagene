@@ -70,6 +70,13 @@ class Gallery
      */
     private $publicAclView;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="system", type="boolean")
+     */
+    private $system;
+
     public function __construct()
     {
         $this->countPicture = 0;
@@ -232,5 +239,41 @@ class Gallery
     public function getPictures()
     {
         return $this->pictures;
+    }
+
+    /**
+     * Set publicAclView
+     *
+     * @param boolean $publicAclView
+     * @return Gallery
+     */
+    public function setPublicAclView($publicAclView)
+    {
+        $this->publicAclView = $publicAclView;
+    
+        return $this;
+    }
+
+    /**
+     * Get publicAclView
+     *
+     * @return boolean 
+     */
+    public function getPublicAclView()
+    {
+        return $this->publicAclView;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return './../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/medias/'.$this->slug;
     }
 }

@@ -70,6 +70,13 @@ class Gallery
      */
     private $publicAclView;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="system", type="boolean")
+     */
+    private $system;
+
     public function __construct()
     {
         $this->countPicture = 0;
@@ -268,5 +275,28 @@ class Gallery
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
         // le document/image dans la vue.
         return 'uploads/medias/'.$this->slug;
+    }
+
+    /**
+     * Set system
+     *
+     * @param boolean $system
+     * @return Gallery
+     */
+    public function setSystem($system)
+    {
+        $this->system = $system;
+
+        return $this;
+    }
+
+    /**
+     * Get system
+     *
+     * @return boolean 
+     */
+    public function getSystem()
+    {
+        return $this->system;
     }
 }

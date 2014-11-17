@@ -10,6 +10,13 @@ use Mgn\MediaBundle\Form\PictureType;
 
 class AdminController extends Controller
 {
+	public function mediaAction()
+	{
+		return $this->render('MgnMediaBundle:Admin:galleries.html.twig', array(
+			'galleries' => $galleries,
+		));
+	}
+
 	public function galleryAction()
 	{
 		$galleries = $this->getDoctrine()
