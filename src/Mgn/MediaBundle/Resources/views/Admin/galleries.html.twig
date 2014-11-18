@@ -1,612 +1,91 @@
-{% extends "MgnMediaBundle::admin.html.twig" %}
+<div class="sidebar-widget m-none">
+	<div class="widget-header clearfix">
+		<h6 class="title pull-left mt-xs">Galeries</h6>
+		<div class="pull-right">
+			<a href="#modalForm" class="modal-with-zoom-anim btn btn-dark btn-sm btn-widget-act">Ajouter une galerie</a>
 
-{% block title %}
-    Médias du site - {{ parent() }}
-{% endblock %}
-
-{% block sidebar_medias %}nav-expanded nav-active{% endblock %}
-{% block article_submenu_medias %} class="active"{% endblock %}
-
-{% block media_body %}
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410691859.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410691859.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
+			<!-- Modal Form -->
+			<div id="modalForm" class="zoom-anim-dialog modal-block modal-header-color modal-block-primary mfp-hide">
+				<section class="panel">
+					<header class="panel-heading">
+						<h2 class="panel-title">Ajouter une galerie</h2>
+					</header>
+					<div class="panel-body">
+						<form id="demo-form" class="form-horizontal mb-lg" novalidate="novalidate">
+							<div class="form-group mt-lg">
+								<label class="col-sm-3 control-label">Nom</label>
+								<div class="col-sm-9">
+									<input type="text" name="name" class="form-control" placeholder="Entrez un nom..." required/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">url</label>
+								<div class="col-sm-9">
+									<input type="url" name="url" class="form-control" placeholder="url de la galerie..." />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Description</label>
+								<div class="col-sm-9">
+									<textarea rows="5" class="form-control" placeholder="Insérer une description..." required></textarea>
+								</div>
+							</div>
+						</form>
 					</div>
-				</div>
+					<footer class="panel-footer">
+						<div class="row">
+							<div class="col-md-12 text-right">
+								<button class="btn btn-primary modal-confirm">Créer</button>
+								<button class="btn btn-default modal-dismiss">Annuler</button>
+							</div>
+						</div>
+					</footer>
+				</section>
 			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
+
 		</div>
 	</div>
+	<div class="widget-content">
+		<ul class="mg-folders">
 
-	<div class="isotope-item image col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-group pull-left">
-							<a href="{{ path('mgn_admin_article_list') }}"><i class="fa fa-pencil"></i> EDITER</a></a>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#"><i class="fa fa-trash-o"></i> SUPPRIMER</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
+			{% for gallery in galleries %}
+
+				{% if gallery.slug == 'non-classe' %}
+
+					<li>
+						<a href="{{ path('mgn_admin_media', {'gallery': gallery.slug}) }}" class="menu-item{% if gallerySelect == gallery.slug %} text-primary{% endif %}">{% if gallerySelect == gallery.slug %}<i class="fa fa-folder-open"></i>{% else %}<i class="fa fa-folder"></i>{% endif %} {{ gallery.name }}</a>
+					</li>
+
+				{% endif %}
+
+			{% endfor %}
+
+			{% for gallery in galleries %}
+
+				{% if gallery.slug != 'non-classe' %}
+
+					<li>
+						<a href="{{ path('mgn_admin_media', {'gallery': gallery.slug}) }}" class="menu-item{% if gallerySelect == gallery.slug %} text-primary{% endif %}">{% if gallerySelect == gallery.slug %}<i class="fa fa-folder-open"></i>{% else %}<i class="fa fa-folder"></i>{% endif %} {{ gallery.name }}</a>
+
+						{% if gallery.system == false %}
+
+							<div class="item-options">
+								<a href="#">
+									<i class="fa fa-edit"></i>
+								</a>
+								<a href="#" class="text-danger">
+									<i class="fa fa-times"></i>
+								</a>
+							</div>
+
+						{% endif %}
+
+					</li>
+
+				{% endif %}
+
+			{% endfor %}
+
+		</ul>
 	</div>
-
-	<div class="isotope-item image col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695568.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695568.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695392.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695392.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item image col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695560.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695560.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item image col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item video col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410691859.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410691859.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695568.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695568.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695392.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695392.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695560.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695560.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410691859.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410691859.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695568.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695568.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695392.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695392.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410695560.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410695560.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Non classé</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-	<div class="isotope-item document col-sm-6 col-md-4 col-lg-4">
-		<div class="thumbnail">
-			<div class="thumb-preview nailthumb-container square-thumb">
-				<a class="thumb-image" href="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}">
-					<img src="{{ asset('uploads/medias/2014/09/31410692002.jpeg') }}" class="img-responsive" alt="Bioshock">
-				</a>
-				<div class="mg-thumb-options">
-					<div class="mg-zoom"><i class="fa fa-search"></i></div>
-					<div class="mg-toolbar">
-						<div class="mg-option checkbox-custom checkbox-inline">
-							<input type="checkbox" id="file_1" value="1">
-							<label for="file_1">SELECTIONNER</label>
-						</div>
-						<div class="mg-group pull-right">
-							<a href="#">EDITER</a>
-							<button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-								<i class="fa fa-caret-up"></i>
-							</button>
-							<ul class="dropdown-menu mg-menu" role="menu">
-								<li><a href="#"><i class="fa fa-download"></i> Télécharger</a></li>
-								<li><a href="#"><i class="fa fa-trash-o"></i> Supprimer</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<h5 class="mg-title text-semibold">Articles</h5>
-			<div class="mg-description">
-				<small class="pull-left text-muted">31410691859.jpeg</small>
-				<small class="pull-right text-muted">13/11/2014</small>
-			</div>
-		</div>
-	</div>
-
-{% endblock %}
+</div>

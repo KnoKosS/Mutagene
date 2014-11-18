@@ -41,44 +41,8 @@
 						</a>
 		
 						<hr class="separator" />
-		
-						<div class="sidebar-widget m-none">
-							<div class="widget-header clearfix">
-								<h6 class="title pull-left mt-xs">Galeries</h6>
-								<div class="pull-right">
-									<a href="#" class="btn btn-dark btn-sm btn-widget-act">Ajouter une galerie</a>
-								</div>
-							</div>
-							<div class="widget-content">
-								<ul class="mg-folders">
 
-									<li>
-										<a href="#" class="menu-item"><i class="fa fa-folder"></i> Non Classé</a>
-										<div class="item-options">
-											<a href="#">
-												<i class="fa fa-edit"></i>
-											</a>
-											<a href="#" class="text-danger">
-												<i class="fa fa-times"></i>
-											</a>
-										</div>
-									</li>
-
-									<li>
-										<a href="#" class="menu-item"><i class="fa fa-folder"></i> Articles</a>
-										<div class="item-options">
-											<a href="#">
-												<i class="fa fa-edit"></i>
-											</a>
-											<a href="#" class="text-danger">
-												<i class="fa fa-times"></i>
-											</a>
-										</div>
-									</li>
-
-								</ul>
-							</div>
-						</div>
+						{{ render(controller("MgnMediaBundle:Admin:gallery", { 'gallerySelect': galleryselect })) }}
 		
 						<!--<hr class="separator" />
 		

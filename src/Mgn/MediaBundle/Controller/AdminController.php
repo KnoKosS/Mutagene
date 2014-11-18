@@ -10,21 +10,21 @@ use Mgn\MediaBundle\Form\PictureType;
 
 class AdminController extends Controller
 {
-	public function mediaAction()
+	public function mediaAction($gallery)
 	{
-		return $this->render('MgnMediaBundle:Admin:galleries.html.twig', array(
-			'galleries' => $galleries,
+		return $this->render('MgnMediaBundle:Admin:medias.html.twig', array(
+			'galleryselect' => $gallery,
 		));
 	}
 
-	public function galleryAction()
+	public function galleryAction($gallerySelect)
 	{
 		$galleries = $this->getDoctrine()
                       	 ->getManager()
                       	 ->getRepository('MgnMediaBundle:Gallery')
                       	 ->findBy(
 				            array(),                 // Pas de critère
-				            array('name' => 'ASC'), // On tri par date décroissante
+				            array('system' => 'desc', 'name' => 'ASC'), // On tri par date décroissante
 				            NULL,       // On sélectionne $nb_articles_page articles
 				            NULL                  // A partir du $offset ième
 				        );
@@ -63,6 +63,7 @@ class AdminController extends Controller
 		return $this->render('MgnMediaBundle:Admin:galleries.html.twig', array(
 			'form' => $form->createView(),
 			'galleries' => $galleries,
+			'gallerySelect' => $gallerySelect,
 		));
 	}
 

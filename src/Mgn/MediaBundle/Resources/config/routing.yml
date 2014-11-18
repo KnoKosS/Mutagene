@@ -1,6 +1,6 @@
 mgn_admin_media:
-    pattern:   /admin/medias
-    defaults:  { _controller: MgnMediaBundle:Admin:media }
+    pattern:   /admin/medias/{gallery}
+    defaults:  { _controller: MgnMediaBundle:Admin:media, gallery: 'non-classe' }
 
 mgn_admin_media_gallery:
     pattern:   /admin/medias/galeries

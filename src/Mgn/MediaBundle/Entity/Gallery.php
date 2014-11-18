@@ -81,6 +81,7 @@ class Gallery
     {
         $this->countPicture = 0;
         $this->publicAclView = true;
+        $this->system = false;
     }
 
     /**
