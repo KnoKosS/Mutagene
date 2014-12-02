@@ -12,7 +12,12 @@ class AdminController extends Controller
 {
 	public function mediaAction($gallery)
 	{
-		return $this->render('MgnMediaBundle:Admin:medias.html.twig', array(
+		$gallery = $this->getDoctrine()
+                      	 ->getManager()
+                      	 ->getRepository('MgnMediaBundle:Gallery')
+                      	 ->findOneBySlug($gallery);
+
+       	return $this->render('MgnMediaBundle:Admin:medias.html.twig', array(
 			'galleryselect' => $gallery,
 		));
 	}
@@ -56,7 +61,8 @@ class AdminController extends Controller
 				$this->get('session')->getFlashBag()->add('success', 'Votre galerie à bien été ajouté.');
 				
 				// On redirige vers la page d'accueil, par exemple.
-	            return $this->redirect( $this->generateUrl('mgn_admin_media_gallery'));
+	            return $this->redirect($this->generateUrl('mgn_admin_media'));
+	            return $this->redirect($this->generateUrl('mgn_admin_media', array('gallerySelect' => $gallerySelect)));
             }
         }
 
@@ -155,7 +161,7 @@ class AdminController extends Controller
 		$this->get('session')->getFlashBag()->add('success', 'Votre galerie à bien été supprimé.');
 		
 		// On redirige vers la page d'accueil, par exemple.
-        return $this->redirect( $this->generateUrl('mgn_admin_media_gallery'));
+        return $this->redirect( $this->generateUrl('mgn_admin_media'));
 	}
 
 	public function addPictureAction()

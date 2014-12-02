@@ -7,39 +7,55 @@
 			<!-- Modal Form -->
 			<div id="modalForm" class="zoom-anim-dialog modal-block modal-header-color modal-block-primary mfp-hide">
 				<section class="panel">
-					<header class="panel-heading">
-						<h2 class="panel-title">Ajouter une galerie</h2>
-					</header>
-					<div class="panel-body">
-						<form id="demo-form" class="form-horizontal mb-lg" novalidate="novalidate">
-							<div class="form-group mt-lg">
-								<label class="col-sm-3 control-label">Nom</label>
-								<div class="col-sm-9">
-									<input type="text" name="name" class="form-control" placeholder="Entrez un nom..." required/>
+
+					{{ form_start(form, {'action': path('mgn_admin_media_gallery', { 'gallerySelect' : gallerySelect }), 'attr': {'class': 'form-horizontal mb-lg'}}) }}
+
+						<header class="panel-heading">
+							<h2 class="panel-title">Ajouter une galerie</h2>
+						</header>
+						<div class="panel-body">
+							
+								<div class="form-group mt-lg{% if form_errors(form.name) %} has-error{% endif %}">
+									<label class="col-sm-3 control-label">Nom</label>
+									<div class="col-sm-9">
+										{{ form_widget(form.name, { 'attr' : { 'class' : 'form-control', 'placeholder' : 'Entrez un nom...', 'required' : 'required' } }) }}
+									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">url</label>
-								<div class="col-sm-9">
-									<input type="url" name="url" class="form-control" placeholder="url de la galerie..." />
+								<div class="form-group{% if form_errors(form.url) %} has-error{% endif %}">
+									<label class="col-sm-3 control-label">url</label>
+									<div class="col-sm-9">
+										{{ form_widget(form.url, { 'attr' : { 'class' : 'form-control', 'placeholder' : 'url de la galerie...' } }) }}
+									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Description</label>
-								<div class="col-sm-9">
-									<textarea rows="5" class="form-control" placeholder="Insérer une description..." required></textarea>
+								<div class="form-group{% if form_errors(form.description) %} has-error{% endif %}">
+									<label class="col-sm-3 control-label">Description</label>
+									<div class="col-sm-9">
+										{{ form_widget(form.description, { 'attr' : { 'class' : 'form-control', 'rows' : '5', 'placeholder' : 'Insérer une description...' } }) }}
+									</div>
 								</div>
-							</div>
-						</form>
-					</div>
-					<footer class="panel-footer">
-						<div class="row">
-							<div class="col-md-12 text-right">
-								<button class="btn btn-primary modal-confirm">Créer</button>
-								<button class="btn btn-default modal-dismiss">Annuler</button>
-							</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="mgn_articlebundle_categorytype_publicAclView">Droits</label>
+									<div class="col-sm-9">
+										<label class="checkbox-inline">
+											{{ form_widget(form.publicAclView) }} Autorisé <strong>tout le monde</strong> à <strong>voir</strong> la galerie.
+										</label>
+									</div>
+								</div>
+
+								{{ form_rest(form) }}
+							
 						</div>
-					</footer>
+						<footer class="panel-footer">
+							<div class="row">
+								<div class="col-md-12 text-right">
+									<button type="submit" class="btn btn-primary">Créer</button>
+									<button class="btn btn-default modal-dismiss">Annuler</button>
+								</div>
+							</div>
+						</footer>
+
+					{{ form_end(form) }}
+
 				</section>
 			</div>
 
@@ -73,9 +89,35 @@
 								<a href="#">
 									<i class="fa fa-edit"></i>
 								</a>
-								<a href="#" class="text-danger">
+								<a href="#modalDelete-{{ gallery.id }}" class="text-danger modal-with-zoom-anim ">
 									<i class="fa fa-times"></i>
 								</a>
+							</div>
+
+							<div id="modalDelete-{{ gallery.id }}" class="zoom-anim-dialog modal-block modal-block-primary mfp-hide">
+								<section class="panel">
+									<header class="panel-heading">
+										<h2 class="panel-title">Êtes-vous sûr ?</h2>
+									</header>
+									<div class="panel-body">
+										<div class="modal-wrapper">
+											<div class="modal-icon">
+												<i class="fa fa-question-circle"></i>
+											</div>
+											<div class="modal-text">
+												<p>Êtes-vous sûr de vouloir supprimer la galerie {{ gallery.name }}, ainsi que tous les médias qu'elle contient ?</p>
+											</div>
+										</div>
+									</div>
+									<footer class="panel-footer">
+										<div class="row">
+											<div class="col-md-12 text-right">
+												<a href="{{ path('mgn_admin_media_gallery_delete', {'id': gallery.id}) }}" class="btn btn-primary">Supprimer</a>
+												<button class="btn btn-default modal-dismiss">Annuler</button>
+											</div>
+										</div>
+									</footer>
+								</section>
 							</div>
 
 						{% endif %}

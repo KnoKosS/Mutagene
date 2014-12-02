@@ -3,8 +3,14 @@ mgn_admin_media:
     defaults:  { _controller: MgnMediaBundle:Admin:media, gallery: 'non-classe' }
 
 mgn_admin_media_gallery:
-    pattern:   /admin/medias/galeries
+    pattern:   /admin/medias/galeries/{gallerySelect}
     defaults:  { _controller: MgnMediaBundle:Admin:gallery }
+
+mgn_admin_media_gallery_add:
+    pattern:   /admin/medias/galeries/ajouter/{gallerySelect}
+    defaults:  { _controller: MgnMediaBundle:Admin:galleryAdd }
+    requirements:
+        id:  \d+
 
 mgn_admin_media_gallery_edit:
     pattern:   /admin/medias/galeries/editer/{id}

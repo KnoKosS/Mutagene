@@ -37,12 +37,12 @@
 		
 						<a class="btn btn-block btn-primary btn-md pt-sm pb-sm text-md">
 							<i class="fa fa-upload mr-xs"></i>
-							Ajouter un média
+							Ajouter des médias
 						</a>
 		
 						<hr class="separator" />
 
-						{{ render(controller("MgnMediaBundle:Admin:gallery", { 'gallerySelect': galleryselect })) }}
+						{{ render(controller("MgnMediaBundle:Admin:gallery", { 'gallerySelect': galleryselect.slug })) }}
 		
 						<!--<hr class="separator" />
 		
@@ -104,7 +104,7 @@
 				</ul>
 			</div>
 
-			<div class="row mg-files" data-sort-destination data-sort-id="media-gallery">
+			<div class="row">
 
 				{% for message in app.session.flashbag.get('success') %}
 				<div class="alert alert-primary">
@@ -112,6 +112,10 @@
 		            {{ message }}
 		        </div>
 		        {% endfor %}
+
+			</div>
+
+			<div class="row mg-files" data-sort-destination data-sort-id="media-gallery">
 
 				{% block media_body %}{% endblock %}
 
