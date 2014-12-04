@@ -15,6 +15,23 @@
 			    </div>
 
 		    </div>
+
+			<div class="fileupload fileupload-new" data-provides="fileupload">
+
+				<div class="fileupload-new thumbnail" style="width: 100%;">
+
+					<img src="{{ asset('admin/img/article_header_default.png') }}" alt="...">
+
+				</div>
+
+				<div class="fileupload-preview fileupload-exists thumbnail" style="width: 100%;"></div>
+
+				<div style="margin-left: 4px;">
+
+					<span class="btn btn-default btn-file"><span class="fileupload-new">Parcourir</span><span class="fileupload-exists">Changer</span><input type="file" name="..."></span>
+					
+				</div>
+			</div>
 		        
 		    {{ form_rest(form_content) }}
 
