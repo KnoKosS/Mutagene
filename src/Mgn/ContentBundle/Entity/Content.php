@@ -447,23 +447,6 @@ class Content
         return $this->type;
     }
 
-    public function upload()
-    {
-        // Si jamais il n'y a pas de fichier (champ facultatif)
-        if (null === $this->pictureFile) {
-          return;
-        }
-
-        // On garde le nom original du fichier de l'internaute
-        $name = $this->id.'.'.$this->pictureFile->guessExtension();
-
-        // On déplace le fichier envoyé dans le répertoire de notre choix
-        $this->pictureFile->move($this->getUploadRootDir(), $name);
-
-        // On sauvegarde le nom de fichier dans notre attribut $url
-        $this->picture = $name;
-    }
-
     public function getAbsolutePath()
     {
         return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
@@ -496,6 +479,47 @@ class Content
         if (null !== $this->pictureFile)
         {
             return $this->pictureFile->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->pictureFile) {
+            // faites ce que vous voulez pour générer un nom unique
+            $this->picture = sha1(uniqid(mt_rand(), true)).'.'.$this->pictureFile->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->pictureFile) {
+            return;
+        }
+
+        // s'il y a une erreur lors du déplacement du fichier, une exception
+        // va automatiquement être lancée par la méthode move(). Cela va empêcher
+        // proprement l'entité d'être persistée dans la base de données si
+        // erreur il y a
+        $this->pictureFile->move($this->getUploadRootDir(), $this->picture);
+
+        unset($this->pictureFile);
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($pictureFile = $this->getAbsolutePath()) {
+            unlink($pictureFile);
         }
     }
 
