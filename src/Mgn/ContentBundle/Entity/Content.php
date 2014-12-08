@@ -3,6 +3,7 @@
 namespace Mgn\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -20,8 +21,8 @@ class Content
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
@@ -82,6 +83,11 @@ class Content
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
      */
     private $picture;
+    
+    /**
+     * @Assert\Image(maxSize="2048k")
+     */
+    private $pictureFile;
 
     /**
      * @var string
@@ -232,29 +238,6 @@ class Content
     public function getSubtitle()
     {
         return $this->subtitle;
-    }
-
-    /**
-     * Set picture
-     *
-     * @param string $picture
-     * @return Content
-     */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
-    
-        return $this;
-    }
-
-    /**
-     * Get picture
-     *
-     * @return string 
-     */
-    public function getPicture()
-    {
-        return $this->picture;
     }
 
     /**
@@ -462,5 +445,81 @@ class Content
     public function getType()
     {
         return $this->type;
+    }
+
+    public function upload()
+    {
+        // Si jamais il n'y a pas de fichier (champ facultatif)
+        if (null === $this->pictureFile) {
+          return;
+        }
+
+        // On garde le nom original du fichier de l'internaute
+        $name = $this->id.'.'.$this->pictureFile->guessExtension();
+
+        // On déplace le fichier envoyé dans le répertoire de notre choix
+        $this->pictureFile->move($this->getUploadRootDir(), $name);
+
+        // On sauvegarde le nom de fichier dans notre attribut $url
+        $this->picture = $name;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // On retourne le chemin relatif vers l'image pour notre code PHP
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    public function getUploadDir()
+    {
+        // On retourne le chemin relatif vers l'image pour un navigateur
+        return 'uploads/contents/'.$this->date->format('Y').'/'.$this->date->format('m');
+    }
+
+    /**
+     * Get extension
+     *
+     * @return string 
+     */
+    public function getExtension()
+    {
+        if (null !== $this->pictureFile)
+        {
+            return $this->pictureFile->guessExtension();
+        }
+    }
+
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    public function setPictureFile($pictureFile)
+    {
+        $this->pictureFile = $pictureFile;
+
+        return $this;
+    }
+
+    public function getPictureFile()
+    {
+        return $this->pictureFile;
     }
 }
