@@ -1,5 +1,5 @@
 <?php
-// src/Mgn/MediaBundle/Entity/Picture.php
+// src/Mgn/MediaBundle/Entity/Media.php
 namespace Mgn\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Image
  *
  * @ORM\Entity
- * @ORM\Table(name="mgn_media_picture")
- * @ORM\Entity(repositoryClass="Mgn\MediaBundle\Entity\PictureRepository")
+ * @ORM\Table(name="mgn_media")
+ * @ORM\Entity(repositoryClass="Mgn\MediaBundle\Entity\MediaRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Picture
+class Media
 {
     /**
      * @ORM\Id
@@ -71,23 +71,20 @@ class Picture
     private $title;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="inArticle", type="boolean")
-     */
-    private $inArticle;
-
-    /**
      * @var integer $gallery
      *
      * @ORM\ManyToOne(targetEntity="Mgn\MediaBundle\Entity\Gallery", inversedBy="pictures")
      */
     private $gallery;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $type;
+
     public function __construct()
     {
         $this->date = new \Datetime();
-        $this->inArticle = false;
     }
 
     /**
@@ -239,29 +236,6 @@ class Picture
     }
 
     /**
-     * Set inArticle
-     *
-     * @param boolean $inArticle
-     * @return Picture
-     */
-    public function setInArticle($inArticle)
-    {
-        $this->inArticle = $inArticle;
-    
-        return $this;
-    }
-
-    /**
-     * Get inArticle
-     *
-     * @return boolean 
-     */
-    public function getInArticle()
-    {
-        return $this->inArticle;
-    }
-
-    /**
      * Set gallery
      *
      * @param \Mgn\MediaBundle\Entity\Gallery $gallery
@@ -323,7 +297,7 @@ class Picture
     protected function getUploadRootDir()
     {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
-        return './../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()

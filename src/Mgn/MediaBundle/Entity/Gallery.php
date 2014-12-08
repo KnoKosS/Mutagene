@@ -59,9 +59,9 @@ class Gallery
     private $countPicture;
 
     /**
-     * @ORM\OneToMany(targetEntity="Mgn\MediaBundle\Entity\Picture", mappedBy="gallery")
+     * @ORM\OneToMany(targetEntity="Mgn\MediaBundle\Entity\Media", mappedBy="gallery")
      */
-    private $pictures;
+    private $medias;
 
     /**
      * @var boolean
@@ -210,36 +210,36 @@ class Gallery
     }
 
     /**
-     * Add pictures
+     * Add medias
      *
-     * @param \Mgn\MediaBundle\Entity\Picture $pictures
+     * @param \Mgn\MediaBundle\Entity\Media $medias
      * @return Gallery
      */
-    public function addPicture(\Mgn\MediaBundle\Entity\Picture $pictures)
+    public function addMedia(\Mgn\MediaBundle\Entity\Media $medias)
     {
-        $this->pictures[] = $pictures;
+        $this->medias[] = $medias;
     
         return $this;
     }
 
     /**
-     * Remove pictures
+     * Remove medias
      *
-     * @param \Mgn\MediaBundle\Entity\Picture $pictures
+     * @param \Mgn\MediaBundle\Entity\Media $medias
      */
-    public function removePicture(\Mgn\MediaBundle\Entity\Picture $pictures)
+    public function removeMedia(\Mgn\MediaBundle\Entity\Media $medias)
     {
-        $this->pictures->removeElement($pictures);
+        $this->medias->removeElement($medias);
     }
 
     /**
-     * Get pictures
+     * Get medias
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPictures()
+    public function getMedias()
     {
-        return $this->pictures;
+        return $this->medias;
     }
 
     /**
