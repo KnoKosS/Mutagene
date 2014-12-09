@@ -3,7 +3,6 @@
 namespace Mgn\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -21,8 +20,8 @@ class Content
     /**
      * @var integer
      *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
@@ -30,7 +29,6 @@ class Content
     /**
      * @var integer $article
      *
-     * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity="Mgn\ArticleBundle\Entity\Article", inversedBy="contents")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -51,7 +49,6 @@ class Content
     private $date;
 
     /**
-     * @Gedmo\SortablePosition
      * @ORM\Column(name="position", type="integer")
      */
     private $position;
@@ -83,11 +80,6 @@ class Content
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
      */
     private $picture;
-    
-    /**
-     * @Assert\Image(maxSize="2048k")
-     */
-    private $pictureFile;
 
     /**
      * @var string
@@ -238,6 +230,29 @@ class Content
     public function getSubtitle()
     {
         return $this->subtitle;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param string $picture
+     * @return Content
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
+    
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return string 
+     */
+    public function getPicture()
+    {
+        return $this->picture;
     }
 
     /**
@@ -433,7 +448,7 @@ class Content
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
@@ -445,105 +460,5 @@ class Content
     public function getType()
     {
         return $this->type;
-    }
-
-    public function getAbsolutePath()
-    {
-        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
-    }
-
-    protected function getUploadRootDir()
-    {
-        // On retourne le chemin relatif vers l'image pour notre code PHP
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
-    public function getUploadDir()
-    {
-        // On retourne le chemin relatif vers l'image pour un navigateur
-        return 'uploads/contents/'.$this->date->format('Y').'/'.$this->date->format('m');
-    }
-
-    /**
-     * Get extension
-     *
-     * @return string 
-     */
-    public function getExtension()
-    {
-        if (null !== $this->pictureFile)
-        {
-            return $this->pictureFile->guessExtension();
-        }
-    }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {
-        if (null !== $this->pictureFile) {
-            // faites ce que vous voulez pour générer un nom unique
-            $this->picture = sha1(uniqid(mt_rand(), true)).'.'.$this->pictureFile->guessExtension();
-        }
-    }
-
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload()
-    {
-        if (null === $this->pictureFile) {
-            return;
-        }
-
-        // s'il y a une erreur lors du déplacement du fichier, une exception
-        // va automatiquement être lancée par la méthode move(). Cela va empêcher
-        // proprement l'entité d'être persistée dans la base de données si
-        // erreur il y a
-        $this->pictureFile->move($this->getUploadRootDir(), $this->picture);
-
-        unset($this->pictureFile);
-    }
-
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeUpload()
-    {
-        if ($pictureFile = $this->getAbsolutePath()) {
-            unlink($pictureFile);
-        }
-    }
-
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    public function getPicture()
-    {
-        return $this->picture;
-    }
-
-    public function setPictureFile($pictureFile)
-    {
-        $this->pictureFile = $pictureFile;
-
-        return $this;
-    }
-
-    public function getPictureFile()
-    {
-        return $this->pictureFile;
     }
 }
