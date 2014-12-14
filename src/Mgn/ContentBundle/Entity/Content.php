@@ -127,7 +127,7 @@ class Content
     {
         $datetime = new \Datetime();
         $this->date = $datetime;
-        $this->position = -1;
+        $this->position = 99;
     }
 
     /**

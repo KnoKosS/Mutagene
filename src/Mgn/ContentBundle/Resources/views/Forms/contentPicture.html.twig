@@ -4,22 +4,17 @@
 
 		<form id="formContents_{{ content.id }}" action="{{ path('mgn_content', {'container': 'article', 'id': article.id, 'content': content.id, 'type': 'picture', 'action': 'save'})}}" method="post" {{ form_enctype(form_content) }} class="form-horizontal" role="form">
 
-			<div class="fileupload fileupload-new" data-provides="fileupload">
+			<div class="form-group">
 
-				<div class="fileupload-new thumbnail" style="width: 100%;">
+			    <div class="col-lg-12">
+			        
+			        <label for="mgn_articlebundle_articletype_contenu">Url de l'image <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" /></label>
 
-					<img src="{{ asset('admin/img/article_header_default.png') }}" alt="...">
+			        {{ form_widget(form_content.picture, { 'attr' : { 'class' : 'form-control formcontent' } }) }}
 
-				</div>
+			    </div>
 
-				<div class="fileupload-preview fileupload-exists thumbnail" style="width: 100%;"></div>
-
-				<div style="margin-left: 4px;">
-
-					<span class="btn btn-default btn-file"><span class="fileupload-new">Parcourir</span><span class="fileupload-exists">Changer</span>{{ form_widget(form_content.pictureFile) }}</span> <img class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
-					
-				</div>
-			</div>
+		    </div>
 		        
 		    {{ form_rest(form_content) }}
 

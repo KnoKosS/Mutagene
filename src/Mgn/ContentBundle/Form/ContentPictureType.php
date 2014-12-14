@@ -16,7 +16,7 @@ class ContentPictureType extends AbstractType
       //->add('title', 'text', array('required' => false))
       //->add('h2', 'text', array('required' => false, 'label' => 'Titre niveau 2', 'attr' => array('class' => 'form-control')))
       //->add('picture', 'text', array('required' => false))
-      ->add('pictureFile',    'file', array('required' => false))
+      ->add('picture', 'text', array('required' => false))
       //->add('video', 'text', array('required' => false, 'label' => 'Vidéo', 'attr' => array('class' => 'form-control')))
       //->add('quote', 'textarea', array('required' => false, 'label' => 'Citation', 'attr' => array('class' => 'form-control')))
       //->add('quoteName', 'text', array('required' => false, 'label' => 'Citation nom', 'attr' => array('class' => 'form-control')))
