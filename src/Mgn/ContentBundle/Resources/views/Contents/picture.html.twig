@@ -9,6 +9,9 @@
         {% else %}
 
         	<img class="img-responsive img-thumbnail" src="{{ content.picture }}" title="" />
+        	{% if content.pictureTitle|default %}
+        		<p class="help-block text-center"><em>{{ content.pictureTitle }}</em></p>
+        	{% endif %}
 
         {% endif %}
 

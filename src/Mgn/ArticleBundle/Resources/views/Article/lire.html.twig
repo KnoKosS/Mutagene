@@ -56,7 +56,12 @@
 
                     {% if content.subtitle != null %}<h3>{{ content.subtitle }}</h3>{% endif %}
 
-                    {% if content.picture != null %}<p><img class="img-responsive img-thumbnail" src="{{ content.picture }}" title="" /><p>{% endif %}
+                    {% if content.picture != null %}
+                    <p>
+                        <img class="img-responsive img-thumbnail" src="{{ content.picture }}" title="{% if content.pictureTitle|default %}{{ content.pictureTitle }}{% endif %}" />
+                        {% if content.pictureTitle|default %}<em class="help-block text-center"><small>{{ content.pictureTitle }}</small></em>{% endif %}
+                    </p>
+                    {% endif %}
 
                     {% if content.paragraph != null %}<p class="text-justify">{{ content.paragraph|nl2br }}</p>{% endif %}
 

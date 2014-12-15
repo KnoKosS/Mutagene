@@ -84,6 +84,13 @@ class Content
     /**
      * @var string
      *
+     * @ORM\Column(name="pictureTitle", type="string", length=255, nullable=true)
+     */
+    private $pictureTitle;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="video", type="string", length=255, nullable=true)
      */
     private $video;
@@ -253,6 +260,29 @@ class Content
     public function getPicture()
     {
         return $this->picture;
+    }
+
+    /**
+     * Set pictureTitle
+     *
+     * @param string $pictureTitle
+     * @return Content
+     */
+    public function setPictureTitle($pictureTitle)
+    {
+        $this->pictureTitle = $pictureTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get pictureTitle
+     *
+     * @return string 
+     */
+    public function getPictureTitle()
+    {
+        return $this->pictureTitle;
     }
 
     /**

@@ -410,9 +410,9 @@
 											<span>Forums</span>
 										</a>
 									</li>
-									<li class="">
-										<a href="">
-											<i class="fi-torsos-all"></i>
+									<li class="{% block sidebar_users %}{% endblock %}">
+										<a href="{{ path('mgn_user_admin_list_user') }}">
+											<i class="fi-torsos-all" aria-hidden="true"></i>
 											<span>Utilisateurs</span>
 										</a>
 									</li>
@@ -982,7 +982,7 @@
 		            $.ajax({
 		                type: "GET",
 		                url: actionedit,
-		                timeout: 3000,
+		                timeout: 6000,
 		                success: function(data){
 		                    $("#"+idsection).replaceWith(data);
 		                    $( ".loader" ).hide();
@@ -1012,7 +1012,7 @@
 		                type: "POST",
 		                url: actionform,
 		                data: $(form).serialize(),
-		                timeout: 3000,
+		                timeout: 6000,
 		                success: function(data){
 		                    $( ".loader" ).hide();
 		                    $("#"+idsection).replaceWith(data);
@@ -1036,7 +1036,7 @@
 		            $.ajax({
 		                type: "GET",
 		                url: actiondelete,
-		                timeout: 3000,
+		                timeout: 6000,
 		                success: function(data){
 		                    $( "#"+idform ).remove();
 		                    $( ".loader" ).hide();

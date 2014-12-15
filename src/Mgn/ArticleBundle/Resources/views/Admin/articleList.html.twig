@@ -125,7 +125,7 @@
 				                    <td>{{ article.category.name }}</td>
 				                    <td>{{ article.countComments }}</td>
 				                    <td>
-				                    	{% if article.status == 0 %}Dernière modification :{% else %}Publié :{% endif %}</br>
+				                    	{% if article.status != 'publish' %}Dernière modification :{% else %}Publié :{% endif %}</br>
 				                    	{{ article.date|datetime }}
 				                    </td>
 				                </tr>

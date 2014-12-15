@@ -11,6 +11,17 @@
 
 	<div class="row">
 
+		{% if article.status == 'publish' %}
+		<div class="col-lg-12">
+
+			<div class="alert alert-primary">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<strong>Attention :</strong> cet article est publié, toute modification sera instantanément visible.
+			</div>
+
+		</div>
+		{% endif %}
+
 		<div class="col-lg-7">
 
 			<section id="article-title" class="panel">

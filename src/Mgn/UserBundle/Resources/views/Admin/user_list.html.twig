@@ -1,8 +1,11 @@
 {% extends "MgnUserBundle::admin.html.twig" %}
 
 {% block title %}
-    {{ 'user.users_list.title'|trans }} - {{ parent() }}
+    Liste des utilisateurs - {{ parent() }}
 {% endblock %}
+
+{% block sidebar_users %}nav-expanded nav-active{% endblock %}
+{% block user_submenu_users %} class="active"{% endblock %}
 
 {% block arianne %}
     {{ parent() }}
@@ -11,24 +14,9 @@
             {{ 'user.ariane.users_list'|trans }}
 {% endblock %}
 
-{% block sidebar_users %}active{% endblock %}
-{% block sidebar_users_all %}select{% endblock %}
-
-{% block body %}
+{% block user_body %}
 
 	<div class="row">
-
-		<div class="col-lg-12">
-
-			<div class="page-header">
-				<h1>
-					<i class="fi-torsos-all"></i> Liste des membres
-
-					<button type="button" disabled="disabled" class="btn btn-primary pull-right" data-toggle="tooltip" data-placement="bottom" title="{{ 'user.form.users_list.addUser'|trans }}" data-original-title="{{ 'user.form.users_list.addUser'|trans }}"><i class="fi-plus"></i></button>
-				</h1>
-			</div>
-
-		</div>
 
 		<div class="col-lg-12">
 

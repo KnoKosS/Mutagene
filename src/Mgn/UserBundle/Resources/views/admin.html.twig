@@ -1,9 +1,36 @@
 {% extends "::admin.html.twig" %}
 
+{% block pagetitle %}Utilisateurs{% endblock %}
+
 {% block arianne %}
     {{ parent() }}
 {% endblock %}
 
 {% block body %}
- 
+ <div class="row">
+
+	<div class="col-lg-12">
+						
+		<div class="inner-toolbar clearfix">
+
+			<ul>
+				<li{% block user_submenu_users %}{% endblock %}>
+					<a href="{{ path('mgn_user_admin_list_user') }}">Tous les utilisateurs</a>
+				</li>
+				<li{% block user_submenu_category %}{% endblock %}>
+					<a href="{{ path('mgn_user_admin_list_group') }}">Groupes</a>
+				</li>
+			</ul>
+
+		</div>
+
+	</div>
+
+	<div class="col-lg-12 body-with-menu-toolbar">
+
+		{% block user_body %}{% endblock %}
+
+	</div>
+
+</div>
 {% endblock %}
