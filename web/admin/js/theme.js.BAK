@@ -1,7 +1,7 @@
 /*
 Name: 			Theme Base
 Written by: 	Okler Themes - (http://www.okler.net)
-Theme Version: 	1.2.0
+Theme Version: 	1.1.0
 */
 
 window.theme = {};
@@ -11,7 +11,7 @@ window.theme = {};
 
 	'use strict';
 
-	var $items = $( '.nav-main li.nav-parent' );
+	var $items = $( '.nav-main > li.nav-parent' );
 
 	function expand( li ) {
 		li.children( 'ul.nav-children' ).slideDown( 'fast', function() {
@@ -42,9 +42,9 @@ window.theme = {};
 		}
 	}
 
-	$items.find('> a').on('click', function() {
-		var prev = $( this ).closest('ul.nav').find('> li.nav-expanded' ),
-			next = $( this ).closest('li');
+	$items.on('click', function() {
+		var prev = $( '.nav-main > li.nav-expanded' ),
+			next = $( this );
 
 		if ( prev.get( 0 ) !== next.get( 0 ) ) {
 			collapse( prev );
@@ -52,6 +52,10 @@ window.theme = {};
 		} else {
 			collapse( prev );
 		}
+	});
+
+	$items.find('.nav-children a').on( 'click', function( ev ) {
+		ev.stopPropagation();
 	});
 
 }).apply( this, [ jQuery ]);
@@ -413,14 +417,6 @@ window.theme = {};
 	theme.Skeleton.initialize();
 
 }).apply(this, [ window.theme, jQuery ]);
-
-/*
-Name: 			Theme Admin Extension
-Written by: 	Okler Themes - (http://www.okler.net)
-Theme Version: 	1.2.0
-*/
-
-window.theme = {};
 
 // Mailbox
 (function(theme, $) {
@@ -3934,7 +3930,7 @@ window.theme = {};
 		$.extend(true, $.fn.dataTable.defaults, {
 			sDom: "<'row datatables-header form-inline'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>r><'table-responsive't><'row datatables-footer'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
 			oLanguage: {
-				sLengthMenu: '_MENU_ records per page',
+				sLengthMenu: '_MENU_ enregistrement par page',
 				sProcessing: '<i class="fa fa-spinner fa-spin"></i> Loading'
 			},
 			fnInitComplete: function( settings, json ) {

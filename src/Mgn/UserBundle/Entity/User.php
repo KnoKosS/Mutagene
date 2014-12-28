@@ -21,44 +21,44 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  */
 class User implements AdvancedUserInterface, \Serializable
 {
-  /**
-   * @ORM\Column(name="id", type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  private $id;
- 
-  /**
-   * @ORM\Column(name="username", type="string", length=255, unique=true)
-   * @Assert\NotBlank()
-   * @Assert\Length(
-   *      min = "2",
-   *      max = "20"
-   * )
-   */
-  private $username;
- 
-  /**
-   * @Gedmo\Slug(fields={"username"})
-   * @ORM\Column(name="usernameCanonical", type="string", length=255, unique=true)
-   */
-  private $usernameCanonical;
- 
-  /**
-   * @ORM\Column(name="password", type="string", length=255)
-   * @Assert\NotBlank()
-   * @Assert\Length(
-   *      min = "6"
-   * )
-   */
-  private $password;
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-  /**
-   * @ORM\Column(type="string", length=255, unique=true)
-   * @Assert\NotBlank()
-   * @Assert\Email()
-   */
-  private $email;
+    /**
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = "2",
+     *      max = "20"
+     * )
+     */
+    private $username;
+
+    /**
+     * @Gedmo\Slug(fields={"username"})
+     * @ORM\Column(name="usernameCanonical", type="string", length=255, unique=true)
+     */
+    private $usernameCanonical;
+
+    /**
+     * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = "6"
+     * )
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     */
+    private $email;
     
     /**
      * @ORM\Column(name="avatar")
@@ -77,119 +77,147 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $avatarFile;
  
-  /**
-   * @ORM\Column(name="salt", type="string", length=255)
-   */
-  private $salt;
+    /**
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt;
 
-  /**
-   * @ORM\Column(name="is_active", type="boolean")
-   */
-  private $isActive;
- 
-  /**
-   * @ORM\Column(name="roles", type="array")
-   */
-  private $roles;
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+   
+    /**
+     * @ORM\Column(name="roles", type="array")
+     */
+    private $roles;
 
-  /**
-   * @ORM\Column(name="registered", type="datetime")
-   */
-  private $registered;
+    /**
+     * @ORM\Column(name="registered", type="datetime")
+     */
+    private $registered;
 
-  /**
-   * @ORM\Column(name="lastLogin", type="datetime", nullable=true)
-   */
-  private $lastLogin;
+    /**
+     * @ORM\Column(name="lastLogin", type="datetime", nullable=true)
+     */
+    private $lastLogin;
 
-  /**
-   * @ORM\Column(name="confirmationToken", type="string", length=255, nullable=true)
-   */
-  private $confirmationToken;
+    /**
+     * @ORM\Column(name="confirmationToken", type="string", length=255, nullable=true)
+     */
+    private $confirmationToken;
 
-  /**
-   * @ORM\Column(name="passwordRequestedAt", type="datetime", nullable=true)
-   */
-  private $passwordRequestedAt;
+    /**
+     * @ORM\Column(name="passwordRequestedAt", type="datetime", nullable=true)
+     */
+    private $passwordRequestedAt;
 
-  /**
-   * @ORM\Column(name="locked", type="boolean")
-   */
-  private $locked;
+    /**
+     * @ORM\Column(name="locked", type="boolean")
+     */
+    private $locked;
 
-  /**
-   * @ORM\Column(name="lockedFor", type="boolean", nullable=true)
-   */
-  private $lockedFor;
+    /**
+     * @ORM\Column(name="lockedFor", type="boolean", nullable=true)
+     */
+    private $lockedFor;
 
-  /**
-   * @ORM\OneToMany(targetEntity="Mgn\UserBundle\Entity\UserToGroup", mappedBy="user", orphanRemoval=true)
-   */
-  protected $groups;
+    /**
+     * @ORM\OneToMany(targetEntity="Mgn\UserBundle\Entity\UserToGroup", mappedBy="user", orphanRemoval=true)
+     */
+    protected $groups;
 
-  /**
-   * @var string
-   * @ORM\Column(name="theme", type="string", nullable=false)
-   */
-  private $theme;
+    /**
+     * @var string
+     * @ORM\Column(name="theme", type="string", nullable=false)
+     */
+    private $theme;
 
-  /**
-   * @ORM\Column(name="themeDate", type="datetime", nullable=false)
-   */
-  private $themeDate;
+    /**
+     * @ORM\Column(name="themeDate", type="datetime", nullable=false)
+     */
+    private $themeDate;
 
-  /**
-   * @var string $firstName
-   *
-   * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
-   */
-  private $firstName;
+    /**
+     * @var string $firstName
+     *
+     * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
+     */
+    private $firstName;
 
-  /**
-   * @var string $lastName
-   *
-   * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
-   */
-  private $lastName;
+    /**
+     * @var string $lastName
+     *
+     * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
+     */
+    private $lastName;
 
-  /**
-   * @ORM\Column(name="birthday", type="date", nullable=true)
-   */
-  private $birthday;
+    /**
+     * @ORM\Column(name="birthday", type="date", nullable=true)
+     */
+    private $birthday;
 
-  /**
-   * @ORM\Column(name="signature", type="text", nullable=true)
-   */
-  private $signature;
+    /**
+     * @ORM\Column(name="signature", type="text", nullable=true)
+     */
+    private $signature;
 
-  /**
-   * @var string $twitter
-   *
-   * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
-   */
-  private $twitter;
+    /**
+     * @var string $twitter
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     */
+    private $twitter;
 
-  /**
-   * @var string $facebook
-   *
-   * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
-   */
-  private $facebook;
+    /**
+     * @var string $facebook
+     *
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     */
+    private $facebook;
 
-  /**
-   * @var string $googleplus
-   *
-   * @ORM\Column(name="googleplus", type="string", length=255, nullable=true)
-   */
-  private $googleplus;
+    /**
+     * @var string $googleplus
+     *
+     * @ORM\Column(name="googleplus", type="string", length=255, nullable=true)
+     */
+    private $googleplus;
 
-  /**
-   * @var string $steam
-   *
-   * @ORM\Column(name="steam", type="string", length=255, nullable=true)
-   */
-  private $steam;
-    
+    /**
+     * @var string $steam
+     *
+     * @ORM\Column(name="steam", type="string", length=255, nullable=true)
+     */
+    private $steam;
+
+    /**
+     * @var string $linkedin
+     *
+     * @ORM\Column(name="linkedin", type="string", length=255, nullable=true)
+     */
+    private $linkedin;
+
+    /**
+     * @var string $twitch
+     *
+     * @ORM\Column(name="twitch", type="string", length=255, nullable=true)
+     */
+    private $twitch;
+
+    /**
+     * @var string $youtube
+     *
+     * @ORM\Column(name="youtube", type="string", length=255, nullable=true)
+     */
+    private $youtube;
+
+    /**
+     * @var string $pinterest
+     *
+     * @ORM\Column(name="pinterest", type="string", length=255, nullable=true)
+     */
+    private $pinterest;
+      
     /**
      * @ORM\Column(name="countArticle", type="integer")
      */
@@ -228,6 +256,10 @@ class User implements AdvancedUserInterface, \Serializable
     $this->facebook = null;
     $this->googleplus = null;
     $this->steam = null;
+    $this->linkedin = null;
+    $this->twitch = null;
+    $this->youtube = null;
+    $this->pinterest = null;
     $this->countArticle = 0;
     $this->countMessage = 0;
     $this->countTopic = 0;
@@ -854,6 +886,98 @@ class User implements AdvancedUserInterface, \Serializable
     public function getSteam()
     {
         return $this->steam;
+    }
+
+    /**
+     * Set linkedin
+     *
+     * @param string $linkedin
+     * @return User
+     */
+    public function setLinkedin($linkedin)
+    {
+        $this->linkedin = $linkedin;
+    
+        return $this;
+    }
+
+    /**
+     * Get linkedin
+     *
+     * @return string 
+     */
+    public function getLinkedin()
+    {
+        return $this->linkedin;
+    }
+
+    /**
+     * Set twitch
+     *
+     * @param string $twitch
+     * @return User
+     */
+    public function setTwitch($twitch)
+    {
+        $this->twitch = $twitch;
+    
+        return $this;
+    }
+
+    /**
+     * Get twitch
+     *
+     * @return string 
+     */
+    public function getTwitch()
+    {
+        return $this->twitch;
+    }
+
+    /**
+     * Set youtube
+     *
+     * @param string $youtube
+     * @return User
+     */
+    public function setYoutube($youtube)
+    {
+        $this->youtube = $youtube;
+    
+        return $this;
+    }
+
+    /**
+     * Get youtube
+     *
+     * @return string 
+     */
+    public function getYoutube()
+    {
+        return $this->youtube;
+    }
+
+    /**
+     * Set pinterest
+     *
+     * @param string $pinterest
+     * @return User
+     */
+    public function setPinterest($pinterest)
+    {
+        $this->pinterest = $pinterest;
+    
+        return $this;
+    }
+
+    /**
+     * Get pinterest
+     *
+     * @return string 
+     */
+    public function getPinterest()
+    {
+        return $this->pinterest;
     }
 
     /**

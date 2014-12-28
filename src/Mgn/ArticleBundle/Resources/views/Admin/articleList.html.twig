@@ -31,131 +31,133 @@
 
 {% block article_body %}
 
-			{% for message in app.session.flashbag.get('success') %}
-			<div class="alert alert-primary">
-	        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	            {{ message }}
-	        </div>
-	        {% endfor %}
+	{% for message in app.session.flashbag.get('success') %}
+	<div class="alert alert-primary">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
 
-	        <section class="panel">
-				<header class="panel-heading">
-					<div class="panel-actions">
-						<a data-toggle="tooltip" class="btn-primary pull-right tips" data-placement="left" title="Ajouter un article" href="{{ path('mgn_admin_article_redaction') }}">
-						<i class="fa fa-plus"></i>
-					</a>
+    <section class="panel">
+    	
+		<header class="panel-heading">
+			<div class="panel-actions">
+				<a data-toggle="tooltip" class="btn-primary pull-right tips" data-placement="left" title="Ajouter un article" href="{{ path('mgn_admin_article_redaction') }}">
+				<i class="fa fa-plus"></i>
+			</a>
+			</div>
+
+			<h2 class="panel-title">Tous les articles</h2>
+		</header>
+
+		<div class="panel-body">
+			
+			{% if articles is empty %}
+
+				<div class="row">
+			    	<div class="col-lg-4 form-group pull-right">
+							<input type="text" class="form-control" placeholder="Recherche" id="articleSearch">
 					</div>
-
-					<h2 class="panel-title">Tous les articles</h2>
-				</header>
-				<div class="panel-body">
-					
-					{% if articles is empty %}
-
-						<div class="row">
-					    	<div class="col-lg-4 form-group pull-right">
-									<input type="text" class="form-control" placeholder="Recherche" id="articleSearch">
-							</div>
-						</div>
-
-						<table class="table table-hover" id="articleList">
-				            <thead>
-				                <tr>
-				                    <th>Titre</th>
-				                    <th>Auteur</th>
-				                    <th>Catégorie</th>
-				                    <th><i class="fa fa-comment"/></i></th>
-				                    <th>Date</th>
-				                </tr>
-				            </thead>
-				        </table>
-
-						{% if status == 'publish' %}
-					    	<div class="alert alert-dark">
-								<strong>Information :</strong> Vous n'avez publié encore aucun article.
-							</div>
-					    {% elseif status == 'pending' %}
-					    	<div class="alert alert-dark">
-								<strong>Information :</strong> Il n'y a aucun article en attente de validation.
-							</div>
-					    {% elseif status == 'draft' %}
-					    	<div class="alert alert-dark">
-								<strong>Information :</strong> Il n'y a aucun article en cours de rédaction.
-							</div>
-						{% endif %}
-
-				    {% else %}
-
-				    	<div class="row">
-					    	<div class="col-lg-4 form-group pull-right">
-									<input type="text" class="form-control" placeholder="Recherche" id="articleSearch">
-							</div>
-						</div>
-
-				    	<table class="table table-hover" id="articleList">
-				            <thead>
-				                <tr>
-				                    <th>Titre</th>
-				                    <th>Auteur</th>
-				                    <th>Catégorie</th>
-				                    <th><i class="fa fa-comment"/></i></th>
-				                    <th>Date</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				                {% for article in articles %}
-				                
-				                <tr>
-				                
-				                    <td>
-
-				                    	<h5><a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}"><strong>{{ article.title }}</strong></a>{% if article.status == 0 %}<small>{% if article.status == 'publish' %} - Publié{% endif %}{% if article.status == 'pending' %} - En attente{% endif %}{% if article.status == 'draft' %} - Brouillon{% endif %}</small>{% endif %}</h5>
-
-				                    	<span class="hidde">
-
-				                    		<small>
-				                    			<a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}">Modifier</a> | <a href="#modalDelete{{ article.id }}" role="button" class="text-danger" data-toggle="modal">Mettre à la corbeille</a>
-				                    		</small>
-
-				                    	</span>
-
-				                    </td>
-
-				                    <td>{{ article.author.username }}</td>
-				                    <td>{{ article.category.name }}</td>
-				                    <td>{{ article.countComments }}</td>
-				                    <td>
-				                    	{% if article.status != 'publish' %}Dernière modification :{% else %}Publié :{% endif %}</br>
-				                    	{{ article.date|datetime }}
-				                    </td>
-				                </tr>
-
-				                <!-- Modal -->
-				                <div id="modalDelete{{ article.id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				                	<div class="modal-dialog">
-				                		<div class="modal-content">
-				                			<div class="modal-header">
-				                				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				                				<h4 class="modal-title" id="myModalLabel">Supprimer l'article #{{ article.id }}</h4>
-											</div>
-											<div class="modal-body">
-												Etes-vous sûr de vouloir supprimer l'article "<strong>{{ article.title }}</strong>" ? Cette action est irréversible !
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-												<a class="btn btn-danger" href="{{ path('mgn_admin_article_delete', {'id': article.id}) }}">Supprimer</a>
-											</div>
-										</div><!-- /.modal-content -->
-									</div><!-- /.modal-dialog -->
-								</div><!-- /.modal -->
-				                
-				                {% endfor %}
-				            </tbody>
-				        </table>
-
-				    {% endif %}
-
 				</div>
-			</section>
+
+				<table class="table table-hover" id="articleList">
+		            <thead>
+		                <tr>
+		                    <th>Titre</th>
+		                    <th>Auteur</th>
+		                    <th>Catégorie</th>
+		                    <th><i class="fa fa-comment"/></i></th>
+		                    <th>Date</th>
+		                </tr>
+		            </thead>
+		        </table>
+
+				{% if status == 'publish' %}
+			    	<div class="alert alert-dark">
+						<strong>Information :</strong> Vous n'avez publié encore aucun article.
+					</div>
+			    {% elseif status == 'pending' %}
+			    	<div class="alert alert-dark">
+						<strong>Information :</strong> Il n'y a aucun article en attente de validation.
+					</div>
+			    {% elseif status == 'draft' %}
+			    	<div class="alert alert-dark">
+						<strong>Information :</strong> Il n'y a aucun article en cours de rédaction.
+					</div>
+				{% endif %}
+
+		    {% else %}
+
+		    	<div class="row">
+			    	<div class="col-lg-4 form-group pull-right">
+							<input type="text" class="form-control" placeholder="Recherche" id="articleSearch">
+					</div>
+				</div>
+
+		    	<table class="table table-hover" id="articleList">
+		            <thead>
+		                <tr>
+		                    <th>Titre</th>
+		                    <th>Auteur</th>
+		                    <th>Catégorie</th>
+		                    <th><i class="fa fa-comment"/></i></th>
+		                    <th>Date</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                {% for article in articles %}
+		                
+		                <tr>
+		                
+		                    <td>
+
+		                    	<h5><a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}"><strong>{{ article.title }}</strong></a>{% if article.status == 0 %}<small>{% if article.status == 'publish' %} - Publié{% endif %}{% if article.status == 'pending' %} - En attente{% endif %}{% if article.status == 'draft' %} - Brouillon{% endif %}</small>{% endif %}</h5>
+
+		                    	<span class="hidde">
+
+		                    		<small>
+		                    			<a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}">Modifier</a> | <a href="#modalDelete{{ article.id }}" role="button" class="text-danger" data-toggle="modal">Mettre à la corbeille</a>
+		                    		</small>
+
+		                    	</span>
+
+		                    </td>
+
+		                    <td>{{ article.author.username }}</td>
+		                    <td>{{ article.category.name }}</td>
+		                    <td>{{ article.countComments }}</td>
+		                    <td>
+		                    	{% if article.status != 'publish' %}Dernière modification :{% else %}Publié :{% endif %}</br>
+		                    	{{ article.date|datetime }}
+		                    </td>
+		                </tr>
+
+		                <!-- Modal -->
+		                <div id="modalDelete{{ article.id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		                	<div class="modal-dialog">
+		                		<div class="modal-content">
+		                			<div class="modal-header">
+		                				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                				<h4 class="modal-title" id="myModalLabel">Supprimer l'article #{{ article.id }}</h4>
+									</div>
+									<div class="modal-body">
+										Etes-vous sûr de vouloir supprimer l'article "<strong>{{ article.title }}</strong>" ? Cette action est irréversible !
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+										<a class="btn btn-danger" href="{{ path('mgn_admin_article_delete', {'id': article.id}) }}">Supprimer</a>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+		                
+		                {% endfor %}
+		            </tbody>
+		        </table>
+
+		    {% endif %}
+
+		</div>
+	</section>
 
 {% endblock %}

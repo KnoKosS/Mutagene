@@ -1,130 +1,588 @@
-{% block sidebar_users %}active{% endblock %}
+{% extends "MgnUserBundle::admin.html.twig" %}
 
-{% block body %}
+{% block title %}
+    Profil - {{ parent() }}
+{% endblock %}
+
+{% block sidebar_users %}nav-expanded nav-active{% endblock %}
+{% block user_submenu_users %} class="active"{% endblock %}
+
+{% block arianne %}
+    {{ parent() }}
+        </li>
+        <li>
+            {{ 'user.ariane.users_list'|trans }}
+{% endblock %}
+
+{% block user_body %}
 
 <div class="row">
+	<div class="col-md-4 col-lg-3">
 
-	<div class="col-lg-12" style="background-color: #f0f0f0; border-bottom: 4px solid #555; padding-top: 16px; height: 74px;">
+		<section class="panel">
+			<div class="panel-body">
+				<div class="thumb-info mb-md">
+					{{ user.avatar|avatar(app.user.avatarPath, app.user.email, '500', 'rounded img-responsive')|raw }}
+					<div class="thumb-info-title">
+						<span class="thumb-info-inner">{{ user.username }}</span>
+						<span class="thumb-info-type">ADMIN</span>
+					</div>
+				</div>
 
-		<div class="row">
+				<div class="widget-toggle-expand mb-md">
+					<div class="widget-header">
+						<h6>Profil complété</h6>
+						<div class="widget-toggle">+</div>
+					</div>
+					<div class="widget-content-collapsed">
+						<div class="progress progress-xs light">
+							<div class="progress-bar" role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
+								66%
+							</div>
+						</div>
+					</div>
+					<div class="widget-content-expanded">
+						<ul class="simple-todo-list">
+							<li class="completed">Modifier son avatar</li>
+							<li class="completed">Changer ses informations personnel</li>
+							<li>Mettre à jour ses liens social</li>
+						</ul>
+					</div>
+				</div>
 
-			<div class="col-lg-10">
+				<hr class="dotted short">
 
-				<h1 style="margin:0px;"><i class="fi-torsos-all"></i> {{ user.username }}</h1>
+				<h6 class="text-muted">A propos</h6>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis vulputate quam. Interdum et malesuada</p>
+
+				<hr class="dotted short">
+
+				<div class="social-icons">
+					{% if user.facebook %}
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.facebook.com" data-original-title="Facebook">
+						<i class="fa fa-facebook"></i><span>Facebook</span>
+					</a>
+					{% endif %}
+					{% if user.twitter %}
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitter.com" data-original-title="Twitter">
+						<i class="fa fa-twitter"></i><span>Twitter</span>
+					</a>
+					{% endif %}
+					{% if user.linkedin %}
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.linkedin.com" data-original-title="Linkedin">
+						<i class="fa fa-linkedin"></i><span>Linkedin</span>
+					</a>
+					{% endif %}
+					{% if user.steam %}
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.steampowered.com" data-original-title="Steam">
+						<i class="fa fa-steam"></i><span>Steam</span>
+					</a>
+					{% endif %}
+					{% if user.googleplus %}
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.googleplus.com" data-original-title="Google Plus">
+						<i class="fa fa-google-plus"></i><span>Google Plus</span>
+					</a>
+					{% endif %}
+					{% if user.twitch %}
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitch.com" data-original-title="Twitch">
+						<i class="fa fa-twitch"></i><span>Twitch</span>
+					</a>
+					{% endif %}
+					{% if user.youtube %}
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.youtube.com" data-original-title="Youtube">
+						<i class="fa fa-youtube-play"></i><span>Youtube</span>
+					</a>
+					{% endif %}
+					{% if user.pinterest %}
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.pinterest.com" data-original-title="Pinterest">
+						<i class="fa fa-pinterest"></i><span>Pinterest</span>
+					</a>
+					{% endif %}
+				</div>
 
 			</div>
+		</section>
 
-			<div class="col-lg-2">
 
-				<button type="button" disabled="disabled" class="btn btn-primary pull-right" data-toggle="tooltip" data-placement="bottom" title="Administrer {{ user.username }}" data-original-title="Administrer {{ user.username }}"><i class="fi-widget"></i></button>
+		{#<section class="panel">
+			<header class="panel-heading">
+				<div class="panel-actions">
+					<a href="#" class="fa fa-caret-down"></a>
+					<a href="#" class="fa fa-times"></a>
+				</div>
 
+				<h2 class="panel-title">
+					<span class="label label-primary label-sm text-normal va-middle mr-sm">198</span>
+					<span class="va-middle">Friends</span>
+				</h2>
+			</header>
+			<div class="panel-body">
+				<div class="content">
+					<ul class="simple-user-list">
+						<li>
+							<figure class="image rounded">
+								<img src="assets/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle">
+							</figure>
+							<span class="title">Joseph Doe Junior</span>
+							<span class="message truncate">Lorem ipsum dolor sit.</span>
+						</li>
+						<li>
+							<figure class="image rounded">
+								<img src="assets/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle">
+							</figure>
+							<span class="title">Joseph Junior</span>
+							<span class="message truncate">Lorem ipsum dolor sit.</span>
+						</li>
+						<li>
+							<figure class="image rounded">
+								<img src="assets/images/!sample-user.jpg" alt="Joe Junior" class="img-circle">
+							</figure>
+							<span class="title">Joe Junior</span>
+							<span class="message truncate">Lorem ipsum dolor sit.</span>
+						</li>
+						<li>
+							<figure class="image rounded">
+								<img src="assets/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle">
+							</figure>
+							<span class="title">Joseph Doe Junior</span>
+							<span class="message truncate">Lorem ipsum dolor sit.</span>
+						</li>
+					</ul>
+					<hr class="dotted short">
+					<div class="text-right">
+						<a class="text-uppercase text-muted" href="#">(View All)</a>
+					</div>
+				</div>
 			</div>
+			<div class="panel-footer">
+				<div class="input-group input-search">
+					<input type="text" class="form-control" name="q" id="q" placeholder="Search...">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit"><i class="fa fa-search"></i>
+						</button>
+					</span>
+				</div>
+			</div>
+		</section>#}
 
-		</div>
+		{#<section class="panel">
+			<header class="panel-heading">
+				<div class="panel-actions">
+					<a href="#" class="fa fa-caret-down"></a>
+					<a href="#" class="fa fa-times"></a>
+				</div>
+
+				<h2 class="panel-title">Popular Posts</h2>
+			</header>
+			<div class="panel-body">
+				<ul class="simple-post-list">
+					<li>
+						<div class="post-image">
+							<div class="img-thumbnail">
+								<a href="#">
+									<img src="assets/images/post-thumb-1.jpg" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="post-info">
+							<a href="#">Nullam Vitae Nibh Un Odiosters</a>
+							<div class="post-meta">
+								 Jan 10, 2013
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="post-image">
+							<div class="img-thumbnail">
+								<a href="#">
+									<img src="assets/images/post-thumb-2.jpg" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="post-info">
+							<a href="#">Vitae Nibh Un Odiosters</a>
+							<div class="post-meta">
+								 Jan 10, 2013
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="post-image">
+							<div class="img-thumbnail">
+								<a href="#">
+									<img src="assets/images/post-thumb-3.jpg" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="post-info">
+							<a href="#">Odiosters Nullam Vitae</a>
+							<div class="post-meta">
+								 Jan 10, 2013
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>#}
 
 	</div>
+	<div class="col-md-8 col-lg-6">
 
-	<div class="col-lg-12">
+		<div class="tabs">
+			<ul class="nav nav-tabs tabs-primary">
+				<li class="active">
+					<a href="#overview" data-toggle="tab">Activités</a>
+				</li>
+				<li>
+					<a href="#profil" data-toggle="tab">Profil</a>
+				</li>
+				<li>
+					<a href="#social" data-toggle="tab">Social</a>
+				</li>
+				<li>
+					<a href="#security" data-toggle="tab">Sécurité</a>
+				</li>
+			</ul>
+			<div class="tab-content">
 
-		<div class="row">
+				<div id="overview" class="tab-pane active">
 
-			<div class="col-lg-6">
-
-				<div class="page-header">
-
-					<h3>Compte</h3>
-
-				</div>
-
-				<p>
-
-					<ul class="list-unstyled">
-						<li>{{ 'user.user_profil.date_registered'|trans }} : {{ user.registered|date('d/m/Y') }}</li>
-						<li>{{ 'user.user_profil.date_last_login'|trans }} : {{ user.lastLogin|date('d/m/Y') }}</li>
-						<li>{{ 'user.user_profil.theme'|trans }} : {{ user.theme }}</li>
-						<li>{{ 'user.user_profil.status'|trans }} : {% if user.locked == false %}<span class="text-success">{{ 'user.users_list.unlocked'|trans }}</span>{% else %}<span class="text-danger">{{ 'user.users_list.locked'|trans }}</span>{% endif %}</li>
-					</ul>
-
-				</p>
-
-			</div>
-
-			<div class="col-lg-6">
-
-				<div class="page-header">
-
-					<h3>Profil</h3>
-
-				</div>
-
-				<p>
-
-					<ul class="list-unstyled">
-						<li>{{ 'user.user_profil.email'|trans }} : {{ user.email }}</li>
-					</ul>
-
-				</p>
-
-			</div>
-
-		</div>
-
-		<div class="row">
-
-			<div class="col-lg-6">
-
-				<div class="page-header">
-
-					<h3>Groupes</h3>
-
-				</div>
-
-				{% if groups is empty %}
-
-					<div class="alert alert-info">
-						Ne fait partie d'aucun groupe
+					<div class="timeline timeline-simple mt-xlg mb-md">
+						<div class="tm-body">
+							<div class="tm-title">
+								<h3 class="h5 text-uppercase">Décembre 2014</h3>
+							</div>
+							<ol class="tm-items">
+								<li>
+									<div class="tm-box">
+										<p class="text-muted mb-none">Le 24 décembre 2014.</p>
+										<p>
+											Création d'un nouveau sujet : <span class="text-primary">Fuckof console !</span>
+										</p>
+									</div>
+								</li>
+								<li>
+									<div class="tm-box">
+										<p class="text-muted mb-none">Le 7 décembre 2014.</p>
+										<p>
+											Changement du mot de passe.
+										</p>
+									</div>
+								</li>
+							</ol>
+						</div>
 					</div>
+				</div>
 
-				{% else %}
+				<div id="profil" class="tab-pane">
 
-					<table class="table">
+					<form class="form-horizontal" method="get">
+						<h4 class="mb-xlg">Information personnel</h4>
+						<fieldset>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">Prénom</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" id="profileFirstName">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileLastName">Nom</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" id="profileLastName">
+								</div>
+							</div>
+						</fieldset>
+						<hr class="dotted tall">
+						<h4 class="mb-xlg">A propos</h4>
+						<fieldset>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileBio">Biographie</label>
+								<div class="col-md-8">
+									<textarea class="form-control" rows="3" id="profileBio"></textarea>
+								</div>
+							</div>
+						</fieldset>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-3">
+									<button type="submit" class="btn btn-primary">Enregistrer</button>
+									<button type="reset" class="btn btn-default">Réinitialiser</button>
+								</div>
+							</div>
+						</div>
 
-					<thead>
+					</form>
 
-						<tr>
+				</div>
 
-							<th>Nom du groupe</th>
-							<th>Défaut</th>
-							<th>Fonction dans le groupe</th>
+				<div id="social" class="tab-pane">
+					
+					<form class="form-horizontal" method="get">
+						<h4 class="mb-xlg">Réseaux sociaux</h4>
+						<fieldset>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">Facebook</label>
+								<div class="col-md-8">
+									<div class="input-group mb-md">
+										<span class="input-group-addon">https://www.facebook.com/</span>
+										<input type="text" class="form-control" id="profileFirstName">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">Twitter</label>
+								<div class="col-md-8">
+									<div class="input-group mb-md">
+										<span class="input-group-addon">https://twitter.com/</span>
+										<input type="text" class="form-control" id="profileFirstName">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">Linkedin</label>
+								<div class="col-md-8">
+									<div class="input-group mb-md">
+										<span class="input-group-addon">https://www.linkedin.com/pub/</span>
+										<input type="text" class="form-control" id="profileFirstName">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">Steam</label>
+								<div class="col-md-8">
+									<div class="input-group mb-md">
+										<span class="input-group-addon">http://steamcommunity.com/id/</span>
+										<input type="text" class="form-control" id="profileFirstName">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">Google Plus</label>
+								<div class="col-md-8">
+									<div class="input-group mb-md">
+										<span class="input-group-addon">https://plus.google.com/</span>
+										<input type="text" class="form-control" id="profileFirstName">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">Twitch</label>
+								<div class="col-md-8">
+									<div class="input-group mb-md">
+										<span class="input-group-addon">http://www.twitch.tv/</span>
+										<input type="text" class="form-control" id="profileFirstName">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">YouTube</label>
+								<div class="col-md-8">
+									<div class="input-group mb-md">
+										<span class="input-group-addon">https://www.youtube.com/channel/</span>
+										<input type="text" class="form-control" id="profileFirstName">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileFirstName">pinterest</label>
+								<div class="col-md-8">
+									<div class="input-group mb-md">
+										<span class="input-group-addon">http://fr.pinterest.com/</span>
+										<input type="text" class="form-control" id="profileFirstName">
+									</div>
+								</div>
+							</div>
 
-						</tr>
+						</fieldset>
 
-					</thead>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-3">
+									<button type="submit" class="btn btn-primary">Enregistrer</button>
+									<button type="reset" class="btn btn-default">Réinitialiser</button>
+								</div>
+							</div>
+						</div>
 
-					{% for group in groups %}
+					</form>
 
-						<tbody>
+				</div>
 
-							<tr>
+				<div id="security" class="tab-pane">
 
-								<td>{{ group.group.name }}</td>
-								<td>{% if group.default == true %}<i class="fi-check"></i>{% else %}{% endif %}</td>
-								<td>{{ group.function }}</td>
+					<form class="form-horizontal" method="get">
+						<h4 class="mb-xlg">Modifier mot de passe</h4>
+						<fieldset class="mb-xl">
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileNewPassword">Nouveau mot de passe</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" id="profileNewPassword">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="profileNewPasswordRepeat">Confirmer</label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" id="profileNewPasswordRepeat">
+								</div>
+							</div>
+						</fieldset>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-3">
+									<button type="submit" class="btn btn-primary">Enregistrer</button>
+									<button type="reset" class="btn btn-default">Réinitialiser</button>
+								</div>
+							</div>
+						</div>
 
-							</tr>
+					</form>
 
-						</tbody>
-
-					{% endfor %}
-
-				{% endif %}
-
-				</table>
+				</div>
 
 			</div>
+		</div>
+	</div>
+	<div class="col-md-12 col-lg-3">
 
+		<h4 class="mb-md">Statistiques</h4>
+		<div class="row">
+			<div class="col-md-12 col-xl-12">
+				<section class="panel">
+					<div class="panel-body bg-secondary">
+						<div class="widget-summary widget-summary-sm">
+							<div class="widget-summary-col widget-summary-col-icon">
+								<div class="summary-icon">
+									<i class="fa fa-pencil"></i>
+								</div>
+							</div>
+							<div class="widget-summary-col">
+								<div class="summary">
+									<h4 class="title">Articles publiés</h4>
+									<div class="info">
+										<strong class="amount">{{ user.countArticle }}</strong>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-12 col-xl-12">
+				<section class="panel">
+					<div class="panel-body bg-secondary">
+						<div class="widget-summary widget-summary-sm">
+							<div class="widget-summary-col widget-summary-col-icon">
+								<div class="summary-icon">
+									<i class="fi-list-thumbnails"></i>
+								</div>
+							</div>
+							<div class="widget-summary-col">
+								<div class="summary">
+									<h4 class="title">Topics créés</h4>
+									<div class="info">
+										<strong class="amount">{{ user.countTopic }}</strong>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-12 col-xl-12">
+				<section class="panel">
+					<div class="panel-body bg-secondary">
+						<div class="widget-summary widget-summary-sm">
+							<div class="widget-summary-col widget-summary-col-icon">
+								<div class="summary-icon">
+									<i class="fi-results-demographics"></i>
+								</div>
+							</div>
+							<div class="widget-summary-col">
+								<div class="summary">
+									<h4 class="title">Posts</h4>
+									<div class="info">
+										<strong class="amount">{{ user.countPost }}</strong>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div class="col-md-12 col-xl-12">
+				<section class="panel">
+					<div class="panel-body bg-secondary">
+						<div class="widget-summary widget-summary-sm">
+							<div class="widget-summary-col widget-summary-col-icon">
+								<div class="summary-icon">
+									<i class="fi-comments"></i>
+								</div>
+							</div>
+							<div class="widget-summary-col">
+								<div class="summary">
+									<h4 class="title">Commentaires</h4>
+									<div class="info">
+										<strong class="amount">{{ user.countMessage }}</strong>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
 		</div>
 
+		{#<h4 class="mb-md">Projects</h4>
+		<ul class="simple-bullet-list mb-xlg">
+			<li class="red">
+				<span class="title">Porto Template</span>
+				<span class="description truncate">Lorem ipsom dolor sit.</span>
+			</li>
+			<li class="green">
+				<span class="title">Tucson HTML5 Template</span>
+				<span class="description truncate">Lorem ipsom dolor sit amet</span>
+			</li>
+			<li class="blue">
+				<span class="title">Porto HTML5 Template</span>
+				<span class="description truncate">Lorem ipsom dolor sit.</span>
+			</li>
+			<li class="orange">
+				<span class="title">Tucson Template</span>
+				<span class="description truncate">Lorem ipsom dolor sit.</span>
+			</li>
+		</ul>#}
+
+		{#<h4 class="mb-md">Messages</h4>
+		<ul class="simple-user-list mb-xlg">
+			<li>
+				<figure class="image rounded">
+					<img src="assets/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle">
+				</figure>
+				<span class="title">Joseph Doe Junior</span>
+				<span class="message">Lorem ipsum dolor sit.</span>
+			</li>
+			<li>
+				<figure class="image rounded">
+					<img src="assets/images/!sample-user.jpg" alt="Joseph Junior" class="img-circle">
+				</figure>
+				<span class="title">Joseph Junior</span>
+				<span class="message">Lorem ipsum dolor sit.</span>
+			</li>
+			<li>
+				<figure class="image rounded">
+					<img src="assets/images/!sample-user.jpg" alt="Joe Junior" class="img-circle">
+				</figure>
+				<span class="title">Joe Junior</span>
+				<span class="message">Lorem ipsum dolor sit.</span>
+			</li>
+			<li>
+				<figure class="image rounded">
+					<img src="assets/images/!sample-user.jpg" alt="Joseph Doe Junior" class="img-circle">
+				</figure>
+				<span class="title">Joseph Doe Junior</span>
+				<span class="message">Lorem ipsum dolor sit.</span>
+			</li>
+		</ul>#}
 	</div>
 
 </div>
