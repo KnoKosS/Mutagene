@@ -20,7 +20,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "stof/doctrine-extensions-bundle": "1.2.*@dev",
         "jms/security-extra-bundle": "1.5.*@dev",
-        "ornicar/gravatar-bundle": "1.1.*@dev"
+        "ornicar/gravatar-bundle": "1.1.*@dev",
+        "avalanche123/imagine-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

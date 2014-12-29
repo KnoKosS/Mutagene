@@ -57,19 +57,19 @@ class UserController extends Controller
 
                     $size = GetImageSize($user->getAvatarFile());
 
-                    if ( $size[0] != 150 || $size[1] != 150 )
+                    if ( $size[0] <= 150 || $size[1] <= 150 )
                     {
-                        $this->get('session')->getFlashBag()->add('info', 'La taille de votre avatar doit être de 150px par 150px.');
+                        $this->get('session')->getFlashBag()->add('info', 'La taille de votre avatar doit être au minimum de 150px par 150px.');
 
                         return $this->redirect( $this->generateUrl('mgn_user_edit_profile', array('username' => $username)));
                     }
 
-                    if ( $size[0] != $size[1] )
+                    /*if ( $size[0] != $size[1] )
                     {
                         $this->get('session')->getFlashBag()->add('info', 'La taille de votre avatar doit être de forme carré.');
 
                         return $this->redirect( $this->generateUrl('mgn_user_edit_profile', array('username' => $username)));
-                    }
+                    }*/
 
                     $user->upload();
                 }

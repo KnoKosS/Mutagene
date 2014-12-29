@@ -123,6 +123,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $lockedFor;
 
     /**
+     * @ORM\Column(name="deleted", type="boolean")
+     */
+    private $deleted;
+
+    /**
      * @ORM\OneToMany(targetEntity="Mgn\UserBundle\Entity\UserToGroup", mappedBy="user", orphanRemoval=true)
      */
     protected $groups;
@@ -250,6 +255,7 @@ class User implements AdvancedUserInterface, \Serializable
     $this->isActive = false;
     $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     $this->locked = false;
+    $this->deleted = false;
     $this->registered = new \Datetime();
     $this->lastLogin = null;
     $this->addRole('ROLE_USER');
@@ -286,7 +292,14 @@ class User implements AdvancedUserInterface, \Serializable
  
   public function getUsername()
   {
-    return $this->username;
+    if($this->deleted == true)
+    {
+        return 'Utilisateur supprimé';
+    }
+    else
+    {
+        return $this->username;
+    }
   }
  
   public function setPassword($password)
@@ -1202,5 +1215,28 @@ class User implements AdvancedUserInterface, \Serializable
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return User
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

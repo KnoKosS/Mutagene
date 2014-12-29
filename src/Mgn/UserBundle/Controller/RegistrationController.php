@@ -69,11 +69,18 @@ class RegistrationController extends Controller
     	$em = $this->getDoctrine()->getManager();
     	$translator = $this->get('translator');
 
+    	$config = $this->getDoctrine()
+                         ->getManager()
+                         ->getRepository('MgnCoreBundle:Config')
+                         ->findOneBy(array('cms' => 'mutagene'));
+
     	$user = $em->getRepository('MgnUserBundle:User')
                    ->findOneByConfirmationToken($token);
 
         $user->setIsActive(true);
         $user->setConfirmationToken(null);
+
+        $config->setTotalUsers($config->getTotalUsers()+1);
 
         $em->flush();
 

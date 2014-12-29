@@ -40,7 +40,7 @@
 		<section class="panel">
 			<div class="panel-body">
 				<div class="thumb-info mb-md">
-					{{ user.avatar|avatar(app.user.avatarPath, app.user.email, '500', 'rounded img-responsive')|raw }}
+					{{ user.avatar|avatar(app.user.avatarPath, user.email, '500', 'rounded img-responsive')|raw }}
 					<div class="thumb-info-title">
 						<span class="thumb-info-inner">{{ user.username }}</span>
 						<span class="thumb-info-type">ADMIN</span>
@@ -81,42 +81,42 @@
 
 				<div class="social-icons">
 					{% if user.facebook and Config('profileFacebook') == true %}
-					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.facebook.com" data-original-title="Facebook">
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.facebook.com/{{ user.facebook }}" data-original-title="Facebook">
 						<i class="fa fa-facebook"></i><span>Facebook</span>
 					</a>
 					{% endif %}
 					{% if user.twitter and Config('profileTwitter') == true %}
-					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitter.com" data-original-title="Twitter">
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitter.com/{{ user.twitter }}" data-original-title="Twitter">
 						<i class="fa fa-twitter"></i><span>Twitter</span>
 					</a>
 					{% endif %}
 					{% if user.linkedin and Config('profileLinkedin') == true %}
-					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.linkedin.com" data-original-title="Linkedin">
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.linkedin.com/pub/{{ user.linkedin }}" data-original-title="Linkedin">
 						<i class="fa fa-linkedin"></i><span>Linkedin</span>
 					</a>
 					{% endif %}
 					{% if user.steam and Config('profileSteam') == true %}
-					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.steampowered.com" data-original-title="Steam">
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://steamcommunity.com/id/{{ user.steam }}" data-original-title="Steam">
 						<i class="fa fa-steam"></i><span>Steam</span>
 					</a>
 					{% endif %}
 					{% if user.googleplus and Config('profileGoogleplus') == true %}
-					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.googleplus.com" data-original-title="Google Plus">
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://plus.google.com/{{ user.googleplus }}" data-original-title="Google Plus">
 						<i class="fa fa-google-plus"></i><span>Google Plus</span>
 					</a>
 					{% endif %}
 					{% if user.twitch and Config('profileTwitch') == true %}
-					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitch.com" data-original-title="Twitch">
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitch.tv/{{ user.twitch }}" data-original-title="Twitch">
 						<i class="fa fa-twitch"></i><span>Twitch</span>
 					</a>
 					{% endif %}
 					{% if user.youtube and Config('profileYoutube') == true %}
-					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.youtube.com" data-original-title="Youtube">
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.youtube.com/channel/{{ user.youtube }}" data-original-title="Youtube">
 						<i class="fa fa-youtube-play"></i><span>Youtube</span>
 					</a>
 					{% endif %}
 					{% if user.pinterest and Config('profilePinterest') == true %}
-					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.pinterest.com" data-original-title="Pinterest">
+					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.pinterest.com/{{ user.pinterest }}" data-original-title="Pinterest">
 						<i class="fa fa-pinterest"></i><span>Pinterest</span>
 					</a>
 					{% endif %}
@@ -265,6 +265,9 @@
 					<a href="#social" data-toggle="tab">Social</a>
 				</li>
 				{% endif %}
+				<li>
+					<a href="#avatar" data-toggle="tab">Avatar</a>
+				</li>
 				<li>
 					<a href="#security" data-toggle="tab">Sécurité</a>
 				</li>
@@ -443,7 +446,7 @@
 									{{ form_errors(formSocial.twitter) }}
 									<div class="col-md-8">
 										<div class="input-group mb-md">
-											<span class="input-group-addon">https://twitter.com/</span>
+											<span class="input-group-addon">http://twitter.com/</span>
 											{{ form_widget(formSocial.twitter, {'attr': {'class': 'form-control'}}) }}
 										</div>
 									</div>
@@ -456,7 +459,7 @@
 									{{ form_errors(formSocial.linkedin) }}
 									<div class="col-md-8">
 										<div class="input-group mb-md">
-											<span class="input-group-addon">https://www.linkedin.com/pub/</span>
+											<span class="input-group-addon">http://www.linkedin.com/pub/</span>
 											{{ form_widget(formSocial.linkedin, {'attr': {'class': 'form-control'}}) }}
 										</div>
 									</div>
@@ -482,7 +485,7 @@
 									{{ form_errors(formSocial.googleplus) }}
 									<div class="col-md-8">
 										<div class="input-group mb-md">
-											<span class="input-group-addon">https://plus.google.com/</span>
+											<span class="input-group-addon">http://plus.google.com/</span>
 											{{ form_widget(formSocial.googleplus, {'attr': {'class': 'form-control'}}) }}
 										</div>
 									</div>
@@ -508,7 +511,7 @@
 									{{ form_errors(formSocial.youtube) }}
 									<div class="col-md-8">
 										<div class="input-group mb-md">
-											<span class="input-group-addon">https://www.youtube.com/channel/</span>
+											<span class="input-group-addon">http://www.youtube.com/channel/</span>
 											{{ form_widget(formSocial.youtube, {'attr': {'class': 'form-control'}}) }}
 										</div>
 									</div>
@@ -521,7 +524,7 @@
 									{{ form_errors(formSocial.pinterest) }}
 									<div class="col-md-8">
 										<div class="input-group mb-md">
-											<span class="input-group-addon">http://fr.pinterest.com/</span>
+											<span class="input-group-addon">http://www.pinterest.com/</span>
 											{{ form_widget(formSocial.pinterest, {'attr': {'class': 'form-control'}}) }}
 										</div>
 									</div>
@@ -549,6 +552,63 @@
 
 				</div>
 				{% endif %}
+
+				<div id="avatar" class="tab-pane">
+
+					{{ form_start(formAvatar, {'attr': {'class': 'form-horizontal'}}) }}
+
+						<h4 class="mb-xlg">Modifier son avatar</h4>
+
+						{{ form_errors(formPassword) }}
+
+						<fieldset class="mb-xl">
+							<div class="form-group">
+
+								<div class="col-lg-6 text-center">
+										<img src="{{ asset('themes/'~Config('theme')~'/img/avatar.png') }}" title="Avatar par default" />
+								</div>
+								<div class="col-lg-6 text-center">
+									{% if gravatar_exists(app.user.email) %}
+										<img src="{{ gravatar(user.email, 250) }}" title="Avatar de {{ user.username }}" /> 
+									{% endif %}
+								</div>
+							</div>
+
+							<div class="form-group">
+
+								<div class="col-lg-6 text-center">
+									{{ form_widget(formAvatar.avatar.0) }}
+									Défault
+							    </div>
+								<div class="col-lg-6 text-center">
+									{% if gravatar_exists(app.user.email) %}
+									{{ form_widget(formAvatar.avatar.1) }}
+								    <a href="http://fr.gravatar.com/" target="_blank">Gravatar</a>
+								    {% else %}
+								    <fieldset disabled>
+									{{ form_widget(formAvatar.avatar.1) }}
+								    <a href="http://fr.gravatar.com/" target="_blank">Gravatar</a>
+								    </fieldset>
+								    {% endif %}
+							    </div>
+							</div>
+
+						</fieldset>	
+
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-3">
+									{{ form_widget(formAvatar.save, {'label': 'Enregistrer', 'attr': {'class': 'btn btn-primary'}}) }}
+									<a href="{{ path('mgn_user_admin_profile_user', {'id': user.id}) }}" class="btn btn-default">Réinitialiser</a>
+								</div>
+							</div>
+						</div>
+
+						{{ form_rest(formAvatar) }}
+
+					{{ form_end(formAvatar) }}
+				
+				</div>
 
 				<div id="security" class="tab-pane">
 
@@ -631,7 +691,7 @@
 							</div>
 						</fieldset>
 
-						<div class="panel-footer">
+						<div class="panel-footer" style="margin-bottom: 20px;">
 							<div class="row">
 								<div class="col-md-9 col-md-offset-3">
 									{{ form_widget(formPassword.save, {'label': 'Mettre à jour le mot de passe', 'attr': {'class': 'btn btn-primary'}}) }}
@@ -642,6 +702,37 @@
 						{{ form_rest(formPassword) }}
 
 					{{ form_end(formPassword) }}
+
+					{{ form_start(formDeleted, {'attr': {'class': 'form-horizontal'}}) }}
+
+						<h4 class="mb-xlg">Supprimer le compte</h4>
+
+						{{ form_errors(formDeleted) }}
+
+						<fieldset class="mb-xl">
+							<div class="form-group">
+
+								{{ form_label(formDeleted.deleted, "Supprimer", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+								<div class="col-md-8">
+									<div class="switch switch-sm switch-primary">
+										{{ form_widget(formDeleted.deleted, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+									</div>
+								</div>
+
+							</div>
+						</fieldset>
+
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-3">
+									{{ form_widget(formDeleted.save, {'label': 'Oui, supprimer le compte', 'attr': {'class': 'btn btn-primary'}}) }}
+								</div>
+							</div>
+						</div>
+
+						{{ form_rest(formDeleted) }}
+
+					{{ form_end(formDeleted) }}
 
 				</div>
 

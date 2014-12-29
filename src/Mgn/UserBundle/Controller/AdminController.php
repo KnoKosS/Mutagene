@@ -13,6 +13,8 @@ use Mgn\UserBundle\Form\AdminProfileType;
 use Mgn\UserBundle\Form\AdminProfileSocialType;
 use Mgn\UserBundle\Form\AdminProfileSecurityType;
 use Mgn\UserBundle\Form\AdminProfilePasswordType;
+use Mgn\UserBundle\Form\AdminProfileAvatarType;
+use Mgn\UserBundle\Form\AdminProfileDeletedType;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
@@ -26,7 +28,7 @@ class AdminController extends Controller
         $users_list = $this->getDoctrine()
                          ->getManager()
                          ->getRepository('MgnUserBundle:User')
-                         ->findAll();
+                         ->findBy(array('deleted' => false));
 
         return $this->render('MgnUserBundle:Admin:user_list.html.twig', array(
 			'users_list' => $users_list,
@@ -43,15 +45,38 @@ class AdminController extends Controller
                          ->getRepository('MgnUserBundle:User')
                          ->find($id);
 
+        if( $user == null )
+        {
+            $this->get('session')->getFlashBag()->add('success', 'Aucun utilisateur trouvé.');
+
+            return $this->redirect( $this->generateUrl('mgn_user_admin_list_user'));
+        }
+
+        if( $user->getDeleted() == true )
+        {
+            $this->get('session')->getFlashBag()->add('success', 'L\'utilisateur demandé à été supprimé.');
+
+            return $this->redirect( $this->generateUrl('mgn_user_admin_list_user'));
+        }
+
         $groups = $this->getDoctrine()
                          ->getManager()
                          ->getRepository('MgnUserBundle:UserToGroup')
                          ->loadGroupForUser($id);
 
+        $config = $this->getDoctrine()
+                         ->getManager()
+                         ->getRepository('MgnCoreBundle:Config')
+                         ->findOneBy(array('cms' => 'mutagene'));
+
+        $user2 = clone $user;
+
         $formProfile = $this->createForm(new AdminProfileType($this->container), $user);
         $formSocial = $this->createForm(new AdminProfileSocialType($this->container), $user);
         $formSecurity = $this->createForm(new AdminProfileSecurityType($this->container), $user);
         $formPassword = $this->createForm(new AdminProfilePasswordType($this->container), $user);
+        $formAvatar = $this->createForm(new AdminProfileAvatarType($this->container), $user);
+        $formDeleted = $this->createForm(new AdminProfileDeletedType($this->container), $user);
 
         $request = $this->get('request');
 
@@ -63,9 +88,11 @@ class AdminController extends Controller
             $formSocial->handleRequest($request);
             $formSecurity->handleRequest($request);
             $formPassword->handleRequest($request);
+            $formAvatar->handleRequest($request);
+            $formDeleted->handleRequest($request);
     
             // On vérifie que les valeurs rentrées sont correctes.
-            if( $formProfile->isValid() or $formSocial->isValid() or $formSecurity->isValid() )
+            if( $formProfile->isValid() or $formSocial->isValid() or $formSecurity->isValid() or $formAvatar->isValid() )
             {
                 // On l'enregistre notre objet $article dans la base de données.
                 $em = $this->getDoctrine()->getManager();
@@ -87,6 +114,29 @@ class AdminController extends Controller
                 
                 // On redirige vers la page d'accueil, par exemple.
                 return $this->redirect( $this->generateUrl('mgn_user_admin_profile_user', array( 'id' => $user->getId() )));
+
+            }
+
+            if( $formDeleted->isValid() )
+            {
+                // On l'enregistre notre objet $article dans la base de données.
+                $em = $this->getDoctrine()->getManager();
+
+                $user->setActive(false);
+                $user->removeRole('ROLE_USER');
+                $user->setAvatar('default');
+                $user->setLocked(true);
+                $user->setLockedFor('Compte supprimé');
+
+                $config->setTotalUsers($config->getTotalUsers()-1);
+                
+                //message de confirmation
+                $this->get('session')->getFlashBag()->add('success', 'Le compte de '.$user2->getUsername().' à bien été supprimé !');
+
+                $em->flush();
+                
+                // On redirige vers la page d'accueil, par exemple.
+                return $this->redirect( $this->generateUrl('mgn_user_admin_list_user'));
 
             }
 
@@ -118,6 +168,8 @@ class AdminController extends Controller
             'formSocial' => $formSocial->createView(),
             'formSecurity' => $formSecurity->createView(),
             'formPassword' => $formPassword->createView(),
+            'formAvatar' => $formAvatar->createView(),
+            'formDeleted' => $formDeleted->createView(),
         ));
     }
 

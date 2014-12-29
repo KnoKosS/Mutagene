@@ -221,6 +221,13 @@ class Config {
      */
     private $totalMessages;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="totalUsers", type="bigint", nullable=true)
+     */
+    private $totalUsers;
+
     public function __construct()
     {
         $datetime = new \Datetime();
@@ -257,6 +264,7 @@ class Config {
         $this->totalPosts = 0;
         $this->totalTopics = 0;
         $this->totalMessages = 0;
+        $this->totalUsers = 0;
     }
 
 	public function setCms($cms) {
@@ -995,5 +1003,28 @@ class Config {
     public function getProfileBiography()
     {
         return $this->profileBiography;
+    }
+
+    /**
+     * Set totalUsers
+     *
+     * @param integer $totalUsers
+     * @return Config
+     */
+    public function setTotalUsers($totalUsers)
+    {
+        $this->totalUsers = $totalUsers;
+
+        return $this;
+    }
+
+    /**
+     * Get totalUsers
+     *
+     * @return integer 
+     */
+    public function getTotalUsers()
+    {
+        return $this->totalUsers;
     }
 }

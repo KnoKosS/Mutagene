@@ -140,11 +140,11 @@
 						<div class="summary">
 							<h4 class="title">Utilisateurs inscrit</h4>
 							<div class="info">
-								<strong class="amount">0</strong>
+								<strong class="amount">{{ Config('totalUsers') }}</strong>
 							</div>
 						</div>
 						<div class="summary-footer">
-							<a href="{{ path('mgn_admin_article_list') }}" class="text-muted text-uppercase">(Tous les voir)</a>
+							<a href="{{ path('mgn_user_admin_list_user') }}" class="text-muted text-uppercase">(Tous les voir)</a>
 						</div>
 					</div>
 				</div>

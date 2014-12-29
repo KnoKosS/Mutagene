@@ -123,6 +123,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $lockedFor;
 
     /**
+     * @ORM\Column(name="delete", type="boolean")
+     */
+    private $delete;
+
+    /**
      * @ORM\OneToMany(targetEntity="Mgn\UserBundle\Entity\UserToGroup", mappedBy="user", orphanRemoval=true)
      */
     protected $groups;

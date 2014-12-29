@@ -98,7 +98,7 @@
 							</div>
 							<div class="col-lg-4 text-center">
 								{% if app.user.avatarPath != null %}
-									<img src="{{ asset('uploads/avatars/') }}{{ app.user.avatarPath }}" title="" />
+									<img src="{{ asset('uploads/avatars/') }}{{ app.user.avatarPath }}" style="max-width: 150px;" title="" />
 							    {% endif %}
 							</div>
 
@@ -144,8 +144,12 @@
 								{{ form_widget(form.avatarFile, { 'attr' : { 'class' : 'btn' } }) }}
 
 								<p class="help-block">
-									<strong>Taille: </strong>
+									<strong>Taille minimum: </strong>
 									150 px * 150 px
+								</p>
+								<p class="help-block">
+									<strong>Poid maximum: </strong>
+									500 Ko
 								</p>
 
 								</div>
