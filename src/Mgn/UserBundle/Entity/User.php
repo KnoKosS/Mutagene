@@ -118,7 +118,7 @@ class User implements AdvancedUserInterface, \Serializable
     private $locked;
 
     /**
-     * @ORM\Column(name="lockedFor", type="boolean", nullable=true)
+     * @ORM\Column(name="lockedFor", type="string", length=255, nullable=true)
      */
     private $lockedFor;
 
@@ -161,6 +161,11 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="signature", type="text", nullable=true)
      */
     private $signature;
+
+    /**
+     * @ORM\Column(name="biography", type="text", nullable=true)
+     */
+    private $biography;
 
     /**
      * @var string $twitter
@@ -252,6 +257,7 @@ class User implements AdvancedUserInterface, \Serializable
     $this->lastName = null;
     $this->birthday = null;
     $this->signature = null;
+    $this->biography = null;
     $this->twitter = null;
     $this->facebook = null;
     $this->googleplus = null;
@@ -1150,5 +1156,51 @@ class User implements AdvancedUserInterface, \Serializable
     public function getAvatarFile()
     {
         return $this->avatarFile;
+    }
+
+    /**
+     * Set biography
+     *
+     * @param string $biography
+     * @return User
+     */
+    public function setBiography($biography)
+    {
+        $this->biography = $biography;
+
+        return $this;
+    }
+
+    /**
+     * Get biography
+     *
+     * @return string 
+     */
+    public function getBiography()
+    {
+        return $this->biography;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
     }
 }

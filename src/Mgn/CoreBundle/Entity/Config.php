@@ -127,9 +127,9 @@ class Config {
 
     /**
      * @var boolean
-     * @ORM\Column(name="profileTwitter", type="boolean", nullable=true)
+     * @ORM\Column(name="profileBiography", type="boolean", nullable=true)
      */
-    protected $profileTwitter;
+    protected $profileBiography;
 
     /**
      * @var boolean
@@ -139,15 +139,45 @@ class Config {
 
     /**
      * @var boolean
-     * @ORM\Column(name="profileGoogleplus", type="boolean", nullable=true)
+     * @ORM\Column(name="profileTwitter", type="boolean", nullable=true)
      */
-    protected $profileGoogleplus;
+    protected $profileTwitter;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="profileLinkedin", type="boolean", nullable=true)
+     */
+    protected $profileLinkedin;
 
     /**
      * @var boolean
      * @ORM\Column(name="profileSteam", type="boolean", nullable=true)
      */
     protected $profileSteam;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="profileGoogleplus", type="boolean", nullable=true)
+     */
+    protected $profileGoogleplus;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="profileTwitch", type="boolean", nullable=true)
+     */
+    protected $profileTwitch;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="profileYoutube", type="boolean", nullable=true)
+     */
+    protected $profileYoutube;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="profilePinterest", type="boolean", nullable=true)
+     */
+    protected $profilePinterest;
 
     /**
      * @var integer
@@ -212,10 +242,15 @@ class Config {
         $this->profileLastName = true;
         $this->profileBirthday = true;
         $this->profileSignature = true;
-        $this->profileTwitter = true;
+        $this->profileBiography = true;
         $this->profileFacebook = true;
-        $this->profileGoogleplus = true;
+        $this->profileTwitter = true;
+        $this->profileLinkedin = true;
         $this->profileSteam = true;
+        $this->profileGoogleplus = true;
+        $this->profileTwitch = true;
+        $this->profileYoutube = true;
+        $this->profilePinterest = true;
         $this->totalArticlesPublish = 0;
         $this->totalArticlesPending = 0;
         $this->totalArticlesDraft = 0;
@@ -664,19 +699,6 @@ class Config {
     }
 
     /**
-     * Set profileFacebook
-     *
-     * @param boolean $profileFacebook
-     * @return Config
-     */
-    public function setProfileFacebook($profileFacebook)
-    {
-        $this->profileFacebook = $profileFacebook;
-    
-        return $this;
-    }
-
-    /**
      * Get profileFacebook
      *
      * @return boolean 
@@ -845,5 +867,133 @@ class Config {
     public function getTotalArticlesDraft()
     {
         return $this->totalArticlesDraft;
+    }
+
+    /**
+     * Set profileFacebook
+     *
+     * @param boolean $profileFacebook
+     * @return Config
+     */
+    public function setProfileFacebook($profileFacebook)
+    {
+        $this->profileFacebook = $profileFacebook;
+
+        return $this;
+    }
+
+    /**
+     * Set profileLinkedin
+     *
+     * @param boolean $profileLinkedin
+     * @return Config
+     */
+    public function setProfileLinkedin($profileLinkedin)
+    {
+        $this->profileLinkedin = $profileLinkedin;
+
+        return $this;
+    }
+
+    /**
+     * Get profileLinkedin
+     *
+     * @return boolean 
+     */
+    public function getProfileLinkedin()
+    {
+        return $this->profileLinkedin;
+    }
+
+    /**
+     * Set profileTwitch
+     *
+     * @param boolean $profileTwitch
+     * @return Config
+     */
+    public function setProfileTwitch($profileTwitch)
+    {
+        $this->profileTwitch = $profileTwitch;
+
+        return $this;
+    }
+
+    /**
+     * Get profileTwitch
+     *
+     * @return boolean 
+     */
+    public function getProfileTwitch()
+    {
+        return $this->profileTwitch;
+    }
+
+    /**
+     * Set profileYoutube
+     *
+     * @param boolean $profileYoutube
+     * @return Config
+     */
+    public function setProfileYoutube($profileYoutube)
+    {
+        $this->profileYoutube = $profileYoutube;
+
+        return $this;
+    }
+
+    /**
+     * Get profileYoutube
+     *
+     * @return boolean 
+     */
+    public function getProfileYoutube()
+    {
+        return $this->profileYoutube;
+    }
+
+    /**
+     * Set profilePinterest
+     *
+     * @param boolean $profilePinterest
+     * @return Config
+     */
+    public function setProfilePinterest($profilePinterest)
+    {
+        $this->profilePinterest = $profilePinterest;
+
+        return $this;
+    }
+
+    /**
+     * Get profilePinterest
+     *
+     * @return boolean 
+     */
+    public function getProfilePinterest()
+    {
+        return $this->profilePinterest;
+    }
+
+    /**
+     * Set profileBiography
+     *
+     * @param boolean $profileBiography
+     * @return Config
+     */
+    public function setProfileBiography($profileBiography)
+    {
+        $this->profileBiography = $profileBiography;
+
+        return $this;
+    }
+
+    /**
+     * Get profileBiography
+     *
+     * @return boolean 
+     */
+    public function getProfileBiography()
+    {
+        return $this->profileBiography;
     }
 }

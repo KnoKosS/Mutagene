@@ -16,7 +16,25 @@
 
 {% block user_body %}
 
+{% if Config('profileFacebook') == false and Config('profileTwitter') == false and Config('profileLinkedin') == false and Config('profileSteam') == false and Config('profileGoogleplus') == false and Config('profileTwitch') == false and Config('profileYoutube') == false and Config('profilePinterest') == false %}
+	{% set profileSocial = false %}
+{% else %}
+	{% set profileSocial = true %}
+{% endif %}
+
 <div class="row">
+
+	{% for message in app.session.flashbag.get('success') %}
+	<div class="col-lg-12">
+
+		<div class="alert alert-primary">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			{{ message }}
+		</div>
+
+	</div>
+    {% endfor %}
+
 	<div class="col-md-4 col-lg-3">
 
 		<section class="panel">
@@ -55,50 +73,56 @@
 				<h6 class="text-muted">A propos</h6>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis vulputate quam. Interdum et malesuada</p>
 
+				{% if profileSocial == true %}
+
+				{% if ( user.facebook and Config('profileFacebook') == true ) or ( user.twitter and Config('profileTwitter') == true ) or ( user.linkedin and Config('profileLinkedin') == true ) or ( user.steam and Config('profileSteam') == true ) or ( user.googleplus and Config('profileGoogleplus') == true ) or ( user.twitch and Config('profileTwitch') == true ) or ( user.youtube and Config('profileYoutube') == true ) or ( user.pinterest and Config('profilePinterest') == true ) %}
 				<hr class="dotted short">
+				{% endif %}
 
 				<div class="social-icons">
-					{% if user.facebook %}
+					{% if user.facebook and Config('profileFacebook') == true %}
 					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.facebook.com" data-original-title="Facebook">
 						<i class="fa fa-facebook"></i><span>Facebook</span>
 					</a>
 					{% endif %}
-					{% if user.twitter %}
+					{% if user.twitter and Config('profileTwitter') == true %}
 					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitter.com" data-original-title="Twitter">
 						<i class="fa fa-twitter"></i><span>Twitter</span>
 					</a>
 					{% endif %}
-					{% if user.linkedin %}
+					{% if user.linkedin and Config('profileLinkedin') == true %}
 					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.linkedin.com" data-original-title="Linkedin">
 						<i class="fa fa-linkedin"></i><span>Linkedin</span>
 					</a>
 					{% endif %}
-					{% if user.steam %}
+					{% if user.steam and Config('profileSteam') == true %}
 					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.steampowered.com" data-original-title="Steam">
 						<i class="fa fa-steam"></i><span>Steam</span>
 					</a>
 					{% endif %}
-					{% if user.googleplus %}
+					{% if user.googleplus and Config('profileGoogleplus') == true %}
 					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.googleplus.com" data-original-title="Google Plus">
 						<i class="fa fa-google-plus"></i><span>Google Plus</span>
 					</a>
 					{% endif %}
-					{% if user.twitch %}
+					{% if user.twitch and Config('profileTwitch') == true %}
 					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitch.com" data-original-title="Twitch">
 						<i class="fa fa-twitch"></i><span>Twitch</span>
 					</a>
 					{% endif %}
-					{% if user.youtube %}
+					{% if user.youtube and Config('profileYoutube') == true %}
 					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.youtube.com" data-original-title="Youtube">
 						<i class="fa fa-youtube-play"></i><span>Youtube</span>
 					</a>
 					{% endif %}
-					{% if user.pinterest %}
+					{% if user.pinterest and Config('profilePinterest') == true %}
 					<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.pinterest.com" data-original-title="Pinterest">
 						<i class="fa fa-pinterest"></i><span>Pinterest</span>
 					</a>
 					{% endif %}
 				</div>
+
+				{% endif %}
 
 			</div>
 		</section>
@@ -236,9 +260,11 @@
 				<li>
 					<a href="#profil" data-toggle="tab">Profil</a>
 				</li>
+				{% if profileSocial == true %}
 				<li>
 					<a href="#social" data-toggle="tab">Social</a>
 				</li>
+				{% endif %}
 				<li>
 					<a href="#security" data-toggle="tab">Sécurité</a>
 				</li>
@@ -276,166 +302,346 @@
 
 				<div id="profil" class="tab-pane">
 
-					<form class="form-horizontal" method="get">
-						<h4 class="mb-xlg">Information personnel</h4>
+					{{ form_start(formProfile, {'attr': {'class': 'form-horizontal'}}) }}
+
+						{{ form_errors(formProfile) }}
+
+						<h4 class="mb-xlg">Compte</h4>
+
 						<fieldset>
+
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">Prénom</label>
+								{{ form_label(formProfile.username, "Pseudo", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+								{{ form_errors(formProfile.username) }}
 								<div class="col-md-8">
-									<input type="text" class="form-control" id="profileFirstName">
+									{{ form_widget(formProfile.username, {'attr': {'class': 'form-control'}}) }}
 								</div>
 							</div>
+
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileLastName">Nom</label>
+								{{ form_label(formProfile.email, "email", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+								{{ form_errors(formProfile.email) }}
 								<div class="col-md-8">
-									<input type="text" class="form-control" id="profileLastName">
+									{{ form_widget(formProfile.email, {'attr': {'class': 'form-control'}}) }}
 								</div>
 							</div>
+
 						</fieldset>
+
 						<hr class="dotted tall">
-						<h4 class="mb-xlg">A propos</h4>
+
+						<h4 class="mb-xlg">Information personnel</h4>
+
 						<fieldset>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileBio">Biographie</label>
-								<div class="col-md-8">
-									<textarea class="form-control" rows="3" id="profileBio"></textarea>
+
+							{% if Config('profileFirstName') == true %}
+								<div class="form-group">
+									{{ form_label(formProfile.firstName, "Prénom", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formProfile.firstName) }}
+									<div class="col-md-8">
+										{{ form_widget(formProfile.firstName, {'attr': {'class': 'form-control'}}) }}
+									</div>
 								</div>
-							</div>
+							{% endif %}
+
+							{% if Config('profileLastName') == true %}
+								<div class="form-group">
+									{{ form_label(formProfile.lastName, "Nom", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formProfile.lastName) }}
+									<div class="col-md-8">
+										{{ form_widget(formProfile.lastName, {'attr': {'class': 'form-control'}}) }}
+									</div>
+								</div>
+							{% endif %}
+
+							{% if Config('profileBirthday') == true %}
+						   		<div class="form-group">
+						   			{{ form_label(formProfile.birthday, "Date de naissance", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formProfile.birthday) }}
+									<div class="col-md-8">
+										{{ form_widget(formProfile.birthday, { 'attr' : { 'class' : 'form-control datepicker', 'data-date-format' : 'dd/mm/yyyy', 'data-plugin-datepicker' : 'data-plugin-datepicker', 'data-plugin-masked-input' : 'data-plugin-masked-input', 'data-input-mask' : '31/12/9999', 'placeholder' : '__/__/____' } }) }}
+										<p class="help-block">
+											<strong>Format:</strong>
+											Jour / Mois / Année
+										</p>
+									</div>
+								</div>
+							{% endif %}
+
 						</fieldset>
+
+						<hr class="dotted tall">
+
+						<h4 class="mb-xlg">A propos</h4>
+
+						<fieldset>
+
+							{% if Config('profileBiography') == true %}
+								<div class="form-group">
+									{{ form_label(formProfile.biography, "Biographie", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formProfile.biography) }}
+									<div class="col-md-8">
+										{{ form_widget(formProfile.biography, {'attr': {'class': 'form-control textarea_elastic', 'rows' : '3'}}) }}
+									</div>
+								</div>
+							{% endif %}
+
+							{% if Config('profileSignature') == true %}
+								<div class="form-group">
+									{{ form_label(formProfile.signature, "Signature", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formProfile.signature) }}
+									<div class="col-md-8">
+										{{ form_widget(formProfile.signature, {'attr': {'class': 'form-control textarea_elastic', 'rows' : '3'}}) }}
+									</div>
+								</div>
+							{% endif %}
+
+						</fieldset>
+
 						<div class="panel-footer">
 							<div class="row">
 								<div class="col-md-9 col-md-offset-3">
-									<button type="submit" class="btn btn-primary">Enregistrer</button>
-									<button type="reset" class="btn btn-default">Réinitialiser</button>
+									{{ form_widget(formProfile.save, {'label': 'Enregistrer', 'attr': {'class': 'btn btn-primary'}}) }}
+									<a href="{{ path('mgn_user_admin_profile_user', {'id': user.id}) }}" class="btn btn-default">Réinitialiser</a>
 								</div>
 							</div>
 						</div>
 
-					</form>
+						{{ form_rest(formProfile) }}
+
+					{{ form_end(formProfile) }}
 
 				</div>
 
+				{% if profileSocial == true %}
 				<div id="social" class="tab-pane">
 					
-					<form class="form-horizontal" method="get">
+					{{ form_start(formSocial, {'attr': {'class': 'form-horizontal'}}) }}
+
 						<h4 class="mb-xlg">Réseaux sociaux</h4>
+
+						{{ form_errors(formSocial) }}
+
 						<fieldset>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">Facebook</label>
-								<div class="col-md-8">
-									<div class="input-group mb-md">
-										<span class="input-group-addon">https://www.facebook.com/</span>
-										<input type="text" class="form-control" id="profileFirstName">
+
+							{% if Config('profileFacebook') == true %}
+								<div class="form-group">
+									{{ form_label(formSocial.facebook, "Facebook", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formSocial.facebook) }}
+									<div class="col-md-8">
+										<div class="input-group mb-md">
+											<span class="input-group-addon">https://www.facebook.com/</span>
+											{{ form_widget(formSocial.facebook, {'attr': {'class': 'form-control'}}) }}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">Twitter</label>
-								<div class="col-md-8">
-									<div class="input-group mb-md">
-										<span class="input-group-addon">https://twitter.com/</span>
-										<input type="text" class="form-control" id="profileFirstName">
+							{% endif %}
+
+							{% if Config('profileTwitter') == true %}
+								<div class="form-group">
+									{{ form_label(formSocial.twitter, "Twitter", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formSocial.twitter) }}
+									<div class="col-md-8">
+										<div class="input-group mb-md">
+											<span class="input-group-addon">https://twitter.com/</span>
+											{{ form_widget(formSocial.twitter, {'attr': {'class': 'form-control'}}) }}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">Linkedin</label>
-								<div class="col-md-8">
-									<div class="input-group mb-md">
-										<span class="input-group-addon">https://www.linkedin.com/pub/</span>
-										<input type="text" class="form-control" id="profileFirstName">
+							{% endif %}
+
+							{% if Config('profileLinkedin') == true %}
+								<div class="form-group">
+									{{ form_label(formSocial.linkedin, "Linkedin", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formSocial.linkedin) }}
+									<div class="col-md-8">
+										<div class="input-group mb-md">
+											<span class="input-group-addon">https://www.linkedin.com/pub/</span>
+											{{ form_widget(formSocial.linkedin, {'attr': {'class': 'form-control'}}) }}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">Steam</label>
-								<div class="col-md-8">
-									<div class="input-group mb-md">
-										<span class="input-group-addon">http://steamcommunity.com/id/</span>
-										<input type="text" class="form-control" id="profileFirstName">
+							{% endif %}
+
+							{% if Config('profileSteam') == true %}
+								<div class="form-group">
+									{{ form_label(formSocial.steam, "Steam", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formSocial.steam) }}
+									<div class="col-md-8">
+										<div class="input-group mb-md">
+											<span class="input-group-addon">http://steamcommunity.com/id/</span>
+											{{ form_widget(formSocial.steam, {'attr': {'class': 'form-control'}}) }}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">Google Plus</label>
-								<div class="col-md-8">
-									<div class="input-group mb-md">
-										<span class="input-group-addon">https://plus.google.com/</span>
-										<input type="text" class="form-control" id="profileFirstName">
+							{% endif %}
+
+							{% if Config('profileGoogleplus') == true %}
+								<div class="form-group">
+									{{ form_label(formSocial.googleplus, "Google Plus", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formSocial.googleplus) }}
+									<div class="col-md-8">
+										<div class="input-group mb-md">
+											<span class="input-group-addon">https://plus.google.com/</span>
+											{{ form_widget(formSocial.googleplus, {'attr': {'class': 'form-control'}}) }}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">Twitch</label>
-								<div class="col-md-8">
-									<div class="input-group mb-md">
-										<span class="input-group-addon">http://www.twitch.tv/</span>
-										<input type="text" class="form-control" id="profileFirstName">
+							{% endif %}
+
+							{% if Config('profileTwitch') == true %}
+								<div class="form-group">
+									{{ form_label(formSocial.twitch, "Twitch", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formSocial.twitch) }}
+									<div class="col-md-8">
+										<div class="input-group mb-md">
+											<span class="input-group-addon">http://www.twitch.tv/</span>
+											{{ form_widget(formSocial.twitch, {'attr': {'class': 'form-control'}}) }}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">YouTube</label>
-								<div class="col-md-8">
-									<div class="input-group mb-md">
-										<span class="input-group-addon">https://www.youtube.com/channel/</span>
-										<input type="text" class="form-control" id="profileFirstName">
+							{% endif %}
+
+							{% if Config('profileYoutube') == true %}
+								<div class="form-group">
+									{{ form_label(formSocial.youtube, "YouTube", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formSocial.youtube) }}
+									<div class="col-md-8">
+										<div class="input-group mb-md">
+											<span class="input-group-addon">https://www.youtube.com/channel/</span>
+											{{ form_widget(formSocial.youtube, {'attr': {'class': 'form-control'}}) }}
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileFirstName">pinterest</label>
-								<div class="col-md-8">
-									<div class="input-group mb-md">
-										<span class="input-group-addon">http://fr.pinterest.com/</span>
-										<input type="text" class="form-control" id="profileFirstName">
+							{% endif %}
+
+							{% if Config('profilePinterest') == true %}
+								<div class="form-group">
+									{{ form_label(formSocial.pinterest, "Pinterest", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formSocial.pinterest) }}
+									<div class="col-md-8">
+										<div class="input-group mb-md">
+											<span class="input-group-addon">http://fr.pinterest.com/</span>
+											{{ form_widget(formSocial.pinterest, {'attr': {'class': 'form-control'}}) }}
+										</div>
 									</div>
 								</div>
-							</div>
+							{% endif %}
 
 						</fieldset>
 
 						<div class="panel-footer">
+
 							<div class="row">
+
 								<div class="col-md-9 col-md-offset-3">
-									<button type="submit" class="btn btn-primary">Enregistrer</button>
-									<button type="reset" class="btn btn-default">Réinitialiser</button>
+									{{ form_widget(formSocial.save, {'label': 'Enregistrer', 'attr': {'class': 'btn btn-primary'}}) }}
+									<a href="{{ path('mgn_user_admin_profile_user', {'id': user.id}) }}" class="btn btn-default">Réinitialiser</a>
 								</div>
+
 							</div>
+
 						</div>
 
-					</form>
+						{{ form_rest(formSocial) }}
+
+					{{ form_end(formSocial) }}
 
 				</div>
+				{% endif %}
 
 				<div id="security" class="tab-pane">
 
-					<form class="form-horizontal" method="get">
-						<h4 class="mb-xlg">Modifier mot de passe</h4>
+					{{ form_start(formSecurity, {'attr': {'class': 'form-horizontal'}}) }}
+
+						<h4 class="mb-xlg">Etat</h4>
+
 						<fieldset class="mb-xl">
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileNewPassword">Nouveau mot de passe</label>
+
+								{{ form_label(formSecurity.isActive, "Activer", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
 								<div class="col-md-8">
-									<input type="text" class="form-control" id="profileNewPassword">
+									<div class="switch switch-sm switch-primary">
+										{{ form_widget(formSecurity.isActive, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+									</div>
 								</div>
+
 							</div>
+						</fieldset>
+
+						<hr class="dotted tall">
+
+						<h4 class="mb-xlg">Blocage du compte</h4>
+
+						<fieldset class="mb-xl">
 							<div class="form-group">
-								<label class="col-md-3 control-label" for="profileNewPasswordRepeat">Confirmer</label>
+
+								{{ form_label(formSecurity.locked, "Interdire", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
 								<div class="col-md-8">
-									<input type="text" class="form-control" id="profileNewPasswordRepeat">
+									<div class="switch switch-sm switch-primary">
+										{{ form_widget(formSecurity.locked, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+									</div>
+								</div>
+
+							</div>
+
+							<div class="form-group">
+								{{ form_label(formSecurity.lockedFor, "Raison", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+								{{ form_errors(formSecurity.lockedFor) }}
+								<div class="col-md-8">
+									{{ form_widget(formSecurity.lockedFor, {'attr': {'class': 'form-control'}}) }}
 								</div>
 							</div>
 						</fieldset>
-						<div class="panel-footer">
+
+						<div class="panel-footer" style="margin-bottom: 20px;">
 							<div class="row">
 								<div class="col-md-9 col-md-offset-3">
-									<button type="submit" class="btn btn-primary">Enregistrer</button>
-									<button type="reset" class="btn btn-default">Réinitialiser</button>
+									{{ form_widget(formSecurity.save, {'label': 'Enregistrer', 'attr': {'class': 'btn btn-primary'}}) }}
+									<a href="{{ path('mgn_user_admin_profile_user', {'id': user.id}) }}" class="btn btn-default">Réinitialiser</a>
 								</div>
 							</div>
 						</div>
 
-					</form>
+						{{ form_rest(formSecurity) }}
+
+					{{ form_end(formSecurity) }}
+
+					{{ form_start(formPassword, {'attr': {'class': 'form-horizontal'}}) }}
+
+						<h4 class="mb-xlg">Modifier mot de passe</h4>
+
+						{{ form_errors(formPassword) }}
+
+						<fieldset class="mb-xl">
+							<div class="form-group">
+								{{ form_label(formPassword.password.first, "Nouveau mot de passe", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+								{{ form_errors(formPassword.password.first) }}
+								<div class="col-md-8">
+									{{ form_widget(formPassword.password.first, {'attr': {'class': 'form-control'}}) }}
+								</div>
+							</div>
+							<div class="form-group">
+								
+								{{ form_label(formPassword.password.second, "Confirmer", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+								{{ form_errors(formPassword.password.second) }}
+								<div class="col-md-8">
+									{{ form_widget(formPassword.password.second, {'attr': {'class': 'form-control'}}) }}
+								</div>
+							</div>
+						</fieldset>
+
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-md-9 col-md-offset-3">
+									{{ form_widget(formPassword.save, {'label': 'Mettre à jour le mot de passe', 'attr': {'class': 'btn btn-primary'}}) }}
+								</div>
+							</div>
+						</div>
+
+						{{ form_rest(formPassword) }}
+
+					{{ form_end(formPassword) }}
 
 				</div>
 

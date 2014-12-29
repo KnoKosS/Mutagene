@@ -9,6 +9,10 @@ use Mgn\UserBundle\Entity\UserToGroup;
 use Mgn\UserBundle\Form\GroupType;
 use Mgn\UserBundle\Form\GroupAdministerType;
 use Mgn\UserBundle\Form\GroupAddUserType;
+use Mgn\UserBundle\Form\AdminProfileType;
+use Mgn\UserBundle\Form\AdminProfileSocialType;
+use Mgn\UserBundle\Form\AdminProfileSecurityType;
+use Mgn\UserBundle\Form\AdminProfilePasswordType;
 
 use JMS\SecurityExtraBundle\Annotation\Secure;
 
@@ -22,7 +26,7 @@ class AdminController extends Controller
         $users_list = $this->getDoctrine()
                          ->getManager()
                          ->getRepository('MgnUserBundle:User')
-                         ->findBy(array('isActive' => 1));
+                         ->findAll();
 
         return $this->render('MgnUserBundle:Admin:user_list.html.twig', array(
 			'users_list' => $users_list,
@@ -44,9 +48,76 @@ class AdminController extends Controller
                          ->getRepository('MgnUserBundle:UserToGroup')
                          ->loadGroupForUser($id);
 
+        $formProfile = $this->createForm(new AdminProfileType($this->container), $user);
+        $formSocial = $this->createForm(new AdminProfileSocialType($this->container), $user);
+        $formSecurity = $this->createForm(new AdminProfileSecurityType($this->container), $user);
+        $formPassword = $this->createForm(new AdminProfilePasswordType($this->container), $user);
+
+        $request = $this->get('request');
+
+        // On vérifie qu'elle est de type « POST ».
+        if( $request->getMethod() == 'POST' )
+        {
+            // On fait le lien Requête <-> Formulaire.
+            $formProfile->handleRequest($request);
+            $formSocial->handleRequest($request);
+            $formSecurity->handleRequest($request);
+            $formPassword->handleRequest($request);
+    
+            // On vérifie que les valeurs rentrées sont correctes.
+            if( $formProfile->isValid() or $formSocial->isValid() or $formSecurity->isValid() )
+            {
+                // On l'enregistre notre objet $article dans la base de données.
+                $em = $this->getDoctrine()->getManager();
+
+                if( $user->getLocked() == true )
+                {
+                    $user->removeRole('ROLE_USER');
+                }
+                elseif ( $user->getLocked() == false )
+                {
+                    $user->addRole('ROLE_USER');
+                    $user->setLockedFor(null);
+                }
+
+                $em->flush();
+                
+                //message de confirmation
+                $this->get('session')->getFlashBag()->add('success', 'Le profil à bien été mis à jour.');
+                
+                // On redirige vers la page d'accueil, par exemple.
+                return $this->redirect( $this->generateUrl('mgn_user_admin_profile_user', array( 'id' => $user->getId() )));
+
+            }
+
+            if( $formPassword->isValid() )
+            {
+                $em = $this->getDoctrine()->getManager();
+
+                $factory = $this->get('security.encoder_factory');
+
+                $encoder = $factory->getEncoder($user);
+                $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+                $user->setPassword($password);
+
+                $em->persist($user);
+                $em->flush();
+
+                
+                $this->get('session')->getFlashBag()->add('success', 'Le mot de passe à bien été mis à jour.');
+
+                return $this->redirect( $this->generateUrl('mgn_user_admin_profile_user', array( 'id' => $user->getId() )));
+            }
+
+        }
+
         return $this->render('MgnUserBundle:Admin:profile.html.twig', array(
             'user' => $user,
             'groups' => $groups,
+            'formProfile' => $formProfile->createView(),
+            'formSocial' => $formSocial->createView(),
+            'formSecurity' => $formSecurity->createView(),
+            'formPassword' => $formPassword->createView(),
         ));
     }
 
