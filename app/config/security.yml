@@ -8,7 +8,7 @@ security:
 
     providers:
         main:
-            id: security_userprovider
+            entity: { class: Mgn\UserBundle\Entity\User }
 
     firewalls:
         secured_area_fr:

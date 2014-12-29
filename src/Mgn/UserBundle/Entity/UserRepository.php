@@ -8,6 +8,9 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Expr\Comparison;
+use Symfony\Component\Security\Core\Exception\LockedException;
 
 /**
  * UserRepository
@@ -29,12 +32,32 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->setParameter('email', $username)
             ->getQuery();
 
-        try {
+        try
+        {
             // La méthode Query::getSingleResult() lance une exception
             // s'il n'y a pas d'entrée correspondante aux critères
             $user = $q->getSingleResult();
-        } catch (NoResultException $e) {
-            throw new UsernameNotFoundException(sprintf('Unable to find an active admin AcmeUserBundle:User object identified by "%s".', $username), 0, $e);
+        } 
+        catch (NoResultException $e)
+        {
+            throw new UsernameNotFoundException("Une erreur d'authentification s'est produite.");
+        }
+
+        if( $user->getDeleted() == true )
+        {
+            throw new LockedException("Votre compte à été supprimé");
+        }
+
+        if( $user->getLocked() == true )
+        {
+            if( $user->getLockedFor() != null )
+            {
+                throw new LockedException("Votre compte à été banni pour : ".$user->getLockedFor());
+            }
+            else
+            {
+                throw new LockedException("Votre compte à été banni.");
+            }
         }
 
         return $user;

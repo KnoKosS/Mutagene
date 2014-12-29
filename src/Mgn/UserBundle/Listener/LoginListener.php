@@ -33,6 +33,13 @@ class LoginListener
     $this->context = $context;
     $this->em = $manager;
   }
+  
+    public function onImplicitLogin(UserEvent $event)
+    {
+        $user = $event->getUser();
+        $user->setLastLogin(new \DateTime());
+        $this->userManager->updateUser($user);
+    }
  
   /**
    * Do the magic.

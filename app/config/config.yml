@@ -80,14 +80,3 @@ stof_doctrine_extensions:
 
 ornicar_gravatar:
     size: 150
-
-avalanche_imagine:
-    filters:
-        avatar_thumb:
-            type:    relative_resize
-            options: { widen: 150, quality: 100, format: png }
-
-services:
-    security_userprovider:
-        class: Mgn\UserBundle\Security\User\UserProvider
-        arguments: [ @doctrine.orm.default_entity_manager ]

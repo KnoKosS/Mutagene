@@ -33,7 +33,3 @@ mgn_message:
 mgn_home:
     resource: "@MgnHomeBundle/Resources/config/routing.yml"
     prefix:   /
-
-_imagine:
-    resource: .
-    type:     imagine
