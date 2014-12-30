@@ -43,11 +43,11 @@
 					{{ user.avatar|avatar(app.user.avatarPath, user.email, '500', 'rounded img-responsive')|raw }}
 					<div class="thumb-info-title">
 						<span class="thumb-info-inner">{{ user.username }}</span>
-						<span class="thumb-info-type">ADMIN</span>
+						<span class="thumb-info-type">{% if user.granted("ROLE_SUPER_ADMIN") or user.granted("ROLE_ADMIN") %}ADMIN{% else %}MEMBRE{% endif %}</span>
 					</div>
 				</div>
 
-				<div class="widget-toggle-expand mb-md">
+				{#<div class="widget-toggle-expand mb-md">
 					<div class="widget-header">
 						<h6>Profil complété</h6>
 						<div class="widget-toggle">+</div>
@@ -68,10 +68,12 @@
 					</div>
 				</div>
 
-				<hr class="dotted short">
+				<hr class="dotted short">#}
 
+				{% if user.biography %}
 				<h6 class="text-muted">A propos</h6>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis vulputate quam. Interdum et malesuada</p>
+				<p>{{ user.biography }}</p>
+				{% endif %}
 
 				{% if profileSocial == true %}
 

@@ -622,6 +622,11 @@ class User implements AdvancedUserInterface, \Serializable
         return in_array(strtoupper($role), $this->getRoles(), true);
     }
 
+    public function isGranted($role)
+    {
+        return in_array($role, $this->getRoles());
+    }
+
     public function isSuperAdmin()
     {
         return $this->hasRole('ROLE_SUPER_ADMIN');
