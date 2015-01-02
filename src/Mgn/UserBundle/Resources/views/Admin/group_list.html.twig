@@ -1,36 +1,50 @@
 {% extends "MgnUserBundle::admin.html.twig" %}
 
+{% block pagetitle %}Groupes{% endblock %}
+
 {% block title %}
-    {{ 'user.groups_list.title'|trans }} - {{ parent() }}
+    Liste des groupes - {{ parent() }}
 {% endblock %}
 
-{% block sidebar_users %}active{% endblock %}
-{% block sidebar_users_groups %}select{% endblock %}
+{% block sidebar_users %}nav-expanded nav-active{% endblock %}
+{% block user_submenu_groups %} class="active"{% endblock %}
 
-{% block body %}
+{% block arianne %}
+    {{ parent() }}
+        </li>
+        <li>
+            {{ 'user.ariane.users_list'|trans }}
+{% endblock %}
 
-	<div class="row">
+{% block user_body %}
 
-		<div class="col-lg-12">
+	{% for message in app.session.flashbag.get('success') %}
+	<div class="alert alert-primary">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
 
-			<div class="page-header">
-				<h1>
-					<i class="fi-torsos-all"></i> Liste des groupes
+    <section class="panel">
 
-					<button type="button" class="btn btn-primary pull-right tips" data-toggle="modal" data-target="#ModalAddGroup" data-placement="left" title="{{ 'user.form.groups_list.addGroup'|trans }}" data-original-title="{{ 'user.form.groups_list.addGroup'|trans }}" data-container="body"><i class="fi-plus"></i></button>
-				</h1>
+		<header class="panel-heading">
+			<div class="panel-actions">
+				<a data-toggle="tooltip" class="btn-primary pull-right tips modal-with-form" data-placement="left" title="Ajouter un groupe" href="#ModalAddGroup">
+					<i class="fa fa-plus"></i>
+				</a>
+			</div>
 
-				<!-- Modal -->
-				<div class="modal fade" id="ModalAddGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<!-- Modal -->
+				<div class="modal-block modal-block-primary mfp-hide" id="ModalAddGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 
 							<form name="" role="form" method="post" {{ form_enctype(form) }}>
 
 							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title" id="myModalLabel">{{ 'user.form.groups_list.addGroup'|trans }}</h4>
 							</div>
+
 							<div class="modal-body">
 
 								<div class="form-group{% if form_errors(form.name) %} has-error{% endif %}">
@@ -43,103 +57,104 @@
 								{{ form_rest(form) }}
 								
 							</div>
+
 							<div class="modal-footer">
 								<button type="submit" class="btn btn-primary">{{ 'user.button.add'|trans }}</button>
-								<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+								<button type="button" class="btn btn-default modal-dismiss" data-dismiss="modal">Annuler</button>
 							</div>
 
 							</form>
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
+				</div>
+			<!-- /.modal -->
 
-			</div>
+			<h2 class="panel-title">Liste des groupes</h2>
+		</header>
 
-		</div>
-
-		{% for message in app.session.flashbag.get('success') %}
-		<div class="col-lg-12">
-	        <div class="alert alert-success">
-	        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	            {{ message }}
-	        </div>
-        </div>
-        {% endfor %}
-
-		<div class="col-lg-12">
+		<div class="panel-body">
 
 			<div class="table-responsive">
+			
+				{% if groups_list is empty %}
 
-				{% if groups_list != null %}
-				<table class="table table-hover">
+					<table class="table table-hover mb-none">
+			            <thead>
+			                <tr>
+			                	<th>Nom</th>
+								<th>Nombre membre</th>
+								<th>Actions</th>
+			                </tr>
+			            </thead>
+			        </table>
 
-					<thead>
+					<div class="alert alert-dark">
+						Aucun groupe n'a été trouvé.
+					</div>
 
-						<tr>
+			    {% else %}
 
-							<th>Nom</th>
-							<th>Nombre membre</th>
-							<th>Actions</th>
+					<table class="table table-hover mb-none">
 
-						</tr>
-
-					</thead>
-
-					<tbody>
-
-						{% for group in groups_list %}
+						<thead>
 
 							<tr>
 
-								<td>{{ group.name }}</td>
-								<td>{{ group.countUsers }}</td>
-								<td>
-									<a type="button" disabled="disabled" class="btn btn-primary btn-xs tips" data-toggle="tooltip" data-placement="bottom" title="Administrer" data-original-title="Administrer" href=""><i class="fi-widget"></i></a>
-
-									<a type="button" class="btn btn-primary btn-xs tips" data-toggle="tooltip" data-placement="bottom" title="Membres" data-original-title="Membres" href="{{ path('mgn_user_admin_group_users', { 'id': group.id }) }}"><i class="fi-torsos-male-female"></i></a>
-
-									<a type="button" disabled="disabled" class="btn btn-primary btn-xs tips" data-toggle="tooltip" data-placement="bottom" title="Acls" data-original-title="Acls" href=""><i class="fa fa-cogs"></i></a>
-
-									<button type="button" class="btn btn-primary btn-xs tips" title="Supprimer" data-placement="bottom" data-toggle="modal" data-target="#ModalDeleteGroup{{ group.id }}" data-original-title="Supprimer"><i class="fi-trash"></i></button>
-
-									<!-- Modal -->
-									<div class="modal fade" id="ModalDeleteGroup{{ group.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-													<h4 class="modal-title" id="myModalLabel">Supprimer un groupe</h4>
-												</div>
-												<div class="modal-body">
-													Etes vous sur de vouloir supprimer le groupe "{{ group.name }}" ? Cette action est irréversible !
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-													<a type="button" class="btn btn-danger" href="{{ path('mgn_user_admin_group_delete', { 'id': group.id }) }}">Supprimer</a>
-												</div>
-											</div><!-- /.modal-content -->
-										</div><!-- /.modal-dialog -->
-									</div><!-- /.modal -->
-								</td>
+								<th>Nom</th>
+								<th>Nombre membre</th>
+								<th>Actions</th>
 
 							</tr>
 
-						{% endfor %}
+						</thead>
 
-					</tbody>
+						<tbody>
 
-				</table>
+							{% for group in groups_list %}
 
-				{% else %}
-				<div class="alert alert-info">
-					Il n'existe aucun groupe
-				</div>
+								<tr>
+
+									<td>{{ group.name }}</td>
+									<td>{{ group.countUsers }}</td>
+									<td class="actions-hover actions-fade">
+										<a class="tips" data-toggle="tooltip" data-placement="bottom" title="Administrer" data-original-title="Administrer" href="{{ path('mgn_user_admin_group_users', { 'id': group.id }) }}"><i class="fi-widget"></i></a>
+
+										<a class="tips" data-toggle="tooltip" data-placement="bottom" title="Supprimer" data-original-title="Supprimer" href="{{ path('mgn_user_admin_group_users', { 'id': group.id }) }}"><i class="fa fa-trash-o"></i></a>
+
+										<!-- Modal -->
+										<div class="modal fade" id="ModalDeleteGroup{{ group.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+														<h4 class="modal-title" id="myModalLabel">Supprimer un groupe</h4>
+													</div>
+													<div class="modal-body">
+														Etes vous sur de vouloir supprimer le groupe "{{ group.name }}" ? Cette action est irréversible !
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+														<a type="button" class="btn btn-danger" href="{{ path('mgn_user_admin_group_delete', { 'id': group.id }) }}">Supprimer</a>
+													</div>
+												</div><!-- /.modal-content -->
+											</div><!-- /.modal-dialog -->
+										</div><!-- /.modal -->
+									</td>
+
+								</tr>
+
+							{% endfor %}
+
+						</tbody>
+
+					</table>
+
 				{% endif %}
 
 			</div>
 
 		</div>
-		
-	</div>
+
+	</section>
 
 {% endblock %}

@@ -1,5 +1,7 @@
 {% extends "MgnUserBundle::admin.html.twig" %}
 
+{% block pagetitle %}Profil de {{ user.username }}{% endblock %}
+
 {% block title %}
     Profil - {{ parent() }}
 {% endblock %}
@@ -268,6 +270,9 @@
 				</li>
 				{% endif %}
 				<li>
+					<a href="#game" data-toggle="tab">Préférences</a>
+				</li>
+				<li>
 					<a href="#avatar" data-toggle="tab">Avatar</a>
 				</li>
 				<li>
@@ -278,10 +283,29 @@
 
 				<div id="overview" class="tab-pane active">
 
-					<div class="timeline timeline-simple mt-xlg mb-md">
+					<div class="alert alert-dark">
+						<strong>Patientez, </strong> cette fonctionnalité n'est pas encore activé.
+					</div>
+
+					{#<div class="timeline timeline-simple mt-xlg mb-md">
 						<div class="tm-body">
 							<div class="tm-title">
-								<h3 class="h5 text-uppercase">Décembre 2014</h3>
+								<h3 class="h5 text-uppercase">
+									{% if date()|date('m') == 01 %}{% set month = 'JANVIER' %}
+									{% elseif date()|date('m') == 02 %}{% set month = 'FEVRIER' %}
+									{% elseif date()|date('m') == 03 %}{% set month = 'MARS' %}
+									{% elseif date()|date('m') == 04 %}{% set month = 'AVRIL' %}
+									{% elseif date()|date('m') == 05 %}{% set month = 'MAI' %}
+									{% elseif date()|date('m') == 06 %}{% set month = 'JUIN' %}
+									{% elseif date()|date('m') == 07 %}{% set month = 'JUILLET' %}
+									{% elseif date()|date('m') == 08 %}{% set month = 'AOUT' %}
+									{% elseif date()|date('m') == 09 %}{% set month = 'SEPTEMBRE' %}
+									{% elseif date()|date('m') == 10 %}{% set month = 'OCTOBRE' %}
+									{% elseif date()|date('m') == 11 %}{% set month = 'NOVEMBRE' %}
+									{% elseif date()|date('m') == 12 %}{% set month = 'DECEMBRE' %}
+									{% endif %}
+									{{ month }} {{ date()|date('Y') }}
+								</h3>
 							</div>
 							<ol class="tm-items">
 								<li>
@@ -302,7 +326,8 @@
 								</li>
 							</ol>
 						</div>
-					</div>
+					</div>#}
+
 				</div>
 
 				<div id="profil" class="tab-pane">
@@ -744,70 +769,81 @@
 	<div class="col-md-12 col-lg-3">
 
 		<h4 class="mb-md">Statistiques</h4>
+
 		<div class="row">
-			<div class="col-md-12 col-xl-12">
-				<section class="panel">
-					<div class="panel-body bg-secondary">
-						<div class="widget-summary widget-summary-sm">
-							<div class="widget-summary-col widget-summary-col-icon">
-								<div class="summary-icon">
-									<i class="fa fa-pencil"></i>
+
+			{% if Config('cmsArticle') == true %}
+				<div class="col-md-12 col-xl-12">
+					<section class="panel">
+						<div class="panel-body bg-secondary">
+							<div class="widget-summary widget-summary-sm">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon">
+										<i class="fa fa-pencil"></i>
+									</div>
 								</div>
-							</div>
-							<div class="widget-summary-col">
-								<div class="summary">
-									<h4 class="title">Articles publiés</h4>
-									<div class="info">
-										<strong class="amount">{{ user.countArticle }}</strong>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Articles publiés</h4>
+										<div class="info">
+											<strong class="amount">{{ user.countArticle }}</strong>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</section>
-			</div>
-			<div class="col-md-12 col-xl-12">
-				<section class="panel">
-					<div class="panel-body bg-secondary">
-						<div class="widget-summary widget-summary-sm">
-							<div class="widget-summary-col widget-summary-col-icon">
-								<div class="summary-icon">
-									<i class="fi-list-thumbnails"></i>
+					</section>
+				</div>
+			{% endif %}
+
+			{% if Config('cmsForum') == true %}
+				<div class="col-md-12 col-xl-12">
+					<section class="panel">
+						<div class="panel-body bg-secondary">
+							<div class="widget-summary widget-summary-sm">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon">
+										<i class="fi-list-thumbnails"></i>
+									</div>
 								</div>
-							</div>
-							<div class="widget-summary-col">
-								<div class="summary">
-									<h4 class="title">Topics créés</h4>
-									<div class="info">
-										<strong class="amount">{{ user.countTopic }}</strong>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Topics créés</h4>
+										<div class="info">
+											<strong class="amount">{{ user.countTopic }}</strong>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</section>
-			</div>
-			<div class="col-md-12 col-xl-12">
-				<section class="panel">
-					<div class="panel-body bg-secondary">
-						<div class="widget-summary widget-summary-sm">
-							<div class="widget-summary-col widget-summary-col-icon">
-								<div class="summary-icon">
-									<i class="fi-results-demographics"></i>
+					</section>
+				</div>
+			{% endif %}
+
+			{% if Config('cmsForum') == true %}
+				<div class="col-md-12 col-xl-12">
+					<section class="panel">
+						<div class="panel-body bg-secondary">
+							<div class="widget-summary widget-summary-sm">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon">
+										<i class="fi-results-demographics"></i>
+									</div>
 								</div>
-							</div>
-							<div class="widget-summary-col">
-								<div class="summary">
-									<h4 class="title">Posts</h4>
-									<div class="info">
-										<strong class="amount">{{ user.countPost }}</strong>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Posts</h4>
+										<div class="info">
+											<strong class="amount">{{ user.countPost }}</strong>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</section>
-			</div>
+					</section>
+				</div>
+			{% endif %}
+
 			<div class="col-md-12 col-xl-12">
 				<section class="panel">
 					<div class="panel-body bg-secondary">
@@ -829,6 +865,7 @@
 					</div>
 				</section>
 			</div>
+
 		</div>
 
 		{#<h4 class="mb-md">Projects</h4>
