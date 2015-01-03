@@ -9,6 +9,7 @@ use Mgn\UserBundle\Entity\UserToGroup;
 use Mgn\UserBundle\Form\GroupType;
 use Mgn\UserBundle\Form\GroupAdministerType;
 use Mgn\UserBundle\Form\GroupAddUserType;
+use Mgn\UserBundle\Form\GroupEditUserType;
 use Mgn\UserBundle\Form\AdminProfileType;
 use Mgn\UserBundle\Form\AdminProfileSocialType;
 use Mgn\UserBundle\Form\AdminProfileSecurityType;
@@ -196,13 +197,20 @@ class AdminController extends Controller
                 $em->flush();
                 
                 $this->get('session')->getFlashBag()->add('success', 'Votre nouveau groupe à bien été ajouté.');
+
+                return $this->redirect( $this->generateUrl('mgn_user_admin_list_group'));
             }
         }
 
         $groups_list = $this->getDoctrine()
                          ->getManager()
                          ->getRepository('MgnUserBundle:Group')
-                         ->findAll();
+                         ->findBy(
+                            array(),                 // Pas de critère
+                            array('name' => 'ASC'), // On tri par date décroissante
+                            NULL,       // On sélectionne $nb_articles_page articles
+                            NULL                  // A partir du $offset ième
+                        );
 
         return $this->render('MgnUserBundle:Admin:group_list.html.twig', array(
             'groups_list' => $groups_list,
@@ -213,22 +221,7 @@ class AdminController extends Controller
     /**
      * @Secure(roles="ROLE_SUPER_ADMIN")
      */
-    public function profileGroupAction($id)
-    {
-        $group = $this->getDoctrine()
-                         ->getManager()
-                         ->getRepository('MgnUserBundle:Group')
-                         ->find($id);
-
-        return $this->render('MgnUserBundle:Admin:group.html.twig', array(
-            'group' => $group,
-        ));
-    }
-
-    /**
-     * @Secure(roles="ROLE_SUPER_ADMIN")
-     */
-    public function administerGroupAction($id)
+    public function administerGroupAction($id, $user)
     {
         $group = $this->getDoctrine()
                          ->getManager()
@@ -240,6 +233,21 @@ class AdminController extends Controller
         $userToGroup = new UserToGroup;
 
         $formuser = $this->createForm(new GroupAddUserType, $userToGroup);
+
+        if( $user != null )
+        {
+            $userToGroup = $this->getDoctrine()
+                         ->getEntityManager()
+                         ->getRepository('MgnUserBundle:UserToGroup')
+                         ->findOneBy(
+                            array('group' => $group, 'user' => $user),                 // Pas de critère
+                            array(), // On tri par date décroissante
+                            NULL,       // On sélectionne $nb_articles_page articles
+                            NULL                  // A partir du $offset ième
+                        );
+
+            $formuser = $this->createForm(new GroupEditUserType, $userToGroup);
+        }
 
         $request = $this->get('request');
 
@@ -261,6 +269,8 @@ class AdminController extends Controller
 
                     //message de confirmation
                     $this->get('session')->getFlashBag()->add('successUser', 'Le membre à bien été ajouté.');
+
+                    return $this->redirect( $this->generateUrl('mgn_user_admin_group_administer', array( 'id' => $group->getId() )));
                 }
             }
 
@@ -274,12 +284,16 @@ class AdminController extends Controller
                     $em->flush();
 
                     $this->get('session')->getFlashBag()->add('success', 'Vos modifications ont bien été prise en compte.');
+
+                    return $this->redirect( $this->generateUrl('mgn_user_admin_group_administer', array( 'id' => $group->getId() )));
                 }
             }
         }
 
         return $this->render('MgnUserBundle:Admin:groupAdminister.html.twig', array(
             'group' => $group,
+            'user' => $user,
+            'userToGroup' => $userToGroup,
             'formgroup' => $formgroup->createView(),
             'formuser' => $formuser->createView(),
         ));
@@ -354,48 +368,5 @@ class AdminController extends Controller
         $em->flush();
             
         return $this->redirect( $this->generateUrl('mgn_user_admin_list_group'));
-    }
-
-    /**
-     * @Secure(roles="ROLE_SUPER_ADMIN")
-     */
-    public function usersToGroupAction($id)
-    {
-        $group = $this->getDoctrine()
-                         ->getManager()
-                         ->getRepository('MgnUserBundle:Group')
-                         ->loadGroupWithUsers($id);
-
-        $userToGroup = new UserToGroup;
-
-        $form = $this->createForm(new GroupAddUserType, $userToGroup);
-
-        $request = $this->get('request');
-
-        if('POST' === $request->getMethod())
-        {
-            $em = $this->getDoctrine()->getManager();
-
-            $form->bind($request);
-
-            if ($form->isValid())
-            {
-                $userToGroup->setGroup($group);
-                $group->setCountUsers($group->getCountUsers() + 1);
-
-                $em->persist($userToGroup);
-                $em->flush();
-
-                //message de confirmation
-                $this->get('session')->getFlashBag()->add('successUser', 'Le membre à bien été ajouté.');
-
-                return $this->redirect( $this->generateUrl('mgn_user_admin_group_users', array('id' => $id)));
-            }
-        }
-
-        return $this->render('MgnUserBundle:Admin:groupUsers.html.twig', array(
-            'group' => $group,
-            'form' => $form->createView(),
-        ));
     }
 }

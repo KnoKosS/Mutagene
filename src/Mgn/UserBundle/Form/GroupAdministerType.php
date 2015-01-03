@@ -17,6 +17,8 @@ class GroupAdministerType extends AbstractType
                 'required' => false,
             ))
     ;
+
+        $builder->add('save', 'submit');
   }
  
   public function setDefaultOptions(OptionsResolverInterface $resolver)

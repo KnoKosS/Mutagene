@@ -56,17 +56,9 @@ mgn_user_admin_list_group:
     path:   /admin/groupes/liste
     defaults:  { _controller: MgnUserBundle:Admin:listGroups }
 
-mgn_user_admin_profile_group:
-    path:   /admin/groupes/profil/{id}
-    defaults:  { _controller: MgnUserBundle:Admin:profileGroup }
-
 mgn_user_admin_group_administer:
-    path:   /admin/groupes/administrer/{id}
-    defaults:  { _controller: MgnUserBundle:Admin:administerGroup }
-
-mgn_user_admin_group_users:
-    path:   /admin/groupes/membres/{id}
-    defaults:  { _controller: MgnUserBundle:Admin:usersToGroup }
+    path:   /admin/groupes/administrer/{id}/{user}
+    defaults:  { _controller: MgnUserBundle:Admin:administerGroup, user: null }
 
 mgn_user_admin_group_delete:
     path:   /admin/groupes/supprimer/{id}

@@ -29,13 +29,13 @@
 
 		<header class="panel-heading">
 			<div class="panel-actions">
-				<a data-toggle="tooltip" class="btn-primary pull-right tips modal-with-form" data-placement="left" title="Ajouter un groupe" href="#ModalAddGroup">
+				<a data-toggle="tooltip" class="btn-primary pull-right tips modal-with-zoom-anim" data-placement="left" title="Ajouter un groupe" href="#ModalAddGroup">
 					<i class="fa fa-plus"></i>
 				</a>
 			</div>
 
 			<!-- Modal -->
-				<div class="modal-block modal-block-primary mfp-hide" id="ModalAddGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="zoom-anim-dialog modal-block modal-block-primary mfp-hide" id="ModalAddGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 
@@ -116,29 +116,39 @@
 
 									<td>{{ group.name }}</td>
 									<td>{{ group.countUsers }}</td>
-									<td class="actions-hover actions-fade">
-										<a class="tips" data-toggle="tooltip" data-placement="bottom" title="Administrer" data-original-title="Administrer" href="{{ path('mgn_user_admin_group_users', { 'id': group.id }) }}"><i class="fi-widget"></i></a>
+									<td class="actions-hover">
+										<a class="tips" data-toggle="tooltip" data-placement="bottom" title="Administrer" data-original-title="Administrer" href="{{ path('mgn_user_admin_group_administer', { 'id': group.id }) }}"><i class="fi-widget"></i></a>
 
-										<a class="tips" data-toggle="tooltip" data-placement="bottom" title="Supprimer" data-original-title="Supprimer" href="{{ path('mgn_user_admin_group_users', { 'id': group.id }) }}"><i class="fa fa-trash-o"></i></a>
+										<a class="tips mb-xs mt-xs mr-xs modal-with-zoom-anim" data-toggle="tooltip" data-placement="bottom" title="Supprimer" data-original-title="Supprimer" href="#ModalDeleteGroup{{ group.id }}"><i class="fa fa-trash-o"></i></a>
 
 										<!-- Modal -->
-										<div class="modal fade" id="ModalDeleteGroup{{ group.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														<h4 class="modal-title" id="myModalLabel">Supprimer un groupe</h4>
+										<div class="zoom-anim-dialog modal-block modal-block-primary mfp-hide" id="ModalDeleteGroup{{ group.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+											<section class="panel">
+												<header class="panel-heading">
+													<h2 class="panel-title">Etes vous sûr?</h2>
+												</header>
+												<div class="panel-body">
+													<div class="modal-wrapper">
+														<div class="modal-icon">
+															<i class="fa fa-question-circle"></i>
+														</div>
+														<div class="modal-text">
+															<p>Etes vous sur de vouloir supprimer le groupe {{ group.name }} ?</p>
+														</div>
 													</div>
-													<div class="modal-body">
-														Etes vous sur de vouloir supprimer le groupe "{{ group.name }}" ? Cette action est irréversible !
+												</div>
+												<footer class="panel-footer">
+													<div class="row">
+														<div class="col-md-12 text-right">
+															<a type="button" class="btn btn-danger" href="{{ path('mgn_user_admin_group_delete', { 'id': group.id }) }}">Oui, supprimer</a>
+															<button class="btn btn-default modal-dismiss">Annuler</button>
+														</div>
 													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-														<a type="button" class="btn btn-danger" href="{{ path('mgn_user_admin_group_delete', { 'id': group.id }) }}">Supprimer</a>
-													</div>
-												</div><!-- /.modal-content -->
-											</div><!-- /.modal-dialog -->
-										</div><!-- /.modal -->
+												</footer>
+											</section>
+										</div>
+										<!-- /.modal -->
+
 									</td>
 
 								</tr>
