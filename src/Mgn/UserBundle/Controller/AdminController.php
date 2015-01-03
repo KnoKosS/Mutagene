@@ -123,6 +123,22 @@ class AdminController extends Controller
                 // On l'enregistre notre objet $article dans la base de données.
                 $em = $this->getDoctrine()->getManager();
 
+                $userToGroups = $this->getDoctrine()
+                         ->getEntityManager()
+                         ->getRepository('MgnUserBundle:UserToGroup')
+                         ->loadGroupForUser($user);
+
+                if( $userToGroups !== null )
+                {
+                    foreach($userToGroups as $userToGroup)
+                    {
+                        $userToGroup->getGroup()->setCountUsers($userToGroup->getGroup()->getCountUsers() - 1);
+                        $em->remove($userToGroup);
+                    }
+                }
+
+                $em->flush();
+
                 $user->setActive(false);
                 $user->removeRole('ROLE_USER');
                 $user->setAvatar('default');
@@ -262,13 +278,24 @@ class AdminController extends Controller
                 if ($formuser->isValid())
                 {
                     $userToGroup->setGroup($group);
-                    $group->setCountUsers($group->getCountUsers() + 1);
+
+                    if( $user == null )
+                    {
+                        $group->setCountUsers($group->getCountUsers() + 1);
+                    }
 
                     $em->persist($userToGroup);
                     $em->flush();
 
                     //message de confirmation
-                    $this->get('session')->getFlashBag()->add('successUser', 'Le membre à bien été ajouté.');
+                    if( $user == null )
+                    {
+                        $this->get('session')->getFlashBag()->add('success', 'Le membre à bien été ajouté.');
+                    }
+                    else
+                    {
+                        $this->get('session')->getFlashBag()->add('success', 'Le membre à bien été modifié.');
+                    }
 
                     return $this->redirect( $this->generateUrl('mgn_user_admin_group_administer', array( 'id' => $group->getId() )));
                 }
@@ -283,7 +310,7 @@ class AdminController extends Controller
                     $em->persist($group);
                     $em->flush();
 
-                    $this->get('session')->getFlashBag()->add('success', 'Vos modifications ont bien été prise en compte.');
+                    $this->get('session')->getFlashBag()->add('success', 'Le groupe à bien été mis à jour.');
 
                     return $this->redirect( $this->generateUrl('mgn_user_admin_group_administer', array( 'id' => $group->getId() )));
                 }
@@ -340,7 +367,7 @@ class AdminController extends Controller
         //message de confirmation
         $this->get('session')->getFlashBag()->add('successUser', '' . $userToGroup->getUser()->getUsername() . ' à bien été expulsé du groupe.');
             
-        return $this->redirect( $this->generateUrl('mgn_user_admin_group_users', array('id' => $groupid)));
+        return $this->redirect( $this->generateUrl('mgn_user_admin_group_administer', array('id' => $groupid)));
     }
 
     /**
