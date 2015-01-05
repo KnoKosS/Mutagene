@@ -82,6 +82,7 @@
 			            <thead>
 			                <tr>
 			                	<th>Nom</th>
+			                	<th>Description</th>
 								<th>Nombre membre</th>
 								<th>Actions</th>
 			                </tr>
@@ -101,6 +102,7 @@
 							<tr>
 
 								<th>Nom</th>
+			                	<th>Description</th>
 								<th>Nombre membre</th>
 								<th>Actions</th>
 
@@ -115,6 +117,7 @@
 								<tr>
 
 									<td>{{ group.name }}</td>
+									<td>{{ group.description | truncate(100, true, '...') }}</td>
 									<td>{{ group.countUsers }}</td>
 									<td class="actions-hover">
 										<a class="tips" data-toggle="tooltip" data-placement="bottom" title="Administrer" data-original-title="Administrer" href="{{ path('mgn_user_admin_group_administer', { 'id': group.id }) }}"><i class="fi-widget"></i></a>

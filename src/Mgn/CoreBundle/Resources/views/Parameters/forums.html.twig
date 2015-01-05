@@ -1,0 +1,144 @@
+{% extends "MgnCoreBundle::admin.html.twig" %}
+
+{% block title %}
+    Paramètres des forums - {{ parent() }}
+{% endblock %}
+
+{% block sidebar_parameters %}nav-expanded nav-active{% endblock %}
+{% block parameters_submenu_forums %} class="active"{% endblock %}
+
+{% block arianne %}
+    {{ parent() }}
+        </li>
+        <li>
+            Paramètres des forums
+{% endblock %}
+
+{% block parameters_body %}
+
+    {% for message in app.session.flashbag.get('success') %}
+    <div class="alert alert-primary">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {{ form_errors(form) }}
+
+        <section class="panel">
+
+            <header class="panel-heading">
+
+                <h2 class="panel-title">Paramètres des forums</h2>
+                <p class="panel-subtitle">
+                    Configurer les paramètres des forums.
+                </p>
+
+            </header>
+
+            <div class="panel-body">
+
+                <h4 class="mb-xlg">Module</h4>
+
+                <fieldset>
+
+                    <div class="form-group{% if form_errors(form.cmsForum) %} has-error{% endif %}">
+
+                        {{ form_label(form.cmsForum, "Activer", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.cmsForum) }}
+                        <div class="col-md-7">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.cmsForum, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+                <hr class="dotted tall">
+
+                <h4 class="mb-xlg">Affichage</h4>
+
+                <fieldset>
+
+                    <div class="form-group{% if form_errors(form.forumIndexLigne) %} has-error{% endif %}">
+                        {{ form_label(form.forumIndexLigne, "Nombre de forum par ligne", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.forumIndexLigne) }}
+
+                        <div class="col-sm-8">
+                            
+                            <div class="radio-custom radio-primary">
+                                {{ form_widget(form.forumIndexLigne.0) }}
+                                {{ form_label(form.forumIndexLigne.0, "1") }}
+                            </div>
+
+                            <div class="radio-custom radio-primary">
+                                {{ form_widget(form.forumIndexLigne.1) }}
+                                {{ form_label(form.forumIndexLigne.1, "2") }}
+                            </div>
+
+                            <div class="radio-custom radio-primary">
+                                {{ form_widget(form.forumIndexLigne.2) }}
+                                {{ form_label(form.forumIndexLigne.2, "3") }}
+                            </div>
+
+                            <div class="radio-custom radio-primary">
+                                {{ form_widget(form.forumIndexLigne.3) }}
+                                {{ form_label(form.forumIndexLigne.3, "4") }}
+                            </div>
+
+                            <p class="help-block">Uniquement si vous avez choisi la présentation du forum en block dans l'apparence.</p>
+
+                        </div>                    </div>
+
+                    <div class="form-group{% if form_errors(form.forumTopicPage) %} has-error{% endif %}">
+                        {{ form_label(form.forumTopicPage, "Nombre de sujet par page", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.forumTopicPage) }}
+                        <div class="col-md-7">
+                            <div class="m-md slider-primary" data-plugin-slider data-plugin-options='{ "value": {{ Config('forumTopicPage') }}, "range": false, "min": 1, "max": 50 }' data-plugin-slider-output="#sliderTopic">
+                                {{ form_widget(form.forumTopicPage, {'attr': {'class': 'form-control', 'hidden': 'hidden'}, 'id': 'sliderTopic'}) }}
+                            </div>
+                            <p class="outputTopic">La valeur actuelle est: <b>{{ Config('forumTopicPage') }}</b></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.forumPostPage) %} has-error{% endif %}">
+                        {{ form_label(form.forumPostPage, "Nombre de message par page", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.forumPostPage) }}
+                        <div class="col-md-7">
+                            <div class="m-md slider-primary" data-plugin-slider data-plugin-options='{ "value": {{ Config('forumPostPage') }}, "range": false, "min": 1, "max": 50 }' data-plugin-slider-output="#sliderPost">
+                                {{ form_widget(form.forumPostPage, {'attr': {'class': 'form-control', 'hidden': 'hidden'}, 'id': 'sliderPost'}) }}
+                            </div>
+                            <p class="outputPost">La valeur actuelle est: <b>{{ Config('forumPostPage') }}</b></p>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </div>
+
+            <footer class="panel-footer">
+
+                <div class="row">
+
+                    <div class="col-md-9 col-md-offset-3">
+
+                        {{ form_widget(form.save, {'label': 'Mettre à jour', 'attr': {'class': 'btn btn-primary'}}) }}
+                        <a href="{{ path('mgn_admin_core_parameters_forums') }}" class="btn btn-default">Annuler les modifications</a>
+
+                    </div>
+
+                </div>
+
+            </footer>
+
+        </section>
+
+        {{ form_rest(form) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}

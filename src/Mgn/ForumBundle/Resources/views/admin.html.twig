@@ -1,9 +1,35 @@
 {% extends "::admin.html.twig" %}
 
+{% block pagetitle %}Utilisateurs{% endblock %}
+
 {% block arianne %}
     {{ parent() }}
 {% endblock %}
 
 {% block body %}
- 
+ <div class="row">
+
+	<div class="col-lg-12">
+						
+		<div class="inner-toolbar clearfix">
+
+			<ul>
+				<li class="right" data-sort-source data-sort-id="media-gallery">
+					<ul class="nav nav-pills nav-pills-primary">
+						{% block forum_buttons %}{% endblock %}
+					</ul>
+				</li>
+			</ul>
+
+		</div>
+
+	</div>
+
+	<div class="col-lg-12 body-with-menu-toolbar">
+
+		{% block forum_body %}{% endblock %}
+
+	</div>
+
+</div>
 {% endblock %}

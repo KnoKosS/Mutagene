@@ -2,13 +2,21 @@ mgn_core_view:
     pattern:   /core/view/{type}
     defaults:  { _controller: MgnCoreBundle:View:index }
 
-mgn_admin_core_parameters:
-    pattern:   /admin/site/parametres
-    defaults:  { _controller: MgnCoreBundle:Site:parameters }
+mgn_admin_core_parameters_site:
+    pattern:   /admin/parametres/site
+    defaults:  { _controller: MgnCoreBundle:Parameters:site }
 
-mgn_admin_core_modules:
-    pattern:   /admin/site/modules
-    defaults:  { _controller: MgnCoreBundle:Site:modules }
+mgn_admin_core_parameters_articles:
+    pattern:   /admin/parametres/articles
+    defaults:  { _controller: MgnCoreBundle:Parameters:articles }
+
+mgn_admin_core_parameters_forums:
+    pattern:   /admin/parametres/forums
+    defaults:  { _controller: MgnCoreBundle:Parameters:forums }
+
+mgn_admin_core_parameters_users:
+    pattern:   /admin/parametres/utilisateurs
+    defaults:  { _controller: MgnCoreBundle:Parameters:users }
 
 mgn_admin_core_acls:
     pattern:   /admin/acls

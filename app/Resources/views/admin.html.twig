@@ -27,6 +27,11 @@
 	<link rel="stylesheet" href="{{ asset('admin/assets/magnific-popup/magnific-popup.css') }}" />
 	<link rel="stylesheet" href="{{ asset('admin/assets/bootstrap-datepicker/css/datepicker3.css') }}" />
 
+	<link rel="stylesheet" href="{{ asset('admin/assets/codemirror/lib/codemirror.css') }}" />
+	<link rel="stylesheet" href="{{ asset('admin/assets/codemirror/theme/monokai.css') }}" />
+
+	<link rel="stylesheet" href="{{ asset('admin/assets/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css') }}" />
+
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="{{ asset('admin/css/theme.css') }}" />
 
@@ -41,6 +46,7 @@
 
 	<link rel="stylesheet" href="{{ asset('admin/test/isotope/jquery.isotope.css') }}" />
 	<link rel="stylesheet" href="{{ asset('admin/assets/bootstrap-fileupload/bootstrap-fileupload.min.css') }}" />
+	<link rel="stylesheet" href="{{ asset('admin/assets/style.switcher/style.switcher.css') }}" />
 	<style>
 	ul#contents-load{
       list-style:none;
@@ -372,12 +378,14 @@
 											<span>Tableau de bord</span>
 										</a>
 									</li>
+									{% if Config('cmsArticle') == true %}
 									<li class="{% block sidebar_articles %}{% endblock %}">
 										<a href="{{ path('mgn_admin_article_list') }}">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 											<span>Articles</span>
 										</a>
 									</li>
+									{% endif %}
 									<li class="{% block sidebar_medias %}{% endblock %}">
 										<a href="{{ path('mgn_admin_media') }}">
 											<i class="fi-photo" aria-hidden="true"></i>
@@ -403,12 +411,14 @@
 										</a>
 									</li>
 									<hr />
-									<li class="">
-										<a href="">
+									{% if Config('cmsForum') == true %}
+									<li class="{% block sidebar_forums %}{% endblock %}">
+										<a href="{{ path('mgn_admin_forum') }}">
 											<i class="fi-results-demographics"></i>
 											<span>Forums</span>
 										</a>
 									</li>
+									{% endif %}
 									<li class="{% block sidebar_users %}{% endblock %}">
 										<a href="{{ path('mgn_user_admin_list_user') }}">
 											<i class="fi-torsos-all" aria-hidden="true"></i>
@@ -421,8 +431,8 @@
 											<span>Apparence</span>
 										</a>
 									</li>
-									<li class="">
-										<a href="">
+									<li class="{% block sidebar_parameters %}{% endblock %}">
+										<a href="{{ path('mgn_admin_core_parameters_site') }}">
 											<i class="fi-widget"></i>
 											<span>Paramètres</span>
 										</a>
@@ -829,7 +839,7 @@
 					<header class="page-header">
 						<h2>{% block pagetitle %}Administration du site{% endblock %}</h2>
 					
-						<!--<div class="right-wrapper pull-right">
+						{#<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
 								<li>
 									<a href="{{ path('mgn_admin_homepage') }}">
@@ -841,7 +851,7 @@
 							</ol>
 					
 							<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
-						</div>-->
+						</div>#}
 					</header>
 
 					<!-- start: page -->
@@ -921,7 +931,7 @@
 
 			<!-- Vendor -->
 			<script src="{{ asset('admin/assets/jquery/jquery.js') }}"></script>
-			<script src="{{ asset('admin/assets/jquery-ui/jquery-ui.min.js') }}"></script>
+			<script src="{{ asset('admin/assets/jquery-ui/js/jquery-ui-1.10.4.custom.js') }}"></script>
 			<script src="{{ asset('admin/assets/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
 			<script src="{{ asset('admin/assets/bootstrap/js/bootstrap.js') }}"></script>
 			<script src="{{ asset('admin/assets/nanoscroller/nanoscroller.js') }}"></script>
@@ -952,10 +962,19 @@
 			<script src="{{ asset('admin/assets/bootstrap-fileupload/bootstrap-fileupload.min.js') }}"></script>
 			<script src="{{ asset('admin/assets/jquery-ui-touch-punch/jquery.ui.touch-punch.js') }}"></script>
 			<script src="{{ asset('admin/assets/ios7-switch/ios7-switch.js') }}"></script>
+
+			<script src="{{ asset('admin/assets/codemirror/lib/codemirror.js') }}"></script>
+			<script src="{{ asset('admin/assets/codemirror/addon/selection/active-line.js') }}"></script>
+			<script src="{{ asset('admin/assets/codemirror/addon/edit/matchbrackets.js') }}"></script>
+			<script src="{{ asset('admin/assets/codemirror/mode/javascript/javascript.js') }}"></script>
+			<script src="{{ asset('admin/assets/codemirror/mode/xml/xml.js') }}"></script>
+			<script src="{{ asset('admin/assets/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
+			<script src="{{ asset('admin/assets/codemirror/mode/css/css.js') }}"></script>
 			
 			<!-- Theme Base, Components and Settings -->
 			<script src="{{ asset('admin/js/theme.js') }}"></script>
 			<script src="{{ asset('admin/js/theme.init.js') }}"></script>
+			<script src="{{ asset('admin/js/forms/examples.advanced.form.js') }}"></script>
 
 			<script>
 			<!--

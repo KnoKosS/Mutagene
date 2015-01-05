@@ -18,3 +18,8 @@ a:hover
 {
 	margin-bottom: 50px;
 }
+
+.disabled
+{
+	cursor:not-allowed;
+}

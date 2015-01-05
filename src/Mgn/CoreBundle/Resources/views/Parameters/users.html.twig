@@ -1,0 +1,224 @@
+{% extends "MgnCoreBundle::admin.html.twig" %}
+
+{% block title %}
+    Paramètres des utilisateurs - {{ parent() }}
+{% endblock %}
+
+{% block sidebar_parameters %}nav-expanded nav-active{% endblock %}
+{% block parameters_submenu_users %} class="active"{% endblock %}
+
+{% block arianne %}
+    {{ parent() }}
+        </li>
+        <li>
+            Paramètres des utilisateurs
+{% endblock %}
+
+{% block parameters_body %}
+
+    {% for message in app.session.flashbag.get('success') %}
+    <div class="alert alert-primary">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {{ form_errors(form) }}
+
+        <section class="panel">
+
+            <header class="panel-heading">
+
+                <h2 class="panel-title">Paramètres des utilisateurs</h2>
+                <p class="panel-subtitle">
+                    Configurer les paramètres des utilisateurs.
+                </p>
+
+            </header>
+
+            <div class="panel-body">
+
+                <h4 class="mb-xlg">Profil</h4>
+
+                <fieldset>
+
+                    <div class="form-group{% if form_errors(form.profileFirstName) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileFirstName, "Prénom", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileFirstName) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileFirstName, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileLastName) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileLastName, "Nom", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileLastName) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileLastName, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileBirthday) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileBirthday, "Date de naissance", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileBirthday) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileBirthday, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileSignature) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileSignature, "Signature", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileSignature) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileSignature, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+                <hr class="dotted tall">
+
+                <h4 class="mb-xlg">Social</h4>
+
+                <fieldset>
+
+                    <div class="form-group{% if form_errors(form.profileFacebook) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileFacebook, "Facebook", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileFacebook) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileFacebook, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileTwitter) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileTwitter, "Twitter", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileTwitter) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileTwitter, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileLinkedin) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileLinkedin, "Linkedin", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileLinkedin) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileLinkedin, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileSteam) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileSteam, "Steam", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileSteam) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileSteam, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileGoogleplus) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileGoogleplus, "Google Plus", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileGoogleplus) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileGoogleplus, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileTwitch) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileTwitch, "Twitch", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileTwitch) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileTwitch, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileYoutube) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileYoutube, "YouTube", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileYoutube) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileYoutube, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profilePinterest) %} has-error{% endif %}">
+
+                        {{ form_label(form.profilePinterest, "Pinterest", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profilePinterest) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profilePinterest, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+            </div>
+
+            <footer class="panel-footer">
+
+                <div class="row">
+
+                    <div class="col-md-9 col-md-offset-3">
+
+                        {{ form_widget(form.save, {'label': 'Mettre à jour', 'attr': {'class': 'btn btn-primary'}}) }}
+                        <a href="{{ path('mgn_admin_core_parameters_users') }}" class="btn btn-default">Annuler les modifications</a>
+
+                    </div>
+
+                </div>
+
+            </footer>
+
+        </section>
+
+        {{ form_rest(form) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}
