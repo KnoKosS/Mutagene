@@ -1,4 +1,4 @@
-{% extends "MgnCoreBundle::admin.html.twig" %}
+{% extends "MgnCoreBundle::adminParameters.html.twig" %}
 
 {% block title %}
     Paramètres des articles - {{ parent() }}
@@ -51,6 +51,26 @@
                         <div class="col-md-7">
                             <div class="switch switch-sm switch-primary">
                                 {{ form_widget(form.cmsArticle, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+
+                <hr class="dotted tall">
+
+                <h4 class="mb-xlg">Affichage de l'index</h4>
+
+                <fieldset>
+
+                    <div class="form-group{% if form_errors(form.articleIndexHeader) %} has-error{% endif %}">
+
+                        {{ form_label(form.articleIndexHeader, "Header", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.articleIndexHeader) }}
+                        <div class="col-md-7">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.articleIndexHeader, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
                             </div>
                         </div>
 

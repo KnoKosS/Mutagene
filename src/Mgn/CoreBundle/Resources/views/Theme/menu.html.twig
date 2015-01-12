@@ -1,0 +1,54 @@
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    
+    <ul class="nav navbar-nav">
+
+        <li class="navbar-button{% if bundle is defined and bundle == 'article' %} active{% endif %}">
+            <a href="{% if Config('homepage') == 'article' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_article") }}{% endif %}">Accueil</a>
+        </li>
+        <li class="navbar-button{% if bundle is defined and bundle == 'forum' %} active{% endif %}">
+            <a href="{% if Config('homepage') == 'forum' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_forum") }}{% endif %}">Forums</a>
+        </li>
+        
+    </ul>
+      
+    <ul class="nav navbar-nav navbar-right">
+    
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.username }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="{{ path("mgn_user_profile", {'username': app.user.usernameCanonical}) }}"><i class="fa fa-user"></i> Mon compte</a></li>
+            {% if is_granted("ROLE_ADMIN") %}
+            <li class="divider"></li>
+            <li><a href="{{ path("mgn_admin_homepage") }}"><i class="fa fa-wrench"></i> Administration</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li><a href="{{ path("logout") }}"><i class="fa fa-power-off"></i> Déconnexion</a></li>
+            </ul>
+        </li>
+        
+        {% else %}
+        
+            <a class="btn btn-primary navbar-btn navbar-btn-login" href="{{ path("user.connexion") }}">Mon compte</a>
+            
+        {% endif %}
+    
+    </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

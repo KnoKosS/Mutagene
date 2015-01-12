@@ -1,109 +1,122 @@
-{% extends "MgnArticleBundle::admin.html.twig" %}
+{% extends "MgnForumBundle::admin.html.twig" %}
+
+{% block pagetitle %}Les forums{% endblock %}
 
 {% block title %}
     Modifier un forum - {{ parent() }}
 {% endblock %}
 
-{% block sidebar_forums %}active{% endblock %}
-{% block sidebar_forums_categories %}select{% endblock %}
+{% block sidebar_forums %}nav-expanded nav-active{% endblock %}
 
-{% block body %}
+{% block arianne %}
+    {{ parent() }}
+        </li>
+        <li>
+            Modifier un forum
+{% endblock %}
 
-	<div class="row">
-	
-		<div class="col-lg-12">
+{% block forum_body %}
 
-			<div class="page-header">
+	{% for message in app.session.flashbag.get('success') %}
+	<div class="alert alert-primary">
+    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
 
-				<h1><i class="fi-results-demographics"></i> Modifier le forum</h1>
+    {{ form_start(formForum, {'attr': {'class': 'form-horizontal mb-lg'}}) }}
+
+		{{ form_errors(formForum) }}
+
+		<section class="panel">
+
+            <header class="panel-heading">
+
+                <h2 class="panel-title">Modifier le forum : {{ forum.name }}</h2>
+
+            </header>
+
+           	<div class="panel-body">
+
+				<div class="form-group{% if form_errors(formForum.name) %} has-error{% endif %}">
+					{{ form_label(formForum.name, "Nom", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_errors(formForum.name) }}
+                    <div class="col-sm-9">
+						{{ form_widget(formForum.name, {'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+
+				<div class="form-group{% if form_errors(formForum.category) %} has-error{% endif %}">
+					{{ form_label(formForum.category, "Catégorie", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_errors(formForum.category) }}
+                    <div class="col-sm-9">
+						{{ form_widget(formForum.category, {'attr': {'class': 'form-control'}}) }}
+					</div>
+				</div>
+
+				<div class="form-group{% if form_errors(formForum.sort) %} has-error{% endif %}">
+					{{ form_label(formForum.sort, "Ordre", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_errors(formForum.sort) }}
+                    <div class="col-sm-9">
+						{{ form_widget(formForum.sort, {'attr': {'class': 'form-control'}}) }}
+						<p class="help-block">L'ordre permet d'organiser l'affichage de vos différents forums.</p>
+					</div>
+				</div>
+
+				<div class="form-group{% if form_errors(formForum.description) %} has-error{% endif %}">
+					{{ form_label(formForum.description, "Description", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    {{ form_errors(formForum.description) }}
+                    <div class="col-sm-9">
+						{{ form_widget(formForum.description, {'attr': {'class': 'form-control'}}) }}
+						<p class="help-block">Décrivez en quelques mots ce que contiendra ce forum.</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-9 col-sm-offset-2">
+
+						<div class="checkbox-custom checkbox-default">
+							{{ form_widget(formForum.publicAclView) }}
+							<label for="checkboxExample1">Autorisé <strong>tout le monde</strong> à <strong>voir</strong> le forum.</label>
+						</div>
+
+						<div class="checkbox-custom checkbox-default">
+							{{ form_widget(formForum.publicAclPost) }}
+							<label for="checkboxExample1">Autorisé <strong>tous les membres</strong> à <strong>poster des messages.</strong></label>
+						</div>
+
+						<div class="checkbox-custom checkbox-default">
+							{{ form_widget(formForum.publicAclTopic) }}
+							<label for="checkboxExample1">Autorisé <strong>tous les membres</strong> à <strong>créer des sujets.</strong></label>
+						</div>
+						<p class="help-block">Pour définir des accès privés spécifiques, vous pourrez le faire après dans la partie gestion des acls.</p>
+
+					</div>
+				</div>
 
 			</div>
 
-		</div>
+			{{ form_rest(formForum) }}
 
-		{% for message in app.session.flashbag.get('success') %}
-		<div class="col-lg-12">
-	        <div class="alert alert-success">
-	        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	            {{ message }}
-	        </div>
-        </div>
-        {% endfor %}
+			<footer class="panel-footer">
 
-        <div class="col-lg-12">
+                <div class="row">
 
-        	<form name="" role="form" method="post" {{ form_enctype(form) }}>
+                    <div class="col-md-9 col-md-offset-2">
 
-				<div class="form-group{% if form_errors(form.name) %} has-error{% endif %}">
-
-					<label for="mgn_forumbundle_forumtype_name">Nom</label>
-
-					{{ form_widget(form.name, { 'attr' : { 'class' : 'form-control', 'placeholder' : "Nom du forum" } }) }}
+		                <button type="submit" class="btn btn-primary">Mettre à jour</button>
+						<a href="{{ path('mgn_admin_forum') }}" class="btn btn-default">annuler</a>
+						
+					</div>
 
 				</div>
 
-				<div class="form-group">
+			</footer>
 
-					<label for="mgn_forumbundle_forumtype_category">Catégorie</label>
-    
-    				{{ form_widget(form.category, { 'attr' : { 'class' : 'form-control'} }) }}
+		</section>
 
-				</div>
+        {{ form_rest(formForum) }}
 
-				<div class="form-group{% if form_errors(form.sort) %} has-error{% endif %}">
-
-					<label for="mgn_forumbundle_forumtype_sort">Ordre</label>
-
-					{{ form_widget(form.sort, { 'attr' : { 'class' : 'form-control' } }) }}
-
-					<p class="help-block">L'ordre permet d'organiser l'affichage de vos différents forums.</p>
-
-				</div>
-
-				<div class="form-group{% if form_errors(form.description) %} has-error{% endif %}">
-
-					<label for="mgn_forumbundle_forumtype_description">Description</label>
-
-					{{ form_widget(form.description, { 'attr' : { 'class' : 'form-control', 'rows' : '1' } }) }}
-
-					<p class="help-block">Décrivez en quelques mots ce que contiendra ce forum.</p>
-
-				</div>
-
-				<div class="form-group">
-						<div class="checkbox">
-							<label>
-								{{ form_widget(form.publicAclView) }} Autorisé <strong>tout le monde</strong> à <strong>voir</strong> le forum.
-							</label>
-						</div>
-						<div class="checkbox">
-							<label>
-								{{ form_widget(form.publicAclPost) }} Autorisé <strong>tous les membres</strong> à <strong>poster des messages.</strong>
-							</label>
-						</div>
-						<div class="checkbox">
-							<label>
-								{{ form_widget(form.publicAclTopic) }} Autorisé <strong>tous les membres</strong> à <strong>créer des sujets.</strong>
-							</label>
-						</div>
-
-						<p class="help-block">Pour définir des accès privé spécifique, vous pourrez le faire après dans la partie gestion des acls.</p>
-				</div>
-
-				{{ form_rest(form) }}
-
-				<div class="form-actions">
-
-	                <button type="submit" class="btn btn-primary">Modifier le forum</button>
-	                <a href="{{ path('mgn_admin_forum') }}" class="btn btn-default">Annuler</a>
-
-	            </div>
-					
-
-			</form>
-
-        </div>
-
-	</div>
+    {{ form_end(formForum) }}
 
 {% endblock %}

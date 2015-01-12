@@ -59,6 +59,11 @@ class User implements AdvancedUserInterface, \Serializable
      * @Assert\Email()
      */
     private $email;
+
+    /**
+     * @ORM\Column(name="emailVisible", type="boolean")
+     */
+    private $emailVisible;
     
     /**
      * @ORM\Column(name="avatar")
@@ -123,9 +128,9 @@ class User implements AdvancedUserInterface, \Serializable
     private $lockedFor;
 
     /**
-     * @ORM\Column(name="delete", type="boolean")
+     * @ORM\Column(name="deleted", type="boolean")
      */
-    private $delete;
+    private $deleted;
 
     /**
      * @ORM\OneToMany(targetEntity="Mgn\UserBundle\Entity\UserToGroup", mappedBy="user", orphanRemoval=true)
@@ -161,6 +166,20 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(name="birthday", type="date", nullable=true)
      */
     private $birthday;
+
+    /**
+     * @var string $city
+     *
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var string $website
+     *
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
+     */
+    private $website;
 
     /**
      * @ORM\Column(name="signature", type="text", nullable=true)
@@ -255,12 +274,15 @@ class User implements AdvancedUserInterface, \Serializable
     $this->isActive = false;
     $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     $this->locked = false;
+    $this->deleted = false;
     $this->registered = new \Datetime();
     $this->lastLogin = null;
     $this->addRole('ROLE_USER');
     $this->firstName = null;
     $this->lastName = null;
     $this->birthday = null;
+    $this->city = null;
+    $this->website = null;
     $this->signature = null;
     $this->biography = null;
     $this->twitter = null;
@@ -276,6 +298,7 @@ class User implements AdvancedUserInterface, \Serializable
     $this->countTopic = 0;
     $this->countPost = 0;
     $this->avatar = 'default';
+    $this->emailVisible = false;
   }
  
   public function getId()
@@ -291,7 +314,14 @@ class User implements AdvancedUserInterface, \Serializable
  
   public function getUsername()
   {
-    return $this->username;
+    if($this->deleted == true)
+    {
+        return 'Utilisateur supprimé';
+    }
+    else
+    {
+        return $this->username;
+    }
   }
  
   public function setPassword($password)
@@ -612,6 +642,11 @@ class User implements AdvancedUserInterface, \Serializable
     public function hasRole($role)
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    public function isGranted($role)
+    {
+        return in_array($role, $this->getRoles());
     }
 
     public function isSuperAdmin()
@@ -1207,5 +1242,28 @@ class User implements AdvancedUserInterface, \Serializable
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return User
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

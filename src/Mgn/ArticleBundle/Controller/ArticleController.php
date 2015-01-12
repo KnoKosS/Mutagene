@@ -19,12 +19,7 @@ class ArticleController extends Controller
 		$articles = $this->getDoctrine()
                       	 ->getManager()
                       	 ->getRepository('MgnArticleBundle:Article')
-                      	 ->findBy(
-				            array('status' => 'publish'),                 // Pas de critère
-				            array('dateTop' => 'DESC'), // On tri par date décroissante
-				            $articleCountIndex,       // On sélectionne $nb_articles_page articles
-				            NULL                  // A partir du $offset ième
-				        );
+                      	 ->findArticlesIndex($articleCountIndex);
 			
 		return $this->render('MgnArticleBundle:Article:index.html.twig', array(
 			'articles' => $articles,
@@ -43,22 +38,10 @@ class ArticleController extends Controller
             throw $this->createNotFoundException('Article[id='.$id.'] inexistant');
         }
 
-        $messages = $this->getDoctrine()
-                      	 ->getManager()
-                      	 ->getRepository('MgnMessageBundle:Message')
-                      	 ->findBy(
-				            array('article' => $article->getId()),                 // Pas de critère
-				            array(), // On tri par date décroissante
-				            NULL,       // On sélectionne $nb_articles_page articles
-				            NULL                  // A partir du $offset ième
-				        );
-
         $countView = $article->getCountViews() +1;
 		$article->setCountViews($countView);
 		
 		$em = $this->getDoctrine()->getManager();
-		
-		$em->persist($article);
 		
 		$em->flush();
 		
@@ -67,10 +50,9 @@ class ArticleController extends Controller
 		// On crée le FormBuilder grâce à la méthode du contrôleur.
 		$form = $this->createForm(new MessageType, $message);
 						 
-		return $this->render('MgnArticleBundle:Article:lire.html.twig', array(
+		return $this->render('MgnArticleBundle:Article:read.html.twig', array(
             'form' => $form->createView(),
 			'article' => $article,
-			'messages' => $messages,
 		));
 	}
 

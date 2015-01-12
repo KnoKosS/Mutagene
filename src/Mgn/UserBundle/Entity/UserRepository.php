@@ -24,9 +24,11 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     {
         $q = $this
             ->createQueryBuilder('u')
-            ->select('u, g, to')
-            ->leftJoin('u.groups', 'g')
-            ->leftJoin('g.group', 'to')
+            ->select('u')
+            ->leftJoin('u.groups', 'to')
+            ->addSelect('to')
+            ->leftJoin('to.group', 'g')
+            ->addSelect('g')
             ->where('u.username = :username OR u.email = :email')
             ->setParameter('username', $username)
             ->setParameter('email', $username)
@@ -66,7 +68,13 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function findUserByUsernameOrEmail($username)
     {
         $qb = $this
+            
             ->createQueryBuilder('u')
+            ->select('u')
+            ->leftJoin('u.groups', 'to')
+            ->addSelect('to')
+            ->leftJoin('to.group', 'g')
+            ->addSelect('g')
             ->where('u.username = :username OR u.email = :email')
             ->setParameter('username', $username)
             ->setParameter('email', $username)
@@ -74,16 +82,22 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             return $qb->getOneOrNullResult();
     }
 
-    public function findUserByEmailAndToken($email, $token)
+    /*public function findUserByEmailAndToken($email, $token)
     {
         $qb = $this
+            
             ->createQueryBuilder('u')
+            ->select('u')
+            ->leftJoin('u.groups', 'to')
+            ->addSelect('to')
+            ->leftJoin('to.group', 'g')
+            ->addSelect('g')
             ->where('u.email = :email AND u.confirmationToken = :token')
             ->setParameter('email', $email)
             ->setParameter('token', $token)
             ->getQuery();
             return $qb->getOneOrNullResult();
-    }
+    }*/
 
     public function refreshUser(UserInterface $user)
     {
@@ -97,7 +111,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             );
         }
 
-        return $this->find($user->getId());
+        return $this->loadUserById($user->getId());
     }
 
     public function supportsClass($class)
@@ -109,9 +123,11 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     {
         $q = $this
             ->createQueryBuilder('u')
-            ->leftJoin('u.groups', 'g')
-            ->leftJoin('g.group', 'to')
-            ->select('u, g, to')
+            ->select('u')
+            ->leftJoin('u.groups', 'to')
+            ->addSelect('to')
+            ->leftJoin('to.group', 'g')
+            ->addSelect('g')
             ->where('u.id = :id')
             ->setParameter('id', $id)
             ->getQuery();

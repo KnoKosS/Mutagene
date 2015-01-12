@@ -1,0 +1,117 @@
+{% extends "MgnAdminBundle::admin.html.twig" %}
+
+{% block pagetitle %}Editeur de thème{% endblock %}
+
+{% block arianne %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	<section class="content-with-menu content-with-menu-has-toolbar media-gallery">
+
+		<div class="content-with-menu-container">
+			<div class="inner-menu-toggle">
+				<a href="#" class="inner-menu-expand" data-open="inner-menu">
+					Show Bar <i class="fa fa-chevron-right"></i>
+				</a>
+			</div>
+			
+			<menu id="content-menu" class="inner-menu" role="menu">
+				<div class="nano">
+					<div class="nano-content">
+			
+						<div class="inner-menu-toggle-inside">
+							<a href="#" class="inner-menu-collapse">
+								<i class="fa fa-chevron-up visible-xs-inline"></i><i class="fa fa-chevron-left hidden-xs-inline"></i> Hide Bar
+							</a>
+							<a href="#" class="inner-menu-expand" data-open="inner-menu">
+								Show Bar <i class="fa fa-chevron-down"></i>
+							</a>
+						</div>
+			
+						<div class="inner-menu-content">
+
+							<section class="panel">
+
+								<div class="panel-body bg-secondary">
+
+									<div class="widget-summary">
+
+										<div class="widget-summary-col">
+
+											<div class="summary">
+
+												<h4 class="title"><strong>{{ theme.themeTitle }}</strong></h4>
+
+												<div class="info">
+													Par {{ theme.author }}
+												</div>
+
+											</div>
+
+											<div class="summary-footer">
+												<a>v. {{ theme.version }}</a>
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</section>
+
+							<hr class="separator" />
+
+							{% if category == 'articles' %}
+
+								{% include "MgnCoreBundle::menuEditorArticles.html.twig" %}
+
+							{% elseif category == 'users' %}
+
+								{% include "MgnCoreBundle::menuEditorUsers.html.twig" %}
+
+							{% endif %}
+
+						</div>
+					</div>
+				</div>
+			</menu>
+
+			<div class="inner-body mg-main">
+			
+				<div class="inner-toolbar clearfix">
+
+					<ul>
+
+						<li{% block editor_submenu_site %}{% endblock %}>
+							<a href="{{ path('mgn_admin_core_parameters_site') }}">Base</a>
+						</li>
+						<li{% if category == 'articles' %} class="active"{% endif %}>
+							<a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadAuthor'}) }}">Articles</a>
+						</li>
+						<li>
+							<a href="">Forums</a>
+						</li>
+						<li{% if category == 'users' %} class="active"{% endif %}>
+							<a href="{{ path('mgn_core_admin_editor_users', {'theme': theme.id, 'file': 'usersLogin'}) }}">Utilisateurs</a>
+						</li>
+
+					</ul>
+
+				</div>
+
+				<div class="row mg-files" data-sort-destination data-sort-id="media-gallery">
+					
+					{% block editor_body %}{% endblock %}
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+{% endblock %}

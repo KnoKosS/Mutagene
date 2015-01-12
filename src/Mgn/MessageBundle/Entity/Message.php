@@ -38,7 +38,7 @@ class Message
     private $forum;
   
     /**
-     * @ORM\ManyToOne(targetEntity="Mgn\ArticleBundle\Entity\Article")
+     * @ORM\ManyToOne(targetEntity="Mgn\ArticleBundle\Entity\Article", inversedBy="messages")
      * @ORM\JoinColumn(nullable=true)
      */
     private $article;

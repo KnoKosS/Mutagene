@@ -1,0 +1,27 @@
+<blockquote>
+
+	<p class="text-justify">{{ content.quote|nl2br }}</p>
+
+	{% if content.quoteName != null or content.quoteLink != null %}
+
+	<footer>
+
+		{% if content.quoteLink != null and content.quoteName != null %}
+
+			<cite title="Source Title"><a href="{{ content.quoteLink }}" target="_blank">{{ content.quoteName }}</a></cite>
+
+		{% elseif content.quoteLink != null %}
+
+			<cite title="Source Title"><a href="{{ content.quoteLink }}" target="_blank">{{ content.quoteLink }}</a></cite>
+
+		{% else %}
+
+			<cite title="Source Title">{{ content.quoteName }}</cite>
+
+		{% endif %}
+
+	</footer>
+
+	{% endif %}
+
+</blockquote>

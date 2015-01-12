@@ -17,6 +17,11 @@ class ParametersForumsType extends AbstractType
                     'expanded'  => true,
                     'multiple'  => false,
                 ))
+            ->add('forumAppearance', 'choice', array(
+                    'choices'   => array('Classic' => 'Classique', 'Bloc' => 'Bloc', 'Next' => 'Next'),
+                    'required'  => true,
+                ))
+            ->add('forumCounting', 'checkbox', array('required'  => false,))
             ->add('save', 'submit');
             ;
     }

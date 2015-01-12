@@ -232,7 +232,7 @@ class ThemeController extends Controller
         ));
     }
 
-    public function editorAction($theme, $file)
+    public function editorAction($theme, $category, $file)
     {
         if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
         {
@@ -243,11 +243,6 @@ class ThemeController extends Controller
                              ->getManager()
                              ->getRepository('MgnCoreBundle:Theme')
                              ->find($theme);
-
-        $themes = $this->getDoctrine()
-                             ->getManager()
-                             ->getRepository('MgnCoreBundle:Theme')
-                             ->findAll();
 
         $form = $this->createForm(new EditorType($file), $theme);
 
@@ -278,7 +273,103 @@ class ThemeController extends Controller
         return $this->render('MgnCoreBundle:Editor:editor.html.twig', array(
           'file' => $file,
           'theme' => $theme,
-          'themes' => $themes,
+          'category' => $category,
+          'form' => $form->createView(),
+        ));
+    }
+
+    public function editorArticlesAction($theme, $file)
+    {
+        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+        {
+          throw new AccessDeniedException('Vous devez disposer des droits SuperAdmin');
+        }
+
+        $theme = $this->getDoctrine()
+                             ->getManager()
+                             ->getRepository('MgnCoreBundle:Theme')
+                             ->find($theme);
+
+        $category = 'articles';
+
+        $form = $this->createForm(new EditorType($file), $theme);
+
+        $request = $this->get('request');
+
+        // On vérifie qu'elle est de type « POST ».
+        if( $request->getMethod() == 'POST' )
+        {
+            // On fait le lien Requête <-> Formulaire.
+            $form->bind($request);
+    
+            // On vérifie que les valeurs rentrées sont correctes.
+            if( $form->isValid() )
+            {
+                // On l'enregistre notre objet $cateforie dans la base de données.
+                $em = $this->getDoctrine()->getManager();
+
+                $em->flush();
+          
+                //message de confirmation
+                $this->get('session')->getFlashBag()->add('success', 'Le fichier '.$file.'.html.twig à bien été mis à jour.');
+                
+                // On redirige vers la page d'accueil, par exemple.
+                return $this->redirect( $this->generateUrl('mgn_core_admin_editor_articles', array('theme' => $theme->getId(), 'file' => $file)));
+            }
+        }
+
+        return $this->render('MgnCoreBundle:Editor:editor.html.twig', array(
+          'file' => $file,
+          'theme' => $theme,
+          'category' => $category,
+          'form' => $form->createView(),
+        ));
+    }
+
+    public function editorUsersAction($theme, $file)
+    {
+        if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN'))
+        {
+          throw new AccessDeniedException('Vous devez disposer des droits SuperAdmin');
+        }
+
+        $theme = $this->getDoctrine()
+                             ->getManager()
+                             ->getRepository('MgnCoreBundle:Theme')
+                             ->find($theme);
+
+        $category = 'users';
+
+        $form = $this->createForm(new EditorType($file), $theme);
+
+        $request = $this->get('request');
+
+        // On vérifie qu'elle est de type « POST ».
+        if( $request->getMethod() == 'POST' )
+        {
+            // On fait le lien Requête <-> Formulaire.
+            $form->bind($request);
+    
+            // On vérifie que les valeurs rentrées sont correctes.
+            if( $form->isValid() )
+            {
+                // On l'enregistre notre objet $cateforie dans la base de données.
+                $em = $this->getDoctrine()->getManager();
+
+                $em->flush();
+          
+                //message de confirmation
+                $this->get('session')->getFlashBag()->add('success', 'Le fichier '.$file.'.html.twig à bien été mis à jour.');
+                
+                // On redirige vers la page d'accueil, par exemple.
+                return $this->redirect( $this->generateUrl('mgn_core_admin_editor_users', array('theme' => $theme->getId(), 'file' => $file)));
+            }
+        }
+
+        return $this->render('MgnCoreBundle:Editor:editor.html.twig', array(
+          'file' => $file,
+          'theme' => $theme,
+          'category' => $category,
           'form' => $form->createView(),
         ));
     }

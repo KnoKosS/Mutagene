@@ -59,6 +59,11 @@ class User implements AdvancedUserInterface, \Serializable
      * @Assert\Email()
      */
     private $email;
+
+    /**
+     * @ORM\Column(name="emailVisible", type="boolean")
+     */
+    private $emailVisible;
     
     /**
      * @ORM\Column(name="avatar")
@@ -163,6 +168,20 @@ class User implements AdvancedUserInterface, \Serializable
     private $birthday;
 
     /**
+     * @var string $city
+     *
+     * @ORM\Column(name="city", type="string", length=255, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var string $website
+     *
+     * @ORM\Column(name="website", type="string", length=255, nullable=true)
+     */
+    private $website;
+
+    /**
      * @ORM\Column(name="signature", type="text", nullable=true)
      */
     private $signature;
@@ -262,6 +281,8 @@ class User implements AdvancedUserInterface, \Serializable
     $this->firstName = null;
     $this->lastName = null;
     $this->birthday = null;
+    $this->city = null;
+    $this->website = null;
     $this->signature = null;
     $this->biography = null;
     $this->twitter = null;
@@ -277,6 +298,7 @@ class User implements AdvancedUserInterface, \Serializable
     $this->countTopic = 0;
     $this->countPost = 0;
     $this->avatar = 'default';
+    $this->emailVisible = false;
   }
  
   public function getId()
@@ -1243,5 +1265,74 @@ class User implements AdvancedUserInterface, \Serializable
     public function getDeleted()
     {
         return $this->deleted;
+    }
+
+    /**
+     * Set emailVisible
+     *
+     * @param boolean $emailVisible
+     * @return User
+     */
+    public function setEmailVisible($emailVisible)
+    {
+        $this->emailVisible = $emailVisible;
+
+        return $this;
+    }
+
+    /**
+     * Get emailVisible
+     *
+     * @return boolean 
+     */
+    public function getEmailVisible()
+    {
+        return $this->emailVisible;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return User
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
     }
 }

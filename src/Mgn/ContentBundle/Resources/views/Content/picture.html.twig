@@ -1,0 +1,11 @@
+<p>
+
+	<img class="img-responsive img-thumbnail" src="{{ content.picture }}" alt="{% if content.pictureTitle %}{{ content.pictureTitle }}{% else %}{{ content.picture }}{% endif %}" />
+
+</p>
+
+{% if content.pictureTitle|default %}
+
+	<em class="help-block text-center"><small>{{ content.pictureTitle }}</small></em>
+
+{% endif %}

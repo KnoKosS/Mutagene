@@ -36,52 +36,6 @@
 
 			</section>
 
-			<section id="article-header" class="panel">
-
-				<div class="panel-body" style="background-color: #f6f6f6;">
-
-					{% if article.header is empty %}
-
-			        	<img class="img-responsive img-thumbnail" src="{{ asset('admin/img/article_header_default.png') }}" title="" />
-
-			        {% else %}
-
-			        	<img class="img-responsive img-thumbnail" src="{{ article.header }}" title="" />
-
-			        {% endif %}
-
-			        <img id="loaderarticle-header" class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
-
-					<p><a href="{{ path('mgn_admin_article_edit_header', {'article': article.id, 'action': 'edit'}) }}" class="pull-right text-info content-edit"><small>Editer</small></a></p>
-
-				</div>
-
-			</section>
-
-			<section id="article-introduction" class="panel">
-
-				<div class="panel-body" style="background-color: #f6f6f6;">
-
-					<p style="margin-top: 20px;"><strong>
-
-						{% if article.introduction is empty %}
-
-				        	Rédigez une introduction <img id="loaderarticle-introduction" class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
-
-				        {% else %}
-
-				        	{{ article.introduction }} <img id="loaderarticle-introduction" class="loader" src="{{ asset('admin/img/ajax-loader.gif') }}" title="" />
-
-				        {% endif %}
-
-					</strong></p>
-
-					<p><a href="{{ path('mgn_admin_article_edit_introduction', {'article': article.id, 'action': 'edit'}) }}" class="pull-right text-info content-edit"><small>Editer</small></a></p>
-
-				</div>
-
-			</section>
-
 	        <div class="row">
 
 	            <div class="col-lg-12">

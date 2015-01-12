@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="UTF-8" />
+
+		<title>{% block title %}{{ Config('siteTitle') }} - {{ Config('siteDescription') }}{% endblock %}</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<meta name="description" content="{{ Config('siteDescription') }}">
+		<meta name="author" content="KnoKosS">
+
+		<link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" />
+
+		<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" >
+		<link rel="stylesheet" href="{{ asset('vendor/foundation-icons/css/foundation-icons.css') }}" >
+
+		{#<link rel="stylesheet" href="{{ asset('themes/'~Theme("slug")~'/css/style.css') }}" />#}
+		<link rel="stylesheet" href="{{ asset('vendor/mutagene/css/mgn.css') }}" />
+
+	</head>
+
+	<body>
+
+		<div class="body">
+
+		    <div class="container">
+		    
+		        <div class="jumbotron">
+
+			        <h1>{{ Config('siteTitle') }}</h1>
+
+			        <p class="text-muted">{{ Config('siteDescription') }}</p>
+
+		        </div>
+		    
+		        <div class="row">
+		        
+		            <div class="col-lg-12">
+		        
+		                {{ include("MgnCoreBundle:Theme:menu.html.twig") }}
+		            
+		            </div>
+		            
+		        </div>
+
+		        <div class="row">
+
+					<div class="col-lg-12">
+		    
+						<ul class="breadcrumb">
+
+						<li><a href="{{ path("mgn_home") }}"><i class="fa fa-home"></i></a></li> {% block arianne %}{% endblock %}
+
+						</ul>
+
+					</div>
+
+					{% if bundle is defined and bundle == 'forum' %}
+					<div class="col-lg-12">
+					{% elseif bundle is defined and bundle == 'user' %}
+					<div class="col-lg-12">
+					{% else %}
+					<div class="col-lg-9">
+					{% endif %}
+
+						<div class="row">
+
+						{% if bundle is defined and bundle == 'forum' %}
+
+						<div class="col-lg-12">
+
+						<h1>{% block pagetitle %}{% endblock %}</h1>
+
+						{% block bundle_forum %}{% endblock %}
+
+						</div>
+
+						{% elseif bundle is defined and bundle == 'article' %}
+
+						<div class="col-lg-12">
+
+						{% block bundle_article %}{% endblock %}
+
+						</div>
+
+						{% else %}
+
+						<div class="col-lg-12">
+
+						{% block body %}{% endblock %}
+
+						</div>
+
+						{% endif %}
+
+						</div>
+
+					</div>
+
+					{% if bundle is defined and bundle == 'forum' %}
+					{% else %}
+
+					<div class="col-lg-3">
+
+					<aside class="sidebar">
+
+					{% if bundle is defined and bundle == 'article' %}
+					<h4>Catégories</h4>
+
+					<ul class="nav nav-list primary push-bottom">
+					{{ render(controller('MgnArticleBundle:Article:listCategories'))}}
+					</ul>
+					{% endif %}
+
+					{{ render(controller('MgnCoreBundle:Sidebar:view'))}}
+
+					</aside>
+
+					</div>
+
+					{% endif %}
+
+					</div>
+
+					<div class="row footer">
+
+
+
+					</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src="{{ asset('vendor/jquery/jquery-1.11.2.min.js') }}"></script>
+		<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+
+		<script src="{{ asset('vendor/mutagene/js/mgn.js') }}"></script>
+		<script src="{{ asset('vendor/mutagene/js/mgncode.js') }}"></script>
+
+	</body>
+
+</html>

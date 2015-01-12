@@ -4948,6 +4948,7 @@ html.dark .multiselect-container > li > a:hover, html.dark .multiselect-containe
 html.dark .CodeMirror pre {
 	background: transparent;
 	border: none;
+	height: auto;
 }
 
 /* Invoice */

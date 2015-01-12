@@ -269,9 +269,9 @@
 					<a href="#social" data-toggle="tab">Social</a>
 				</li>
 				{% endif %}
-				<li>
+				{#<li>
 					<a href="#game" data-toggle="tab">Préférences</a>
-				</li>
+				</li>#}
 				<li>
 					<a href="#avatar" data-toggle="tab">Avatar</a>
 				</li>
@@ -349,11 +349,22 @@
 							</div>
 
 							<div class="form-group">
-								{{ form_label(formProfile.email, "email", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+								{{ form_label(formProfile.email, "E-mail", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
 								{{ form_errors(formProfile.email) }}
 								<div class="col-md-8">
 									{{ form_widget(formProfile.email, {'attr': {'class': 'form-control'}}) }}
 								</div>
+							</div>
+
+							<div class="form-group">
+
+								{{ form_label(formProfile.emailVisible, "E-mail visible", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+								<div class="col-md-8">
+									<div class="switch switch-sm switch-primary">
+										{{ form_widget(formProfile.emailVisible, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+									</div>
+								</div>
+
 							</div>
 
 						</fieldset>
@@ -398,6 +409,16 @@
 								</div>
 							{% endif %}
 
+							{% if Config('profileCity') == true %}
+								<div class="form-group">
+									{{ form_label(formProfile.city, "Ville", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formProfile.city) }}
+									<div class="col-md-8">
+										{{ form_widget(formProfile.city, {'attr': {'class': 'form-control'}}) }}
+									</div>
+								</div>
+							{% endif %}
+
 						</fieldset>
 
 						<hr class="dotted tall">
@@ -405,6 +426,16 @@
 						<h4 class="mb-xlg">A propos</h4>
 
 						<fieldset>
+
+							{% if Config('profileWebsite') == true %}
+								<div class="form-group">
+									{{ form_label(formProfile.website, "Site web", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+									{{ form_errors(formProfile.website) }}
+									<div class="col-md-8">
+										{{ form_widget(formProfile.website, {'attr': {'class': 'form-control'}}) }}
+									</div>
+								</div>
+							{% endif %}
 
 							{% if Config('profileBiography') == true %}
 								<div class="form-group">

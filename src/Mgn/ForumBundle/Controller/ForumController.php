@@ -33,6 +33,8 @@ class ForumController extends Controller
                          ->getRepository('MgnForumBundle:Forum')
                          ->findAllWithCategories();
 
+        $config = $this->container->get('mgn.config');
+
         $user = $this->container->get('security.context')->getToken()->getUser();
 
         //on vérifie si l'on veut marquer les catégories comme lu
@@ -87,7 +89,7 @@ class ForumController extends Controller
                          ->findMessagesAfterDate($thereOneWeek);
 		
 		//on appel le template et on lui envoie la liste
-        return $this->render('MgnForumBundle:Forums:allBlock.html.twig', array(
+        return $this->render('MgnForumBundle:Forums:all'.$config->get('forumAppearance').'.html.twig', array(
             'forums' => $forums,
             'marks' => $marks,
             'views' => $views,

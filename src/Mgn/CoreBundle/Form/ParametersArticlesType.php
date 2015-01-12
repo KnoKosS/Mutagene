@@ -10,6 +10,8 @@ class ParametersArticlesType extends AbstractType
     {
 	    $builder
             ->add('cmsArticle', 'checkbox', array('required'  => false,))
+            ->add('articleIndexHeader', 'checkbox', array('required'  => false,))
+            
             ->add('save', 'submit');
             ;
     }

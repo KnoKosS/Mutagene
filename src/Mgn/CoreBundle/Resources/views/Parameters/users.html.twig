@@ -1,4 +1,4 @@
-{% extends "MgnCoreBundle::admin.html.twig" %}
+{% extends "MgnCoreBundle::adminParameters.html.twig" %}
 
 {% block title %}
     Paramètres des utilisateurs - {{ parent() }}
@@ -75,6 +75,30 @@
                         <div class="col-md-8">
                             <div class="switch switch-sm switch-primary">
                                 {{ form_widget(form.profileBirthday, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileCity) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileCity, "Ville", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileCity) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileCity, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.profileWebsite) %} has-error{% endif %}">
+
+                        {{ form_label(form.profileWebsite, "Site web", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.profileWebsite) }}
+                        <div class="col-md-8">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.profileWebsite, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
                             </div>
                         </div>
 

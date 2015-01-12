@@ -1,0 +1,60 @@
+<div class="sidebar-widget m-none">
+
+	<div class="widget-header clearfix">
+
+		<h6 class="title pull-left mt-xs">Lire</h6>
+
+	</div>
+
+	<div class="widget-content">
+
+		<ul class="mg-folders">
+
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesRead'}) }}" class="menu-item{% if file == 'articlesRead' %} active{% endif %}">Lire</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadAuthor'}) }}" class="menu-item{% if file == 'articlesReadAuthor' %} active{% endif %}">Auteur</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadTitle'}) }}" class="menu-item{% if file == 'articlesReadTitle' %} active{% endif %}">Titre</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadInfos'}) }}" class="menu-item{% if file == 'articlesReadInfos' %} active{% endif %}">Infos</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadHeader'}) }}" class="menu-item{% if file == 'articlesReadHeader' %} active{% endif %}">Header</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadIntroduction'}) }}" class="menu-item{% if file == 'articlesReadIntroduction' %} active{% endif %}">Introduction</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadContents'}) }}" class="menu-item{% if file == 'articlesReadContents' %} active{% endif %}">Contenus</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadContentSubtitle'}) }}" class="menu-item{% if file == 'articlesReadContentSubtitle' %} active{% endif %}">Contenu sous-titre</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadContentPicture'}) }}" class="menu-item{% if file == 'articlesReadContentPicture' %} active{% endif %}">Contenu image</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadContentParagraph'}) }}" class="menu-item{% if file == 'articlesReadContentParagraph' %} active{% endif %}">Contenu paragraphe</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadContentVideo'}) }}" class="menu-item{% if file == 'articlesReadContentVideo' %} active{% endif %}">Contenu vidéo</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadContentQuote'}) }}" class="menu-item{% if file == 'articlesReadContentQuote' %} active{% endif %}">Contenu citation</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadComments'}) }}" class="menu-item{% if file == 'articlesReadComments' %} active{% endif %}">Liste des commentaires</a>
+            </li>
+			<li>
+                <a href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesReadComment'}) }}" class="menu-item{% if file == 'articlesReadComment' %} active{% endif %}">Commentaire</a>
+            </li>
+            
+		</ul>
+
+	</div>
+
+</div>

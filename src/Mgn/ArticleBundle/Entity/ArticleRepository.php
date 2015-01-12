@@ -12,10 +12,48 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
+	public function findArticlesIndex($limit)
+	{
+		$qb = $this
+			->createQueryBuilder('a')
+			->leftjoin('a.category', 'cat')
+			->addSelect('cat')
+			->leftjoin('a.author', 'u')
+			->addSelect('u')
+			->orderBy('a.dateTop', 'DESC')
+			->where('a.status = :status')->setParameter('status', 'publish')
+			->setMaxResults($limit)
+			;
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findOneArticle($id)
+	{
+		$qb = $this
+			->createQueryBuilder('a')
+			->leftjoin('a.category', 'cat')
+	        ->addSelect('cat')
+			->leftjoin('a.author', 'u')
+	        ->addSelect('u')
+			->leftjoin('a.contents', 'c')
+	        ->addSelect('c')
+			->leftjoin('a.messages', 'm')
+			->addSelect('m')
+			->leftjoin('m.author', 'ma')
+			->addSelect('ma')
+			->orderBy('c.position', 'ASC')
+			->where('a.id = :id')->setParameter('id', $id)
+			;
+
+        return $qb->getQuery()->getOneOrNullResult();
+	}
+
 	public function findArticlesByCategory($id)
 	{
 		$qb = $this->createQueryBuilder('a');
 		$qb->leftjoin('a.category', 'c');
+		$qb->addSelect('c');
 		$qb->orderBy('a.dateTop', 'DESC');
 		$qb->where('c.id = :id')
 			->setParameter('id', $id);
@@ -38,24 +76,6 @@ class ArticleRepository extends EntityRepository
 	                // Enfin, on retourne le résultat.
 	        return $qb->getQuery()
 	                   ->getResult();
-       
-	}
-
-	public function findOneArticle($id)
-	{
-		$qb = $this->createQueryBuilder('a');
-		$qb->leftjoin('a.category', 'cat');
-        $qb->addSelect('cat');
-		$qb->leftjoin('a.author', 'u');
-        $qb->addSelect('u');
-		$qb->leftjoin('a.contents', 'c');
-        $qb->addSelect('c');
-		$qb->orderBy('c.position', 'ASC');
-		$qb->where('a.id = :id')
-			->setParameter('id', $id);
-	                // Enfin, on retourne le résultat.
-	        return $qb->getQuery()
-	                   ->getOneOrNullResult();
        
 	}
 }

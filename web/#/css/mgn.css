@@ -1,0 +1,163 @@
+/* Bootstrap Markdown */
+.md-editor {
+	border-radius: 4px;
+	-webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	-moz-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+	transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+.md-editor > .md-header {
+	border-radius: 4px 4px 0 0;
+	padding: 6px 4px 0;
+}
+.md-editor > .md-preview,
+.md-editor > textarea {
+	background: #FFF;
+	border-bottom: none;
+	border-radius: 0 0 4px 4px;
+	padding: 10px;
+	outline: none;
+	width: 100% !important;
+}
+.md-editor .btn-group {
+	margin-bottom: 6px;
+}
+
+html.dark .md-editor {
+	border-color: #282d36;
+}
+html.dark .md-editor > .md-header,
+html.dark .md-editor .md-footer {
+	background: #242830;
+}
+html.dark .md-editor > .md-preview,
+html.dark .md-editor > textarea {
+	background: #282d36;
+}
+html.dark .md-editor > textarea {
+	color: #EEE;
+	border-color: #1d2127;
+}
+
+@media only screen and (max-width: 767px) {
+	.bootstrap-maxlength.bottom-left {
+		margin-left: 40px;
+	}
+}
+.bootstrap-tagsinput {
+	width: 100%;
+}
+
+.form-group-invisible .bootstrap-tagsinput {
+	border: 0 none;
+	box-shadow: none;
+	background-color: transparent;
+}
+
+html.dark .bootstrap-tagsinput {
+	background: #282d36;
+	border-color: #282d36;
+}
+
+html.dark .bootstrap-timepicker-widget {
+	background-color: #282d36;
+}
+html.dark .bootstrap-timepicker-widget:before {
+	border-bottom-color: #1d2127;
+}
+html.dark .bootstrap-timepicker-widget:after {
+	border-bottom-color: #282d36;
+}
+html.dark .bootstrap-timepicker-widget.timepicker-orient-bottom:before {
+	border-top-color: #1d2127;
+}
+html.dark .bootstrap-timepicker-widget.timepicker-orient-bottom:after {
+	border-top-color: #282d36;
+}
+html.dark .bootstrap-timepicker-widget table td a {
+	color: #FFF;
+}
+html.dark .bootstrap-timepicker-widget table td a:hover {
+	border-color: #282d36;
+}
+html.dark .bootstrap-timepicker-widget table td input {
+	background-color: #21262d;
+	border-color: #282d36;
+	color: #EEE;
+}
+
+html.dark .colorpicker {
+	background-color: #282d36;
+}
+html.dark .colorpicker:before {
+	border-bottom-color: #1d2127;
+}
+html.dark .colorpicker:after {
+	border-bottom-color: #282d36;
+}
+
+html.dark .multiselect-container {
+	background-color: #282d36;
+}
+html.dark .multiselect-container > li > a {
+	color: #EEE;
+}
+html.dark .multiselect-container > li > a:hover, html.dark .multiselect-container > li > a:focus {
+	background-color: #1d2127;
+	color: #FFF;
+}
+
+.spinner-buttons.btn-group-vertical .btn {
+	height: 18px;
+	margin: 0 0 0 -1px;
+	padding-left: 6px;
+	padding-right: 6px;
+	text-align: center;
+	width: 22px;
+	line-height: 14px;
+}
+.spinner-buttons.btn-group-vertical .btn i {
+	margin-top: -2px;
+}
+.spinner-buttons.btn-group-vertical .btn:first-child {
+	border-radius: 0 4px 0 0 !important;
+	-webkit-border-radius: 0 4px 0 0 !important;
+}
+.spinner-buttons.btn-group-vertical .btn:last-child {
+	border-radius: 0 0 4px !important;
+	-webkit-border-radius: 0 0 4px !important;
+	margin-top: -1px;
+	height: 17px;
+}
+
+
+
+
+
+
+
+
+
+.flex-video {
+	    position: relative;
+	    padding-top: 25px;
+	    padding-bottom: 67.5%;
+	    height: 0;
+	    margin-bottom: 16px;
+	    overflow: hidden;
+	    }
+	     
+	    .flex-video.widescreen { padding-bottom: 57.25%; }
+	    .flex-video.vimeo { padding-top: 0; }
+	     
+	    .flex-video iframe,
+	    .flex-video object,
+	    .flex-video embed {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    }
+	    @media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: 767px) {
+	    .flex-video { padding-top: 0; }
+	    }

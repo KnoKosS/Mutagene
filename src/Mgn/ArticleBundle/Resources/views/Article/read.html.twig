@@ -1,0 +1,23 @@
+{% extends "MgnArticleBundle::layout.html.twig" %}
+
+{% block title %}{{ article.title }} - {{ article.date|datetime|capitalize }} - {{ parent() }}{% endblock %}
+
+{% block arianne %}
+
+    {{ parent() }}
+    <li><a href="{{ path('mgn_article_archives', {'filtre': article.category.slug}) }}">{{ article.category.name }}</a></li>
+    <li class="active">{{ article.title }}</li>
+
+{% endblock %}
+
+{% block pagetitle %}
+
+    {{ article.title }}
+    
+{% endblock %}
+
+{% block body %}
+
+    {{ include("MgnArticleBundle:ArticleRead:layout.html.twig") }}
+
+{% endblock %}

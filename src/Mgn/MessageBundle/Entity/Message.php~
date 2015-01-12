@@ -38,7 +38,7 @@ class Message
     private $forum;
   
     /**
-     * @ORM\ManyToOne(targetEntity="Mgn\ArticleBundle\Entity\Article")
+     * @ORM\ManyToOne(targetEntity="Mgn\ArticleBundle\Entity\Article", inversedBy="messages")
      * @ORM\JoinColumn(nullable=true)
      */
     private $article;
@@ -320,5 +320,28 @@ class Message
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set article
+     *
+     * @param \Mgn\ArticleBundle\Entity\Article $article
+     * @return Message
+     */
+    public function setArticle(\Mgn\ArticleBundle\Entity\Article $article = null)
+    {
+        $this->article = $article;
+    
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return \Mgn\ArticleBundle\Entity\Article 
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 }

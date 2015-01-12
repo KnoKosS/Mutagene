@@ -4,14 +4,7 @@ namespace Mgn\CoreBundle\Twig\Extension;
 
 class AvatarExtension extends \Twig_Extension
 {
-    protected $theme;
-
-    public function __construct($theme)
-    {
-        $this->theme = $theme;
-    }
-
-	public function getName()
+    public function getName()
 	{
 		return 'mgn_avatar';
 	}
@@ -35,7 +28,7 @@ class AvatarExtension extends \Twig_Extension
         }
         else
         {
-            return '<img src="/themes/'.$this->theme->get('slug').'/img/avatar.png" alt="avatar" style="width: '.$size.'px;" class="'.$class.'" />';
+            return '<img src="/theme/img/avatar.png" alt="avatar" style="width: '.$size.'px;" class="'.$class.'" />';
         }
     }
 }

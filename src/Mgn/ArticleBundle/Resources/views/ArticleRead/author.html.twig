@@ -1,0 +1,23 @@
+<footer class="col-lg-12">
+
+	<h3><i class="fi-torso"></i> Auteur</h3>
+
+	<div class="media">
+
+		<span class="pull-left thumbnail">
+
+			{{ article.author.avatar|avatar(article.author.avatarPath, article.author.email, '100', 'media-object')|raw }}
+
+		</span>
+
+	<div class="media-body">
+
+		<h4 class="media-heading">
+			<a href="{{ path('mgn_user_profile', {'username': article.author.usernameCanonical}) }}"><strong style="font-size: 20px;">{{ article.author.username }}</strong></a>
+        </h4>
+
+		<p>{{ article.author.biography }}</p>
+
+	</div>
+
+</footer>

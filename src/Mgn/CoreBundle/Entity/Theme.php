@@ -158,6 +158,112 @@ class Theme {
      */
     private $description;
 
+    /**
+     * @var text $articlesRead
+     *
+     * @ORM\Column(name="articlesRead", type="text", nullable=true)
+     */
+    private $articlesRead;
+
+    /**
+     * @var text $articlesReadAuthor
+     *
+     * @ORM\Column(name="articlesReadAuthor", type="text", nullable=true)
+     */
+    private $articlesReadAuthor;
+
+    /**
+     * @var text $articlesReadComments
+     *
+     * @ORM\Column(name="articlesReadComments", type="text", nullable=true)
+     */
+    private $articlesReadComments;
+
+    /**
+     * @var text $articlesReadComment
+     *
+     * @ORM\Column(name="articlesReadComment", type="text", nullable=true)
+     */
+    private $articlesReadComment;
+
+    /**
+     * @var text $articlesReadTitle
+     *
+     * @ORM\Column(name="articlesReadTitle", type="text", nullable=true)
+     */
+    private $articlesReadTitle;
+
+    /**
+     * @var text $articlesReadInfos
+     *
+     * @ORM\Column(name="articlesReadInfos", type="text", nullable=true)
+     */
+    private $articlesReadInfos;
+
+    /**
+     * @var text $articlesReadHeader
+     *
+     * @ORM\Column(name="articlesReadHeader", type="text", nullable=true)
+     */
+    private $articlesReadHeader;
+
+    /**
+     * @var text $articlesReadIntroduction
+     *
+     * @ORM\Column(name="articlesReadIntroduction", type="text", nullable=true)
+     */
+    private $articlesReadIntroduction;
+
+    /**
+     * @var text $articlesReadContents
+     *
+     * @ORM\Column(name="articlesReadContents", type="text", nullable=true)
+     */
+    private $articlesReadContents;
+
+    /**
+     * @var text $articlesReadContentSubtitle
+     *
+     * @ORM\Column(name="articlesReadContentSubtitle", type="text", nullable=true)
+     */
+    private $articlesReadContentSubtitle;
+
+    /**
+     * @var text $articlesReadContentPicture
+     *
+     * @ORM\Column(name="articlesReadContentPicture", type="text", nullable=true)
+     */
+    private $articlesReadContentPicture;
+
+    /**
+     * @var text $articlesReadContentParagraph
+     *
+     * @ORM\Column(name="articlesReadContentParagraph", type="text", nullable=true)
+     */
+    private $articlesReadContentParagraph;
+
+    /**
+     * @var text $articlesReadContentVideo
+     *
+     * @ORM\Column(name="articlesReadContentVideo", type="text", nullable=true)
+     */
+    private $articlesReadContentVideo;
+
+    /**
+     * @var text $articlesReadContentQuote
+     *
+     * @ORM\Column(name="articlesReadContentQuote", type="text", nullable=true)
+     */
+    private $articlesReadContentQuote;
+
+    /**
+     * @var text $usersLogin
+     *
+     * @ORM\Column(name="usersLogin", type="text", nullable=true)
+     */
+    private $usersLogin;
+
+
     public function __construct()
     {
         $this->themeTitle = 'Mutagène';
@@ -858,5 +964,350 @@ class Theme {
     public function getUserBundleUserEditProfile()
     {
         return $this->userBundleUserEditProfile;
+    }
+
+    /**
+     * Set articlesReadAuthor
+     *
+     * @param string $articlesReadAuthor
+     * @return Theme
+     */
+    public function setArticlesReadAuthor($articlesReadAuthor)
+    {
+        $this->articlesReadAuthor = $articlesReadAuthor;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadAuthor
+     *
+     * @return string 
+     */
+    public function getArticlesReadAuthor()
+    {
+        return $this->articlesReadAuthor;
+    }
+
+    /**
+     * Set articlesReadComments
+     *
+     * @param string $articlesReadComments
+     * @return Theme
+     */
+    public function setArticlesReadComments($articlesReadComments)
+    {
+        $this->articlesReadComments = $articlesReadComments;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadComments
+     *
+     * @return string 
+     */
+    public function getArticlesReadComments()
+    {
+        return $this->articlesReadComments;
+    }
+
+    /**
+     * Set articlesReadComment
+     *
+     * @param string $articlesReadComment
+     * @return Theme
+     */
+    public function setArticlesReadComment($articlesReadComment)
+    {
+        $this->articlesReadComment = $articlesReadComment;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadComment
+     *
+     * @return string 
+     */
+    public function getArticlesReadComment()
+    {
+        return $this->articlesReadComment;
+    }
+
+    /**
+     * Set articlesRead
+     *
+     * @param string $articlesRead
+     * @return Theme
+     */
+    public function setArticlesRead($articlesRead)
+    {
+        $this->articlesRead = $articlesRead;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesRead
+     *
+     * @return string 
+     */
+    public function getArticlesRead()
+    {
+        return $this->articlesRead;
+    }
+
+    /**
+     * Set articlesReadTitle
+     *
+     * @param string $articlesReadTitle
+     * @return Theme
+     */
+    public function setArticlesReadTitle($articlesReadTitle)
+    {
+        $this->articlesReadTitle = $articlesReadTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadTitle
+     *
+     * @return string 
+     */
+    public function getArticlesReadTitle()
+    {
+        return $this->articlesReadTitle;
+    }
+
+    /**
+     * Set articlesReadInfos
+     *
+     * @param string $articlesReadInfos
+     * @return Theme
+     */
+    public function setArticlesReadInfos($articlesReadInfos)
+    {
+        $this->articlesReadInfos = $articlesReadInfos;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadInfos
+     *
+     * @return string 
+     */
+    public function getArticlesReadInfos()
+    {
+        return $this->articlesReadInfos;
+    }
+
+    /**
+     * Set articlesReadHeader
+     *
+     * @param string $articlesReadHeader
+     * @return Theme
+     */
+    public function setArticlesReadHeader($articlesReadHeader)
+    {
+        $this->articlesReadHeader = $articlesReadHeader;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadHeader
+     *
+     * @return string 
+     */
+    public function getArticlesReadHeader()
+    {
+        return $this->articlesReadHeader;
+    }
+
+    /**
+     * Set articlesReadIntroduction
+     *
+     * @param string $articlesReadIntroduction
+     * @return Theme
+     */
+    public function setArticlesReadIntroduction($articlesReadIntroduction)
+    {
+        $this->articlesReadIntroduction = $articlesReadIntroduction;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadIntroduction
+     *
+     * @return string 
+     */
+    public function getArticlesReadIntroduction()
+    {
+        return $this->articlesReadIntroduction;
+    }
+
+    /**
+     * Set articlesReadContents
+     *
+     * @param string $articlesReadContents
+     * @return Theme
+     */
+    public function setArticlesReadContents($articlesReadContents)
+    {
+        $this->articlesReadContents = $articlesReadContents;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadContents
+     *
+     * @return string 
+     */
+    public function getArticlesReadContents()
+    {
+        return $this->articlesReadContents;
+    }
+
+    /**
+     * Set articlesReadContentSubtitle
+     *
+     * @param string $articlesReadContentSubtitle
+     * @return Theme
+     */
+    public function setArticlesReadContentSubtitle($articlesReadContentSubtitle)
+    {
+        $this->articlesReadContentSubtitle = $articlesReadContentSubtitle;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadContentSubtitle
+     *
+     * @return string 
+     */
+    public function getArticlesReadContentSubtitle()
+    {
+        return $this->articlesReadContentSubtitle;
+    }
+
+    /**
+     * Set articlesReadContentPicture
+     *
+     * @param string $articlesReadContentPicture
+     * @return Theme
+     */
+    public function setArticlesReadContentPicture($articlesReadContentPicture)
+    {
+        $this->articlesReadContentPicture = $articlesReadContentPicture;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadContentPicture
+     *
+     * @return string 
+     */
+    public function getArticlesReadContentPicture()
+    {
+        return $this->articlesReadContentPicture;
+    }
+
+    /**
+     * Set articlesReadContentParagraph
+     *
+     * @param string $articlesReadContentParagraph
+     * @return Theme
+     */
+    public function setArticlesReadContentParagraph($articlesReadContentParagraph)
+    {
+        $this->articlesReadContentParagraph = $articlesReadContentParagraph;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadContentParagraph
+     *
+     * @return string 
+     */
+    public function getArticlesReadContentParagraph()
+    {
+        return $this->articlesReadContentParagraph;
+    }
+
+    /**
+     * Set articlesReadContentVideo
+     *
+     * @param string $articlesReadContentVideo
+     * @return Theme
+     */
+    public function setArticlesReadContentVideo($articlesReadContentVideo)
+    {
+        $this->articlesReadContentVideo = $articlesReadContentVideo;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadContentVideo
+     *
+     * @return string 
+     */
+    public function getArticlesReadContentVideo()
+    {
+        return $this->articlesReadContentVideo;
+    }
+
+    /**
+     * Set articlesReadContentQuote
+     *
+     * @param string $articlesReadContentQuote
+     * @return Theme
+     */
+    public function setArticlesReadContentQuote($articlesReadContentQuote)
+    {
+        $this->articlesReadContentQuote = $articlesReadContentQuote;
+
+        return $this;
+    }
+
+    /**
+     * Get articlesReadContentQuote
+     *
+     * @return string 
+     */
+    public function getArticlesReadContentQuote()
+    {
+        return $this->articlesReadContentQuote;
+    }
+
+    /**
+     * Set usersLogin
+     *
+     * @param string $usersLogin
+     * @return Theme
+     */
+    public function setUsersLogin($usersLogin)
+    {
+        $this->usersLogin = $usersLogin;
+
+        return $this;
+    }
+
+    /**
+     * Get usersLogin
+     *
+     * @return string 
+     */
+    public function getUsersLogin()
+    {
+        return $this->usersLogin;
     }
 }

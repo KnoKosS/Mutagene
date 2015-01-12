@@ -20,6 +20,8 @@ class AdminProfileType extends AbstractType
         $builder->add('username',    'text', array('required' => false));
 
         $builder->add('email',    'text', array('required' => false));
+
+        $builder->add('emailVisible', 'checkbox', array('required'  => false,));
         
         if( $config->get('profileFirstName') === true )
         {
@@ -34,6 +36,16 @@ class AdminProfileType extends AbstractType
         if( $config->get('profileBirthday') === true )
         {
             $builder->add('birthday', 'date', array('widget' => 'single_text', 'format' => 'dd/MM/yyyy', 'required' => false));
+        }
+        
+        if( $config->get('profileCity') === true )
+        {
+            $builder->add('city',    'text', array('required' => false));
+        }
+        
+        if( $config->get('profileWebsite') === true )
+        {
+            $builder->add('website',    'text', array('required' => false));
         }
         
         if( $config->get('profileSignature') === true )

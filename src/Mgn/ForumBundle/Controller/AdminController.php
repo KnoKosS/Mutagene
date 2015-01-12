@@ -113,7 +113,7 @@ class AdminController extends Controller
         }
 			
 		return $this->render('MgnForumBundle:Admin:categoryEdit.html.twig', array(
-			'form' => $form->createView(),
+			'formCategory' => $form->createView(),
 			'category' => $category,
 		));
 	}
@@ -155,7 +155,7 @@ class AdminController extends Controller
         }
 			
 		return $this->render('MgnForumBundle:Admin:forumEdit.html.twig', array(
-			'form' => $form->createView(),
+			'formForum' => $form->createView(),
 			'forum' => $forum,
 		));
 	}

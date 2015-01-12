@@ -12,6 +12,8 @@ class ParametersUsersType extends AbstractType
             ->add('profileFirstName', 'checkbox', array('required'  => false,))
             ->add('profileLastName', 'checkbox', array('required'  => false,))
             ->add('profileBirthday', 'checkbox', array('required'  => false,))
+            ->add('profileCity', 'checkbox', array('required'  => false,))
+            ->add('profileWebsite', 'checkbox', array('required'  => false,))
             ->add('profileSignature', 'checkbox', array('required'  => false,))
             ->add('profileFacebook', 'checkbox', array('required'  => false,))
             ->add('profileTwitter', 'checkbox', array('required'  => false,))

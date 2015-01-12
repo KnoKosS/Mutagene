@@ -42,6 +42,13 @@ class Article
     private $category;
 
     /**
+     * @var integer $messages
+     *
+     * @ORM\OneToMany(targetEntity="Mgn\MessageBundle\Entity\Message", mappedBy="article")
+     */
+    private $messages;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
@@ -68,20 +75,6 @@ class Article
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="header", type="string", length=255, nullable=true)
-     */
-    private $header;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="introduction", type="text", nullable=true)
-     */
-    private $introduction;
 
     /**
      * @var integer $contents
@@ -260,52 +253,6 @@ class Article
     public function getUrl()
     {
         return $this->url;
-    }
-
-    /**
-     * Set header
-     *
-     * @param string $header
-     * @return Article
-     */
-    public function setHeader($header)
-    {
-        $this->header = $header;
-    
-        return $this;
-    }
-
-    /**
-     * Get header
-     *
-     * @return string 
-     */
-    public function getHeader()
-    {
-        return $this->header;
-    }
-
-    /**
-     * Set introduction
-     *
-     * @param string $introduction
-     * @return Article
-     */
-    public function setIntroduction($introduction)
-    {
-        $this->introduction = $introduction;
-    
-        return $this;
-    }
-
-    /**
-     * Get introduction
-     *
-     * @return string 
-     */
-    public function getIntroduction()
-    {
-        return $this->introduction;
     }
 
     /**
@@ -569,5 +516,38 @@ class Article
     public function getUserLastComment()
     {
         return $this->userLastComment;
+    }
+
+    /**
+     * Add messages
+     *
+     * @param \Mgn\MessageBundle\Entity\Message $messages
+     * @return Article
+     */
+    public function addMessage(\Mgn\MessageBundle\Entity\Message $messages)
+    {
+        $this->messages[] = $messages;
+
+        return $this;
+    }
+
+    /**
+     * Remove messages
+     *
+     * @param \Mgn\MessageBundle\Entity\Message $messages
+     */
+    public function removeMessage(\Mgn\MessageBundle\Entity\Message $messages)
+    {
+        $this->messages->removeElement($messages);
+    }
+
+    /**
+     * Get messages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

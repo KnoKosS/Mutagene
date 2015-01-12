@@ -11342,6 +11342,13 @@ ul.widget-todo-list li:last-child {
 	color: #666;
 }
 
+.table .actions a,
+.table .actions-hover-white a {
+	display: inline-block;
+	margin-right: 5px;
+	color: #ffffff;
+}
+
 .table .actions a:last-child,
 .table .actions-hover a:last-child {
 	margin-right: 0;
@@ -11350,6 +11357,11 @@ ul.widget-todo-list li:last-child {
 .table .actions a:hover,
 .table .actions-hover a:hover {
 	color: #333;
+}
+
+.table .actions a:hover,
+.table .actions-hover-white a:hover {
+	color: #ffffff;
 }
 
 .table .actions-hover a {

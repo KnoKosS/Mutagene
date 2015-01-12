@@ -25,71 +25,121 @@
 
 {% block body %}
 
-    {% if Theme('articleBundleArticleIndex') != null %}
+    <div class="row">
 
-        {% include template_from_string(Theme('articleBundleArticleIndex')|raw) %}
+        <div class="col-lg-12">
+        
+        {% for article in articles %}
+        
+            <article class="article-index article-category-{{ article.category.slug }}" style="margin-bottom: 30px;">
 
-    {% else %}
+                <div class="row">
 
-        <div class="row">
+                    <div class="col-lg-12">
 
-            <div class="col-lg-12">
-            
-            {% for article in articles %}
-            
-                <article class="article-index article-category-{{ article.category.slug }}">
+                        <h1 style="margin-top: 0px;"><a href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}">{{ article.title }}</a></h1>
 
-                    <div class="row">
+                    </div>
 
-                        <div class="col-lg-12">
+                    {% if Config('articleIndexHeader') == true %}
 
-                            <h1 style="margin-top: 0px;"><a href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}">{{ article.title }}</a></h1>
-
-                        </div>
-
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 article-header-index">
 
                             <a href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}" class="thumbnail">
 
-                                {% if article.header == null %}<img style="max-width: 100%;" src="{{ app.request.schemeAndHttpHost }}/img/article_header_default.png" title="" />{% else %}<img style="max-width: 100%;" src="{{ article.header }}" title="" />{% endif %}
+                                {% set viewHeader = true %}
+                                {% set viewPosition = '999999999' %}
+                                {% set header = '<img style="max-width: 100%;" src="'~app.request.schemeAndHttpHost~'/theme/images/article_header_default.png" title="" />' %}
+
+                                {% for content in article.contents %}
+
+                                    {% if content.picture != null or content.video != null %}
+
+                                        {% if viewHeader == true or viewPosition >= content.position %}
+
+                                            {% if content.picture != null %}
+
+                                                {% set header = '<img class="img-responsive" src="'~content.picture~'" title="" />' %}
+
+                                                {% set viewPosition = content.position %}
+
+                                            {% elseif content.video != null %}
+
+                                                {% set header = '<img class="img-responsive" src="'~content.video|mcodevideothumb|raw~'" title="" />' %}
+
+                                                {% set viewPosition = content.position %}
+
+                                            {% endif %}
+
+                                        {% endif %}
+
+                                        {% set viewHeader = false %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {{ header|raw }}
 
                             </a>
 
                         </div>
 
-                        <div class="col-lg-8">
+                    {% endif %}
 
-                            <p style="text-align: justify;">
-                                {{ article.introduction | truncate(500, true, '...') }}
-                            </p>
+                    {% if Config('articleIndexHeader') == true %}<div class="col-lg-8">{% else %}<div class="col-lg-12">{% endif %}
 
-                            <div class="article-index-footer">
-                                <i class="fa fa-calendar"></i> {{ article.date|datetime|capitalize }} 
-                                <i class="fi-torso"></i> Par <a href="{{ path('mgn_user_profile', {'username': article.author.usernameCanonical}) }}">{{ article.author.username }}</a> 
-                                <i class="fa fa-folder-open"></i> <a href="{{ path('mgn_article_archives', {'filtre': article.category.slug}) }}">{{ article.category.name }}</a> 
-                                <i class="fa fa-comments"></i> <a  href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}#comments">{{ article.countComments }} {% if article.countComments <= 1 %}Commentaire{% else %}Commentaires{% endif %}</a>
-                            </div>
+                        {#<p style="text-align: justify;">
+                            {{ article.introduction | truncate(500, true, '...') }}
+                        </p>#}
 
+                        <p style="text-align: justify;">
+
+                            {% set viewParagraph = true %}
+
+                            {% for content in article.contents %}
+
+                                {% if content.paragraph != null %}
+
+                                    {% if viewParagraph == true %}
+
+                                        {{ content.paragraph | truncate(480, true, '...') }}
+
+                                    {% endif %}
+
+                                    {% set viewParagraph = false %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </p>
+
+                        <div class="article-index-footer">
+                            <i class="fa fa-calendar"></i> {{ article.date|datetime|capitalize }} 
+                            <i class="fi-torso"></i> Par <a href="{{ path('mgn_user_profile', {'username': article.author.usernameCanonical}) }}">{{ article.author.username }}</a> 
+                            <i class="fa fa-folder-open"></i> <a href="{{ path('mgn_article_archives', {'filtre': article.category.slug}) }}">{{ article.category.name }}</a> 
+                            <i class="fa fa-comments"></i> <a  href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}#comments">{{ article.countComments }} {% if article.countComments <= 1 %}Commentaire{% else %}Commentaires{% endif %}</a>
                         </div>
-                    
+
                     </div>
-
-                </article>
-                    
-            {% else %}
-               
-                <div class="alert alert-info">
-
-                    Aucun article n'a été rédigé sur ce site.
-
+                
                 </div>
-            
-            {% endfor %}
+
+            </article>
+                
+        {% else %}
+           
+            <div class="alert alert-info">
+
+                Aucun article n'a été rédigé sur ce site.
 
             </div>
+        
+        {% endfor %}
 
         </div>
 
-    {% endif %}
+    </div>
     
 {% endblock %}

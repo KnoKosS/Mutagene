@@ -54,8 +54,8 @@ mgn_admin_core_acls_forForum:
     requirements:
         groupId:  \d+
 
-mgn_core_admin_themes:
-    pattern:   /admin/themes
+mgn_admin_core_themes:
+    pattern:   /admin/themes/liste
     defaults:  { _controller: MgnCoreBundle:Theme:list }
 
 mgn_core_admin_editor_head:
@@ -74,6 +74,10 @@ mgn_core_admin_editor_menu:
     pattern:   /admin/themes/editeur/{theme}/menu.html.twig
     defaults:  { _controller: MgnCoreBundle:Theme:editorMenu }
 
-mgn_core_admin_editor:
-    pattern:   /admin/themes/editeur/{theme}/{file}
-    defaults:  { _controller: MgnCoreBundle:Theme:editor }
+mgn_core_admin_editor_articles:
+    pattern:   /admin/themes/editeur/{theme}/articles/{file}
+    defaults:  { _controller: MgnCoreBundle:Theme:editorArticles }
+
+mgn_core_admin_editor_users:
+    pattern:   /admin/themes/editeur/{theme}/utilisateurs/{file}
+    defaults:  { _controller: MgnCoreBundle:Theme:editorUsers }

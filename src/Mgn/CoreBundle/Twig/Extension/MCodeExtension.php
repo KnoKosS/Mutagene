@@ -40,16 +40,23 @@ class MCodeExtension extends \Twig_Extension
     	if ($type == 'comments')
     	{
     		$menu = '
-	    	<div class="help-block">
-		    	<div class="btn-group">'.$this->menuTypo($cible).'</div>
-                <div class="btn-group">'.$this->menuTypoPlus($cible).'</div>
-		    	<div class="btn-group">'.$this->menuPos($cible).'</div>
-		    	<div class="btn-group">'.$this->menuMedia($cible).'</div>
-		    	<div class="btn-group">'.$this->menuInter($cible).'</div>
-	    	</div>
-            <div class="help-block">
-                <div class="btn-group">'.$this->menuSmileys($cible, $url).'</div>
-            </div>
+            <label class="btn-toolbar toolbar" role="toolbar">
+
+                <div class="btn-group">
+                    <a class="btn btn-default btn-sm" onclick="insertTag(\'**\', \'**\', \''.$cible.'\')"><i class="fa fa-bold"></i></a>
+                    <a class="btn btn-default btn-sm" onclick="insertTag(\'*\', \'*\', \''.$cible.'\')"><i class="fa fa-italic"></i></a>
+                    <a class="btn btn-default btn-sm" onclick="insertTag(\'__\', \'__\', \''.$cible.'\')"><i class="fa fa-underline"></i></a>
+                    <a class="btn btn-default btn-sm" onclick="insertTag(\'--\', \'--\', \''.$cible.'\')"><i class="fa fa-strikethrough"></i></a>
+                </div>
+
+                <div class="btn-group">
+                    <a class="btn btn-default btn-sm" onclick="insertTag(\'![Description](http://)\', \'\', \''.$cible.'\')"><i class="fa fa-picture-o"></i></a>
+                    <a class="btn btn-default btn-sm" onclick="insertTag(\'*\', \'*\', \''.$cible.'\')"><i class="fa fa-film"></i></a>
+                    <a class="btn btn-default btn-sm" onclick="insertTag(\'[Description](http://)\', \'\', \''.$cible.'\')"><i class="fa fa-link"></i></a>
+                    <a class="btn btn-default btn-sm" onclick="insertTag(\'--\', \'--\', \''.$cible.'\')"><i class="fa fa-strikethrough"></i></a>
+                </div>
+
+            </label>
 	    	';
 
 	    	return $menu;
@@ -215,10 +222,10 @@ class MCodeExtension extends \Twig_Extension
     public function parserTypo($cible)
     {
         $bbcode = array(
-            '`\[b\](.+)\[\/b\]`isU',
-            '`\[i\](.+)\[\/i\]`isU',
-            '`\[u\](.+)\[\/u\]`isU',
-            '`\[s\](.+)\[\/s\]`isU'
+            '`\*\*(.+)\*\*`isU',
+            '`\*(.+)\*`isU',
+            '`\__(.+)\__`isU',
+            '`\--(.+)\--`isU'
         );
 
         $html = array(

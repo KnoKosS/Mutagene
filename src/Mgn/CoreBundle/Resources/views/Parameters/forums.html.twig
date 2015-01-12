@@ -1,4 +1,4 @@
-{% extends "MgnCoreBundle::admin.html.twig" %}
+{% extends "MgnCoreBundle::adminParameters.html.twig" %}
 
 {% block title %}
     Paramètres des forums - {{ parent() }}
@@ -64,6 +64,14 @@
 
                 <fieldset>
 
+                    <div class="form-group{% if form_errors(form.forumAppearance) %} has-error{% endif %}">
+                        {{ form_label(form.forumAppearance, "Apparence", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.forumAppearance) }}
+                        <div class="col-md-7">
+                            {{ form_widget(form.forumAppearance, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
                     <div class="form-group{% if form_errors(form.forumIndexLigne) %} has-error{% endif %}">
                         {{ form_label(form.forumIndexLigne, "Nombre de forum par ligne", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
                         {{ form_errors(form.forumIndexLigne) }}
@@ -90,7 +98,7 @@
                                 {{ form_label(form.forumIndexLigne.3, "4") }}
                             </div>
 
-                            <p class="help-block">Uniquement si vous avez choisi la présentation du forum en block dans l'apparence.</p>
+                            <p class="help-block">Uniquement si vous avez choisi l'apparence du forum en bloc.</p>
 
                         </div>                    </div>
 
@@ -114,6 +122,18 @@
                             </div>
                             <p class="outputPost">La valeur actuelle est: <b>{{ Config('forumPostPage') }}</b></p>
                         </div>
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.forumCounting) %} has-error{% endif %}">
+
+                        {{ form_label(form.forumCounting, "Afficher les statistiques globales", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.forumCounting) }}
+                        <div class="col-md-7">
+                            <div class="switch switch-sm switch-primary">
+                                {{ form_widget(form.forumCounting, {'attr': {'class': 'form-control', 'data-plugin-ios-switch' : 'data-plugin-ios-switch'}}) }}
+                            </div>
+                        </div>
+
                     </div>
 
                 </fieldset>

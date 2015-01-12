@@ -18,11 +18,11 @@ services:
         tags:
             -  { name: twig.extension }
 
-    mgn.theme:
-        class: Mgn\CoreBundle\Twig\Extension\ThemeExtension
-        arguments: [@security.context, @doctrine, @mgn.config]
-        tags:
-            -  { name: twig.extension }
+#    mgn.theme:
+#        class: Mgn\CoreBundle\Twig\Extension\ThemeExtension
+#        arguments: [@security.context, @doctrine, @mgn.config]
+#        tags:
+#            -  { name: twig.extension }
 
     mgn.mcode:
         class: Mgn\CoreBundle\Twig\Extension\MCodeExtension
@@ -32,6 +32,12 @@ services:
 
     mgn.mcode.video:
         class: Mgn\CoreBundle\Twig\Extension\MCodeVideoExtension
+        arguments: [@mgn.config]
+        tags:
+            - { name: twig.extension }
+
+    mgn.mcode.video.thumb:
+        class: Mgn\CoreBundle\Twig\Extension\MCodeVideoThumbExtension
         arguments: [@mgn.config]
         tags:
             - { name: twig.extension }
@@ -54,6 +60,5 @@ services:
 
     mgn.avatar:
         class: Mgn\CoreBundle\Twig\Extension\AvatarExtension
-        arguments: [@mgn.theme]
         tags:
             - { name: twig.extension }

@@ -79,9 +79,27 @@ class Config {
 
     /**
      * @var string
+     * @ORM\Column(name="forumAppearance", type="string", nullable=true)
+     */
+    protected $forumAppearance;
+
+    /**
+     * @var string
+     * @ORM\Column(name="forumCounting", type="boolean", nullable=true)
+     */
+    protected $forumCounting;
+
+    /**
+     * @var string
      * @ORM\Column(name="articleCountIndex", type="integer", nullable=true)
      */
     protected $articleCountIndex;
+
+    /**
+     * @var string
+     * @ORM\Column(name="articleIndexHeader", type="boolean", nullable=true)
+     */
+    protected $articleIndexHeader;
 
     /**
      * @var text $reglement
@@ -118,6 +136,18 @@ class Config {
      * @ORM\Column(name="profileBirthday", type="boolean", nullable=true)
      */
     protected $profileBirthday;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="profileCity", type="boolean", nullable=true)
+     */
+    protected $profileCity;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="profileWebsite", type="boolean", nullable=true)
+     */
+    protected $profileWebsite;
 
     /**
      * @var boolean
@@ -241,13 +271,18 @@ class Config {
         $this->forumPostPage = 20;
         $this->forumTopicPage = 5;
         $this->forumIndexLigne = 2;
+        $this->forumAppearance = 'Classic';
+        $this->forumCounting = true;
         $this->articleCountIndex = 6;
+        $this->articleIndexHeader = true;
         $this->reglement = null;
         $this->theme = 'mutagene';
         $this->themeDate = $datetime;
         $this->profileFirstName = true;
         $this->profileLastName = true;
         $this->profileBirthday = true;
+        $this->profileCity = true;
+        $this->profileWebsite = true;
         $this->profileSignature = true;
         $this->profileBiography = true;
         $this->profileFacebook = true;
@@ -1026,5 +1061,120 @@ class Config {
     public function getTotalUsers()
     {
         return $this->totalUsers;
+    }
+
+    /**
+     * Set profileCity
+     *
+     * @param boolean $profileCity
+     * @return Config
+     */
+    public function setProfileCity($profileCity)
+    {
+        $this->profileCity = $profileCity;
+
+        return $this;
+    }
+
+    /**
+     * Get profileCity
+     *
+     * @return boolean 
+     */
+    public function getProfileCity()
+    {
+        return $this->profileCity;
+    }
+
+    /**
+     * Set profileWebsite
+     *
+     * @param boolean $profileWebsite
+     * @return Config
+     */
+    public function setProfileWebsite($profileWebsite)
+    {
+        $this->profileWebsite = $profileWebsite;
+
+        return $this;
+    }
+
+    /**
+     * Get profileWebsite
+     *
+     * @return boolean 
+     */
+    public function getProfileWebsite()
+    {
+        return $this->profileWebsite;
+    }
+
+    /**
+     * Set forumAppearance
+     *
+     * @param string $forumAppearance
+     * @return Config
+     */
+    public function setForumAppearance($forumAppearance)
+    {
+        $this->forumAppearance = $forumAppearance;
+
+        return $this;
+    }
+
+    /**
+     * Get forumAppearance
+     *
+     * @return string 
+     */
+    public function getForumAppearance()
+    {
+        return $this->forumAppearance;
+    }
+
+    /**
+     * Set forumCounting
+     *
+     * @param boolean $forumCounting
+     * @return Config
+     */
+    public function setForumCounting($forumCounting)
+    {
+        $this->forumCounting = $forumCounting;
+
+        return $this;
+    }
+
+    /**
+     * Get forumCounting
+     *
+     * @return boolean 
+     */
+    public function getForumCounting()
+    {
+        return $this->forumCounting;
+    }
+
+    /**
+     * Set articleIndexHeader
+     *
+     * @param boolean $articleIndexHeader
+     * @return Config
+     */
+    public function setArticleIndexHeader($articleIndexHeader)
+    {
+        $this->articleIndexHeader = $articleIndexHeader;
+
+        return $this;
+    }
+
+    /**
+     * Get articleIndexHeader
+     *
+     * @return boolean 
+     */
+    public function getArticleIndexHeader()
+    {
+        return $this->articleIndexHeader;
     }
 }

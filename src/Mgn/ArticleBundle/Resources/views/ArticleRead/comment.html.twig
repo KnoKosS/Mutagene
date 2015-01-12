@@ -1,0 +1,41 @@
+<div class="media" id="{{ message.id }}">
+
+	<a class="pull-left img-thumbnail" href="{{ path('mgn_user_profile', {'username': message.author.usernameCanonical}) }}">
+
+		{{ message.author.avatar|avatar(message.author.avatarPath, message.author.email, '50', 'media-object')|raw }}
+
+	</a>
+
+	<div class="media-body">
+
+		<h4 class="media-heading">
+
+            <a href="{{ path('mgn_user_profile', {'username': message.author.usernameCanonical}) }}">{{ message.author.username }}</a>
+
+            <span class="pull-right">
+
+                <small>#{{ loop.index }}</small>
+
+            </span>
+
+		</h4>
+
+		{% if message.messageLock == 1 %}
+      
+			<p class="text-error">Ce commentaire a été modéré.</p>
+      
+		{% else %}
+      
+			<p>
+
+				{{ message.contents|nl2br }}
+
+			</p>
+      
+		{% endif %}
+
+		<span class="date pull-right text-muted">{{ message.date|datetime|capitalize }}</span>
+
+	</div>
+
+</div>

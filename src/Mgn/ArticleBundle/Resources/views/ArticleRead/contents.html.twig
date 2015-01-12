@@ -1,0 +1,41 @@
+<div class="col-lg-12">
+
+	{% if article.contents != null %}
+
+		{% for content in article.contents %}
+
+			{% if content.subtitle != null %}
+
+				{{ include("MgnContentBundle:Content:subtitle.html.twig") }}
+
+			{% endif %}
+
+			{% if content.picture != null %}
+
+				{{ include("MgnContentBundle:Content:picture.html.twig") }}
+
+			{% endif %}
+
+			{% if content.paragraph != null %}
+
+				{{ include("MgnContentBundle:Content:paragraph.html.twig") }}
+
+			{% endif %}
+
+			{% if content.video != null %}
+
+				{{ include("MgnContentBundle:Content:video.html.twig") }}
+
+			{% endif %}
+
+			{% if content.quote != null %}
+
+				{{ include("MgnContentBundle:Content:quote.html.twig") }}
+
+			{% endif %}
+
+		{% endfor %}
+
+	{% endif %}
+
+</div>
