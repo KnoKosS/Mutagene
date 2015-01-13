@@ -35,11 +35,11 @@
 
                 <div class="row">
 
-                    <div class="col-lg-12">
+                    {#<div class="col-lg-12">
 
                         <h1 style="margin-top: 0px;"><a href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}">{{ article.title }}</a></h1>
 
-                    </div>
+                    </div>#}
 
                     {% if Config('articleIndexHeader') == true %}
 
@@ -89,9 +89,7 @@
 
                     {% if Config('articleIndexHeader') == true %}<div class="col-lg-8">{% else %}<div class="col-lg-12">{% endif %}
 
-                        {#<p style="text-align: justify;">
-                            {{ article.introduction | truncate(500, true, '...') }}
-                        </p>#}
+                        <h1 style="margin-top: 0px;"><a href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}"><strong>{{ article.title }}</strong></a></h1>
 
                         <p style="text-align: justify;">
 

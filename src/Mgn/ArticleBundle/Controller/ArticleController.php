@@ -81,7 +81,7 @@ class ArticleController extends Controller
                       	 ->getManager()
                       	 ->getRepository('MgnArticleBundle:Article')
                       	 ->findBy(
-				            array('status' => 1),                 // Pas de critère
+				            array('status' => 'publish'),                 // Pas de critère
 				            array('dateTop' => 'DESC'), // On tri par date décroissante
 				            NULL,       // On sélectionne $nb_articles_page articles
 				            NULL                  // A partir du $offset ième

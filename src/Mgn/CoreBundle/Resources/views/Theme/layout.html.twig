@@ -16,7 +16,7 @@
 
 		<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" >
-		<link rel="stylesheet" href="{{ asset('vendor/foundation-icons/css/foundation-icons.css') }}" >
+		<link rel="stylesheet" href="{{ asset('vendor/foundation-icons/foundation-icons.css') }}" >
 
 		{#<link rel="stylesheet" href="{{ asset('themes/'~Theme("slug")~'/css/style.css') }}" />#}
 		<link rel="stylesheet" href="{{ asset('vendor/mutagene/css/mgn.css') }}" />
@@ -59,49 +59,51 @@
 
 					</div>
 
-					{% if bundle is defined and bundle == 'forum' %}
+					<div class="col-lg-12">
+
+					{#{% if bundle is defined and bundle == 'forum' %}
 					<div class="col-lg-12">
 					{% elseif bundle is defined and bundle == 'user' %}
 					<div class="col-lg-12">
 					{% else %}
 					<div class="col-lg-9">
-					{% endif %}
+					{% endif %}#}
 
 						<div class="row">
 
-						{% if bundle is defined and bundle == 'forum' %}
+							{% if bundle is defined and bundle == 'forum' %}
 
-						<div class="col-lg-12">
+								<div class="col-lg-12">
 
-						<h1>{% block pagetitle %}{% endblock %}</h1>
+								<h1>{% block pagetitle %}{% endblock %}</h1>
 
-						{% block bundle_forum %}{% endblock %}
+								{% block bundle_forum %}{% endblock %}
 
-						</div>
+								</div>
 
-						{% elseif bundle is defined and bundle == 'article' %}
+							{% elseif bundle is defined and bundle == 'article' %}
 
-						<div class="col-lg-12">
+								<div class="col-lg-12">
 
-						{% block bundle_article %}{% endblock %}
+								{% block bundle_article %}{% endblock %}
 
-						</div>
+								</div>
 
-						{% else %}
+							{% else %}
 
-						<div class="col-lg-12">
+								<div class="col-lg-12">
 
-						{% block body %}{% endblock %}
+								{% block body %}{% endblock %}
 
-						</div>
+								</div>
 
-						{% endif %}
+							{% endif %}
 
 						</div>
 
 					</div>
 
-					{% if bundle is defined and bundle == 'forum' %}
+					{#{% if bundle is defined and bundle == 'forum' %}
 					{% else %}
 
 					<div class="col-lg-3">
@@ -122,7 +124,7 @@
 
 					</div>
 
-					{% endif %}
+					{% endif %}#}
 
 					</div>
 

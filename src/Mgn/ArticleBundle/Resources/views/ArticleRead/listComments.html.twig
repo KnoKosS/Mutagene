@@ -1,97 +1,97 @@
-<section class="row" id="comments">
+<div class="col-lg-12">
 
-	<div class="col-lg-12">
+	<h3><i class="fa fa-comments"></i> Les commentaires ({{ article.countComments }})</h3>
 
-		<h3><i class="fa fa-comments"></i> Les commentaires ({{ article.countComments }})</h3>
+	{% if article.messages is empty %}
 
-		{% if article.messages is empty %}
+		{% if (article.comments == 1) %}
 
-			{% if (article.comments == 1) %}
-
-				<div class="alert alert-info">
-				{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}Soyez{% else %}Connectez-vous et soyez{% endif %} le premier à rédiger un commentaire sur cet article !
-				</div>
-
-			{% endif %}
-
-		{% else %}
-
-            {% for message in article.messages %}
-
-                {{ include("MgnArticleBundle:ArticleRead:comment.html.twig") }}
-
-            {% endfor %}
+			<div class="alert alert-info">
+			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}Soyez{% else %}Connectez-vous et soyez{% endif %} le premier à rédiger un commentaire sur cet article !
+			</div>
 
 		{% endif %}
 
-		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+	{% else %}
+
+		<ul class="media-list">
+
+			{% for message in article.messages %}
+
+	            {{ include("MgnArticleBundle:ArticleRead:comment.html.twig") }}
+
+	        {% endfor %}
+
+	    </ul>
+
+	{% endif %}
+
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            
+		{% if (article.comments == 1) and (is_granted("IS_AUTHENTICATED_REMEMBERED")) %}
+
+  			<h3>Ajouter un commentaire</h3>
                 
-			{% if (article.comments == 1) and (is_granted("IS_AUTHENTICATED_REMEMBERED")) %}
+			<form action="{{ path('mgn_article_add_comment', {'id': article.id}) }}" method="post" {{ form_enctype(form) }} >
 
-      			<h3>Ajouter un commentaire</h3>
-                    
-				<form action="{{ path('mgn_article_add_comment', {'id': article.id}) }}" method="post" {{ form_enctype(form) }} >
+				<div class="controls">
 
-					<div class="controls">
+                  	<div id="viewDiv"></div>
 
-                      	<div id="viewDiv"></div>
+              	</div>
 
-                  	</div>
+				<fieldset>
 
-					<fieldset>
+					{% if form_errors(form) %}
 
-						{% if form_errors(form) %}
+						<div class="alert alert-block alert-danger fade in">
 
-							<div class="alert alert-block alert-danger fade in">
+							<a class="close" data-dismiss="alert" href="#">&times;</a>
 
-								<a class="close" data-dismiss="alert" href="#">&times;</a>
+							{{ form_errors(form) }}
 
-								{{ form_errors(form) }}
+						</div>
 
-							</div>
+					{% endif %}
 
-						{% endif %}
+				</fieldset>
 
-					</fieldset>
+				<div class="form-group">
 
-					<div class="form-group">
+					{#<span class="pull-right"><small>bbcode activé</small></span>#}
 
-						{#<span class="pull-right"><small>bbcode activé</small></span>#}
+						{#{% set url = app.request.schemeAndHttpHost %}
 
-							{#{% set url = app.request.schemeAndHttpHost %}
+						{{ "mgn_messagebundle_messagetype_contents"|mcode('menu', 'comments', url)|raw }}
 
-							{{ "mgn_messagebundle_messagetype_contents"|mcode('menu', 'comments', url)|raw }}
+						{{ "mgn_messagebundle_messagetype_contents"|mcode('menu', 'article', url)|raw }}#}
 
-							{{ "mgn_messagebundle_messagetype_contents"|mcode('menu', 'article', url)|raw }}#}
-    
-							{{ form_widget(form.contents, { 'attr' : { 'class' : 'form-control', 'rows' : '10' } }) }}
-
-					</div>
-    
-					{{ form_widget(form) }}
-    
-					<div class="form-actions">
-
-						<button class="btn btn-primary" type="submit" id="_submit" name="_submit">Envoyer</button>
-
-						{#<button class="btn btn-primary" type="button" onclick="view('mgn_messagebundle_messagetype_contents', 'article', 'viewDiv', '{{ app.request.schemeAndHttpHost }}{{ app.request.getBaseURL() }}');">Visualiser</button>#}
-
-					</div>
-    
-				</form>
-
-			{% elseif (article.comments == 0) %}
-
-				<div class="alert alert-info">
-
-					Les commentaires de cette news sont désactivé.
+						{{ form_widget(form.contents, { 'attr' : { 'class' : 'form-control', 'rows' : '10' } }) }}
 
 				</div>
 
-			{% endif %}
+				{{ form_widget(form) }}
+
+				<div class="form-actions">
+
+					<button class="btn btn-primary" type="submit" id="_submit" name="_submit">Envoyer</button>
+
+					{#<button class="btn btn-primary" type="button" onclick="view('mgn_messagebundle_messagetype_contents', 'article', 'viewDiv', '{{ app.request.schemeAndHttpHost }}{{ app.request.getBaseURL() }}');">Visualiser</button>#}
+
+				</div>
+
+			</form>
+
+		{% elseif (article.comments == 0) %}
+
+			<div class="alert alert-info">
+
+				Les commentaires de cette news sont désactivé.
+
+			</div>
 
 		{% endif %}
 
-	</div>
+	{% endif %}
 
-</section>
+</div>

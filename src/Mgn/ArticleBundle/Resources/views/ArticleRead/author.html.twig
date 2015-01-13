@@ -4,19 +4,21 @@
 
 	<div class="media">
 
-		<span class="pull-left thumbnail">
+		<a class="media-left" href="{{ path('mgn_user_profile', {'username': article.author.usernameCanonical}) }}">
 
-			{{ article.author.avatar|avatar(article.author.avatarPath, article.author.email, '100', 'media-object')|raw }}
+			{{ article.author.avatar|avatar(article.author.avatarPath, article.author.email, '100', '')|raw }}
+			
+		</a>
 
-		</span>
+		<div class="media-body">
 
-	<div class="media-body">
+			<h4 class="media-heading">
+				<a href="{{ path('mgn_user_profile', {'username': article.author.usernameCanonical}) }}"><strong style="font-size: 20px;">{{ article.author.username }}</strong></a>
+	        </h4>
 
-		<h4 class="media-heading">
-			<a href="{{ path('mgn_user_profile', {'username': article.author.usernameCanonical}) }}"><strong style="font-size: 20px;">{{ article.author.username }}</strong></a>
-        </h4>
+			<p>{{ article.author.biography }}</p>
 
-		<p>{{ article.author.biography }}</p>
+		</div>
 
 	</div>
 

@@ -28,7 +28,7 @@ class AvatarExtension extends \Twig_Extension
         }
         else
         {
-            return '<img src="/theme/img/avatar.png" alt="avatar" style="width: '.$size.'px;" class="'.$class.'" />';
+            return '<img src="/theme/images/avatar.png" alt="avatar" style="width: '.$size.'px;" class="'.$class.'" />';
         }
     }
 }

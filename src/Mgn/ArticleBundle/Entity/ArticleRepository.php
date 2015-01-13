@@ -73,6 +73,8 @@ class ArticleRepository extends EntityRepository
 		$qb->orderBy('a.dateTop', 'DESC');
 		$qb->where('c.slug = :slug')
 			->setParameter('slug', $slug);
+		$qb->andWhere('a.status = :status')
+			->setParameter('status', 'publish');
 	                // Enfin, on retourne le résultat.
 	        return $qb->getQuery()
 	                   ->getResult();
