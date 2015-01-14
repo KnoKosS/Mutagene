@@ -1,0 +1,227 @@
+<div class="navbar-collapse nav-main-collapse collapse">
+
+    <div class="container">
+
+        <nav class="nav-main mega-menu">
+
+            <ul class="nav nav-pills nav-main" id="mainMenu">
+
+                <li class="navbar-button{% if bundle is defined and bundle == 'article' %} active{% endif %}">
+                    <a href="{% if Config('homepage') == 'article' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_article") }}{% endif %}">Articles</a>
+                </li>
+
+                <li class="navbar-button{% if bundle is defined and bundle == 'forum' %} active{% endif %}">
+                    <a href="{% if Config('homepage') == 'forum' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_forum") }}{% endif %}">Forums</a>
+                </li>
+
+                {#<li class="dropdown">
+                    <a class="dropdown-toggle" href="#">
+                        Medias
+                        <i class="icon icon-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about-us.html">Photos</a></li>
+                        <li><a href="about-us-basic.html">Vidéos</a></li>
+                        <li><a href="about-me.html">Logos</a></li>
+                    </ul>
+                </li>#}
+
+                {#<li class="dropdown mega-menu-item mega-menu-signin signin" id="headerAccount">
+                    <a class="dropdown-toggle" href="page-login.html">
+                        <i class="icon icon-user"></i> Se connecter
+                        <i class="icon icon-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="mega-menu-content">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="signin-form">
+
+                                            <span class="mega-menu-sub-title">Se connecter</span>
+
+                                            <form action="" id="" type="post">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <label>Pseudo ou Adresse email</label>
+                                                            <input type="text" value="" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <a class="pull-right" id="headerRecover" href="#">(Mot de passe perdu?)</a>
+                                                            <label>Mot de passe</label>
+                                                            <input type="password" value="" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <span class="remember-box checkbox">
+                                                            <label for="rememberme">
+                                                                <input type="checkbox" id="rememberme" name="rememberme">Se souvenir de moi
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="submit" value="Login" class="btn btn-primary pull-right push-bottom" data-loading-text="Loading...">
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <p class="sign-up-info">Vous n'avez pas encore de compte? <a href="#" id="headerSignUp">Inscrivez-vous!</a></p>
+
+                                        </div>
+
+                                        <div class="signup-form">
+                                            <span class="mega-menu-sub-title">Créer un compte</span>
+
+                                            <form action="" id="" type="post">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <label>Adresse email</label>
+                                                            <input type="text" value="" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-6">
+                                                            <label>Mot de passe</label>
+                                                            <input type="password" value="" class="form-control">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label>Vérification</label>
+                                                            <input type="password" value="" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="submit" value="Create Account" class="btn btn-primary pull-right push-bottom" data-loading-text="Loading...">
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <p class="log-in-info">Vous avez déjà un compte? <a href="#" id="headerSignIn">Connectez-vous!</a></p>
+                                        </div>
+
+                                        <div class="recover-form">
+                                            <span class="mega-menu-sub-title">Récupérer mon mot de passe</span>
+                                            <p>Complétez le formulaire pour recevoir un email avec un code d'autorisation pour réinitialiser votre mot de passe.</p>
+
+                                            <form action="" id="" type="post">
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <label>Adresse email</label>
+                                                            <input type="text" value="" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="submit" value="Submit" class="btn btn-primary pull-right push-bottom" data-loading-text="Loading...">
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                            <p class="log-in-info">Vous avez déjà un compte? <a href="#" id="headerRecoverCancel">Connectez-vous!</a></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>#}
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                <li class="dropdown mega-menu-item mega-menu-signin signin logged" id="headerAccount">
+
+                    <a class="dropdown-toggle" href="{{ path("mgn_user_profile", {'username': app.user.usernameCanonical}) }}">
+                        <i class="fi-torso"></i> {{ app.user.username }}
+                        <i class="icon icon-angle-down"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li>
+
+                            <div class="mega-menu-content">
+
+                                <div class="row">
+
+                                    <div class="col-md-7">
+
+                                        <div class="user-avatar">
+
+                                            <div class="img-thumbnail">
+
+                                                {{ app.user.avatar|avatar(app.user.avatarPath, app.user.email, '100', '')|raw }}
+
+                                            </div>
+
+                                            <p><strong>{{ app.user.username }}</strong>{#{{ app.user.id|grade }}#}</p>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-5">
+
+                                        <ul class="list-account-options">
+
+                                            <li>
+                                                <a href="{{ path("mgn_user_profile", {'username': app.user.usernameCanonical}) }}">Mon compte</a>
+                                            </li>
+
+                                            {#<li>
+                                                <a href="#">Mes équipes</a>
+                                            </li>#}
+
+                                            {% if is_granted("ROLE_ADMIN") %}
+                                            <li>
+                                                <a href="{{ path("mgn_admin_homepage") }}">Administration</a>
+                                            </li>
+                                            {% endif %}
+
+                                            <li>
+                                                <a href="{{ path("logout") }}">Se déconnecter</a>
+                                            </li>
+
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+                
+                {% else %}
+
+                <li class="navbar-button{% if bundle is defined and bundle == 'user' %} active{% endif %}">
+                    <a href="{{ path("user.connexion") }}">Mon compte</a>
+                </li>
+                    
+                {% endif %}
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+</div>

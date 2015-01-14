@@ -31,7 +31,7 @@ class ForumController extends Controller
         $forums = $this->getDoctrine()
                          ->getManager()
                          ->getRepository('MgnForumBundle:Forum')
-                         ->findAllWithCategories();
+                         ->getAllWithCategories();
 
         $config = $this->container->get('mgn.config');
 
@@ -101,6 +101,8 @@ class ForumController extends Controller
     {
         $this->active();
 
+        $config = $this->container->get('mgn.config');
+
         // On ne sait pas combien de pages il y a, mais on sait qu'une page
         // doit être supérieure ou égale à 1.
         if( $page < 1 )
@@ -112,7 +114,7 @@ class ForumController extends Controller
         $forum = $this->getDoctrine()
                         ->getManager()
                         ->getRepository('MgnForumBundle:Forum')
-                        ->findOneForum($id);
+                        ->getForum($id);
         
         // Si le forum n'existe pas, on affiche une erreur 404
         if( $forum === null )
@@ -183,7 +185,7 @@ class ForumController extends Controller
         $form = $this->createForm(new TopicType, $topic);
                          
         //on appel le template
-        return $this->render('MgnForumBundle:Forums:viewBlock.html.twig', array(
+        return $this->render('MgnForumBundle:Forums:view'.$config->get('forumAppearance').'.html.twig', array(
             'forum' => $forum,
             'mark' => $mark,
             'views' => $views,

@@ -1,6 +1,8 @@
 mgn_article:
-    path:      /articles
-    defaults:  { _controller: MgnArticleBundle:Article:index }
+    path:      /articles/{page}
+    defaults:  { _controller: MgnArticleBundle:Article:index, page: 1 }
+    requirements:
+        page:  \d+
 
 mgn_article_read:
     pattern:   /article/{id}/{category}/{date}/{slug}

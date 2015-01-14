@@ -84,6 +84,12 @@ class Config {
     protected $forumAppearance;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="forumLastMessageAvatarView", type="boolean", nullable=true)
+     */
+    protected $forumLastMessageAvatarView;
+
+    /**
      * @var string
      * @ORM\Column(name="forumCounting", type="boolean", nullable=true)
      */
@@ -258,6 +264,42 @@ class Config {
      */
     private $totalUsers;
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteFacebook", type="string", length=255, nullable=true)
+     */
+    protected $siteFacebook;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteTwitter", type="string", length=255, nullable=true)
+     */
+    protected $siteTwitter;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteSteam", type="string", length=255, nullable=true)
+     */
+    protected $siteSteam;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteGoogleplus", type="string", length=255, nullable=true)
+     */
+    protected $siteGoogleplus;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteTwitch", type="string", length=255, nullable=true)
+     */
+    protected $siteTwitch;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteYoutube", type="string", length=255, nullable=true)
+     */
+    protected $siteYoutube;
+
     public function __construct()
     {
         $datetime = new \Datetime();
@@ -272,11 +314,12 @@ class Config {
         $this->forumTopicPage = 5;
         $this->forumIndexLigne = 2;
         $this->forumAppearance = 'Classic';
+        $this->forumLastMessageAvatarView = true;
         $this->forumCounting = true;
         $this->articleCountIndex = 6;
         $this->articleIndexHeader = true;
         $this->reglement = null;
-        $this->theme = 'mutagene';
+        $this->theme = 'default';
         $this->themeDate = $datetime;
         $this->profileFirstName = true;
         $this->profileLastName = true;
@@ -300,6 +343,12 @@ class Config {
         $this->totalTopics = 0;
         $this->totalMessages = 0;
         $this->totalUsers = 0;
+        $this->siteFacebook = null;
+        $this->siteTwitter = null;
+        $this->siteSteam = null;
+        $this->siteGoogleplus = null;
+        $this->siteTwitch = null;
+        $this->siteYoutube = null;
     }
 
 	public function setCms($cms) {
@@ -1153,5 +1202,51 @@ class Config {
     public function getForumCounting()
     {
         return $this->forumCounting;
+    }
+
+    /**
+     * Set articleIndexHeader
+     *
+     * @param boolean $articleIndexHeader
+     * @return Config
+     */
+    public function setArticleIndexHeader($articleIndexHeader)
+    {
+        $this->articleIndexHeader = $articleIndexHeader;
+
+        return $this;
+    }
+
+    /**
+     * Get articleIndexHeader
+     *
+     * @return boolean 
+     */
+    public function getArticleIndexHeader()
+    {
+        return $this->articleIndexHeader;
+    }
+
+    /**
+     * Set forumLastMessageAvatarView
+     *
+     * @param boolean $forumLastMessageAvatarView
+     * @return Config
+     */
+    public function setForumLastMessageAvatarView($forumLastMessageAvatarView)
+    {
+        $this->forumLastMessageAvatarView = $forumLastMessageAvatarView;
+
+        return $this;
+    }
+
+    /**
+     * Get forumLastMessageAvatarView
+     *
+     * @return boolean 
+     */
+    public function getForumLastMessageAvatarView()
+    {
+        return $this->forumLastMessageAvatarView;
     }
 }

@@ -84,6 +84,12 @@ class Config {
     protected $forumAppearance;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="forumLastMessageAvatarView", type="boolean", nullable=true)
+     */
+    protected $forumLastMessageAvatarView;
+
+    /**
      * @var string
      * @ORM\Column(name="forumCounting", type="boolean", nullable=true)
      */
@@ -258,6 +264,42 @@ class Config {
      */
     private $totalUsers;
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteFacebook", type="string", length=255, nullable=true)
+     */
+    protected $siteFacebook;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteTwitter", type="string", length=255, nullable=true)
+     */
+    protected $siteTwitter;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteSteam", type="string", length=255, nullable=true)
+     */
+    protected $siteSteam;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteGoogleplus", type="string", length=255, nullable=true)
+     */
+    protected $siteGoogleplus;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteTwitch", type="string", length=255, nullable=true)
+     */
+    protected $siteTwitch;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="siteYoutube", type="string", length=255, nullable=true)
+     */
+    protected $siteYoutube;
+
     public function __construct()
     {
         $datetime = new \Datetime();
@@ -272,11 +314,12 @@ class Config {
         $this->forumTopicPage = 5;
         $this->forumIndexLigne = 2;
         $this->forumAppearance = 'Classic';
+        $this->forumLastMessageAvatarView = true;
         $this->forumCounting = true;
         $this->articleCountIndex = 6;
         $this->articleIndexHeader = true;
         $this->reglement = null;
-        $this->theme = 'mutagene';
+        $this->theme = 'default';
         $this->themeDate = $datetime;
         $this->profileFirstName = true;
         $this->profileLastName = true;
@@ -300,6 +343,12 @@ class Config {
         $this->totalTopics = 0;
         $this->totalMessages = 0;
         $this->totalUsers = 0;
+        $this->siteFacebook = null;
+        $this->siteTwitter = null;
+        $this->siteSteam = null;
+        $this->siteGoogleplus = null;
+        $this->siteTwitch = null;
+        $this->siteYoutube = null;
     }
 
 	public function setCms($cms) {
@@ -1176,5 +1225,166 @@ class Config {
     public function getArticleIndexHeader()
     {
         return $this->articleIndexHeader;
+    }
+
+    /**
+     * Set forumLastMessageAvatarView
+     *
+     * @param boolean $forumLastMessageAvatarView
+     * @return Config
+     */
+    public function setForumLastMessageAvatarView($forumLastMessageAvatarView)
+    {
+        $this->forumLastMessageAvatarView = $forumLastMessageAvatarView;
+
+        return $this;
+    }
+
+    /**
+     * Get forumLastMessageAvatarView
+     *
+     * @return boolean 
+     */
+    public function getForumLastMessageAvatarView()
+    {
+        return $this->forumLastMessageAvatarView;
+    }
+
+    /**
+     * Set siteFacebook
+     *
+     * @param string $siteFacebook
+     * @return Config
+     */
+    public function setSiteFacebook($siteFacebook)
+    {
+        $this->siteFacebook = $siteFacebook;
+
+        return $this;
+    }
+
+    /**
+     * Get siteFacebook
+     *
+     * @return string 
+     */
+    public function getSiteFacebook()
+    {
+        return $this->siteFacebook;
+    }
+
+    /**
+     * Set siteTwitter
+     *
+     * @param string $siteTwitter
+     * @return Config
+     */
+    public function setSiteTwitter($siteTwitter)
+    {
+        $this->siteTwitter = $siteTwitter;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTwitter
+     *
+     * @return string 
+     */
+    public function getSiteTwitter()
+    {
+        return $this->siteTwitter;
+    }
+
+    /**
+     * Set siteSteam
+     *
+     * @param string $siteSteam
+     * @return Config
+     */
+    public function setSiteSteam($siteSteam)
+    {
+        $this->siteSteam = $siteSteam;
+
+        return $this;
+    }
+
+    /**
+     * Get siteSteam
+     *
+     * @return string 
+     */
+    public function getSiteSteam()
+    {
+        return $this->siteSteam;
+    }
+
+    /**
+     * Set siteGoogleplus
+     *
+     * @param string $siteGoogleplus
+     * @return Config
+     */
+    public function setSiteGoogleplus($siteGoogleplus)
+    {
+        $this->siteGoogleplus = $siteGoogleplus;
+
+        return $this;
+    }
+
+    /**
+     * Get siteGoogleplus
+     *
+     * @return string 
+     */
+    public function getSiteGoogleplus()
+    {
+        return $this->siteGoogleplus;
+    }
+
+    /**
+     * Set siteTwitch
+     *
+     * @param string $siteTwitch
+     * @return Config
+     */
+    public function setSiteTwitch($siteTwitch)
+    {
+        $this->siteTwitch = $siteTwitch;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTwitch
+     *
+     * @return string 
+     */
+    public function getSiteTwitch()
+    {
+        return $this->siteTwitch;
+    }
+
+    /**
+     * Set siteYoutube
+     *
+     * @param string $siteYoutube
+     * @return Config
+     */
+    public function setSiteYoutube($siteYoutube)
+    {
+        $this->siteYoutube = $siteYoutube;
+
+        return $this;
+    }
+
+    /**
+     * Get siteYoutube
+     *
+     * @return string 
+     */
+    public function getSiteYoutube()
+    {
+        return $this->siteYoutube;
     }
 }

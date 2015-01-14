@@ -12,40 +12,49 @@ use Doctrine\ORM\EntityRepository;
  */
 class ForumRepository extends EntityRepository
 {
-	public function findAllWithCategories()
+	public function getAllWithCategories()
     {
-    	$qb = $this->createQueryBuilder('f');
-		$qb->leftJoin('f.category', 'c');
-        $qb->addSelect('c');
-		$qb->leftJoin('f.lastTopic', 't');
-		$qb->addSelect('t');
-		$qb->leftJoin('t.lastMessage', 'm');
-		$qb->addSelect('m');
-		$qb->orderBy('c.sort', '');
-		$qb->addOrderBy('f.sort', '');
-	                // Enfin, on retourne le résultat.
-	        return $qb->getQuery()
-	                   ->getResult();
+    	$query = $this
+			->createQueryBuilder('f')
+			->leftJoin('f.category', 'c')
+	        ->addSelect('c')
+			->leftJoin('f.lastTopic', 't')
+			->addSelect('t')
+			->leftJoin('t.lastMessage', 'm')
+			->addSelect('m')
+			->leftJoin('m.author', 'a')
+			->addSelect('a')
+			->orderBy('c.sort', '')
+			->addOrderBy('f.sort', '')
+			->getQuery()
+			;
+
+		return $query->getResult();
     }
 
-    public function findOneForum($id)
+    public function getForum($id)
     {
-    	$qb = $this->createQueryBuilder('f');
-		$qb->leftJoin('f.category', 'c');
-        $qb->addSelect('c');
-		$qb->leftJoin('f.topics', 't');
-        $qb->addSelect('t');
-		$qb->leftJoin('t.firstMessage', 'fm');
-        $qb->addSelect('fm');
-		$qb->leftJoin('t.lastMessage', 'lm');
-        $qb->addSelect('lm');
-		$qb->where('f.id = :id')
-			->setParameter('id', $id);
-		$qb->orderBy('t.typeTopic', 'DESC');
-		$qb->addOrderBy('lm.date', 'DESC');
-	                // Enfin, on retourne le résultat.
-	        return $qb->getQuery()
-	                   ->getOneOrNullResult();
+    	$query = $this
+    		->createQueryBuilder('f')
+			->leftJoin('f.category', 'c')
+	        ->addSelect('c')
+			->leftJoin('f.topics', 't')
+	        ->addSelect('t')
+			->leftJoin('t.firstMessage', 'fm')
+	        ->addSelect('fm')
+			->leftJoin('fm.author', 'fa')
+			->addSelect('fa')
+			->leftJoin('t.lastMessage', 'lm')
+	        ->addSelect('lm')
+			->leftJoin('lm.author', 'la')
+			->addSelect('la')
+			->where('f.id = :id')->setParameter('id', $id)
+			->orderBy('t.typeTopic', 'DESC')
+			->addOrderBy('lm.date', 'DESC')
+			->getQuery()
+			;
+
+		return $query->getOneOrNullResult();
     }
 
     public function findOneByIdWithLastMessage($forumId)

@@ -15,6 +15,9 @@
 		<link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" />
 
 		<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+		{% if Config('theme') != 'default' %}
+			<link rel="stylesheet" href="{{ asset('vendor/bootswatch/'~Config('theme')~'/bootstrap.min.css') }}">
+		{% endif %}
 		<link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" >
 		<link rel="stylesheet" href="{{ asset('vendor/foundation-icons/foundation-icons.css') }}" >
 
@@ -59,15 +62,25 @@
 
 					</div>
 
-					<div class="col-lg-12">
+					{% if pagetitle is defined %}
+						<div class="col-lg-12">
 
-					{#{% if bundle is defined and bundle == 'forum' %}
+							<div class="page-header">
+
+								<h1>{{ pagetitle }}</h1>
+
+							</div>
+
+						</div>
+					{% endif %}
+
+					{% if bundle is defined and bundle == 'forum' %}
 					<div class="col-lg-12">
 					{% elseif bundle is defined and bundle == 'user' %}
 					<div class="col-lg-12">
 					{% else %}
 					<div class="col-lg-9">
-					{% endif %}#}
+					{% endif %}
 
 						<div class="row">
 
@@ -103,7 +116,7 @@
 
 					</div>
 
-					{#{% if bundle is defined and bundle == 'forum' %}
+					{% if bundle is defined and bundle == 'forum' %}
 					{% else %}
 
 					<div class="col-lg-3">
@@ -124,7 +137,7 @@
 
 					</div>
 
-					{% endif %}#}
+					{% endif %}
 
 					</div>
 

@@ -16,7 +16,7 @@
     <ul class="nav navbar-nav">
 
         <li class="navbar-button{% if bundle is defined and bundle == 'article' %} active{% endif %}">
-            <a href="{% if Config('homepage') == 'article' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_article") }}{% endif %}">Accueil</a>
+            <a href="{% if Config('homepage') == 'article' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_article") }}{% endif %}">Articles</a>
         </li>
         <li class="navbar-button{% if bundle is defined and bundle == 'forum' %} active{% endif %}">
             <a href="{% if Config('homepage') == 'forum' %}{{ path("mgn_home") }}{% else %}{{ path("mgn_forum") }}{% endif %}">Forums</a>

@@ -72,6 +72,62 @@
 
                 </fieldset>
 
+                <hr class="dotted tall">
+
+                <h4 class="mb-xlg">Social</h4>
+
+                <fieldset>
+
+                    <div class="form-group{% if form_errors(form.siteFacebook) %} has-error{% endif %}">
+                        {{ form_label(form.siteFacebook, "Page Facebook", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.siteFacebook) }}
+                        <div class="col-md-7">
+                            {{ form_widget(form.siteFacebook, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.siteTwitter) %} has-error{% endif %}">
+                        {{ form_label(form.siteTwitter, "Compte Twitter", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.siteTwitter) }}
+                        <div class="col-md-7">
+                            {{ form_widget(form.siteTwitter, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.siteSteam) %} has-error{% endif %}">
+                        {{ form_label(form.siteSteam, "Groupe Steam", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.siteSteam) }}
+                        <div class="col-md-7">
+                            {{ form_widget(form.siteSteam, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.siteGoogleplus) %} has-error{% endif %}">
+                        {{ form_label(form.siteGoogleplus, "Page Google Plus", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.siteGoogleplus) }}
+                        <div class="col-md-7">
+                            {{ form_widget(form.siteGoogleplus, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.siteTwitch) %} has-error{% endif %}">
+                        {{ form_label(form.siteTwitch, "Chaine Twitch", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.siteTwitch) }}
+                        <div class="col-md-7">
+                            {{ form_widget(form.siteTwitch, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group{% if form_errors(form.siteYoutube) %} has-error{% endif %}">
+                        {{ form_label(form.siteYoutube, "Chaine YouTube", {'label_attr': {'class': 'col-md-3 control-label'}}) }}
+                        {{ form_errors(form.siteYoutube) }}
+                        <div class="col-md-7">
+                            {{ form_widget(form.siteYoutube, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                </fieldset>
+
             </div>
 
             <footer class="panel-footer">

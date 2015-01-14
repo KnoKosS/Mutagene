@@ -10,19 +10,33 @@ use Mgn\MessageBundle\Form\MessageType;
 
 class ArticleController extends Controller
 {
-	public function indexAction()
+	public function indexAction($page)
 	{
+	    if ($page < 1) {
+	      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+	    }
+
 		$config = $this->container->get('mgn.config');
 		
-		$articleCountIndex = $config->get('articleCountIndex');
-			
+		// On récupère notre objet Paginator
 		$articles = $this->getDoctrine()
                       	 ->getManager()
                       	 ->getRepository('MgnArticleBundle:Article')
-                      	 ->findArticlesIndex($articleCountIndex);
-			
+                      	 ->getArticlesIndex($page, $config->get('articleCountIndex'));
+
+	    // On calcule le nombre total de pages grâce au count($listAdverts) qui retourne le nombre total d'annonces
+	    $countPages = ceil(count($articles)/$config->get('articleCountIndex'));
+
+	    // Si la page n'existe pas, on retourne une 404
+	    if ($page-1 > $countPages) {
+	      throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+	    }
+		
+		// On donne toutes les informations nécessaires à la vue
 		return $this->render('MgnArticleBundle:Article:index.html.twig', array(
-			'articles' => $articles,
+			'articles'		=> $articles,
+			'countPages'	=> $countPages,
+			'page'			=> $page
 		));
 	}
 	

@@ -2,25 +2,15 @@
 
 {% block title %}{{ user.username }} - {{ parent() }}{% endblock %}
 
+{% block pagetitle %}{{ user.username }}{% endblock %}
+
+{% set pagetitle = user.username %}
+
 {% block arianne %}
 
     {{ parent() }}
 	<li class="active">{{ user.username }}</li>
 
-{% endblock %}
-
-{% block pagetitle %}
-
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.usernameCanonical == user.usernameCanonical %}
-
-    	Mon compte
-
-    {% else %}
-
-    	{{ user.username }}
-
-    {% endif %}
-    
 {% endblock %}
 
 {% block body %}
@@ -43,17 +33,129 @@
 
 		{% endif %}
 
-		<div class="col-lg-12" style="margin-top: 30px;">
+		<div class="col-lg-4">
 
 			<div class="panel panel-default">
 
-				<div class="panel-heading">
+				<div class="panel-body">
 
-					<h3 class="panel-title">Informations général</h3>
+					{{ user.avatar|avatar(user.avatarPath, user.email, '400', 'img-responsive thumbnail')|raw }}
+
+					<p class="text-justify">
+
+						{{ user.biography }}
+
+					</p>
+
+					<p class="text-left">
+
+						{% if user.facebook and Config('profileFacebook') == true %}
+							<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.facebook.com/{{ user.facebook }}" data-original-title="Facebook">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+							</span></a>
+						{% endif %}
+
+						{% if user.twitter and Config('profileTwitter') == true %}
+							<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitter.com/{{ user.twitter }}" data-original-title="Twitter">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+							</span></a>
+						{% endif %}
+						{% if user.linkedin and Config('profileLinkedin') == true %}
+							<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.linkedin.com/pub/{{ user.linkedin }}" data-original-title="Linkedin">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+							</span></a>
+						{% endif %}
+						{% if user.steam and Config('profileSteam') == true %}
+							<a rel="tooltip" data-placement="bottom" target="_blank" href="http://steamcommunity.com/id/{{ user.steam }}" data-original-title="Steam">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-steam fa-stack-1x fa-inverse"></i>
+							</span></a>
+						{% endif %}
+						{% if user.googleplus and Config('profileGoogleplus') == true %}
+							<a rel="tooltip" data-placement="bottom" target="_blank" href="http://plus.google.com/{{ user.googleplus }}" data-original-title="Google Plus">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+							</span></a>
+						{% endif %}
+						{% if user.twitch and Config('profileTwitch') == true %}
+							<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.twitch.tv/{{ user.twitch }}" data-original-title="Twitch">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-twitch fa-stack-1x fa-inverse"></i>
+							</span></a>
+						{% endif %}
+						{% if user.youtube and Config('profileYoutube') == true %}
+							<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.youtube.com/channel/{{ user.youtube }}" data-original-title="Youtube">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-youtube-play fa-stack-1x fa-inverse"></i>
+							</span></a>
+						{% endif %}
+						{% if user.pinterest and Config('profilePinterest') == true %}
+							<a rel="tooltip" data-placement="bottom" target="_blank" href="http://www.pinterest.com/{{ user.pinterest }}" data-original-title="Pinterest">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+							</span></a>
+						{% endif %}
+
+					</p>
 
 				</div>
 
-				<div class="panel-body">
+			</div>
+
+			<h4 class="text-muted">Statistiques</h4>
+
+			<dl>
+
+			{% if Config('cmsArticle') == true %}
+
+				<dd>{{ user.countArticle }} articles publiés</dd>
+
+			{% endif %}
+
+			{% if Config('cmsForum') == true %}
+
+				<dd>{{ user.countTopic }} sujets créés</dd>
+
+			{% endif %}
+
+			{% if Config('cmsForum') == true %}
+
+				<dd>{{ user.countPost }} messages sur le forum</dd>
+
+			{% endif %}
+
+				<dd>{{ user.countMessage }} commentaires</dd>
+
+			</dl>
+
+		</div>
+
+		<div class="col-lg-8">
+
+			<div class="row">
+
+				<div class="col-lg-12">
+
+					<div class="page-header">
+
+						<h4>Informations général</h4>
+
+					</div>
+
+				</div>
+
+				<div class="col-md-10 col-md-offset-2">
 
 					<dl class="dl-horizontal">
 
@@ -81,60 +183,44 @@
 							<dt>Date de naissance</dt>
 							<dd>{{ user.birthday|date('d/m/Y') }}</dd>
 						{% endif %}
-
-					</dl>
-
-				</div>
-
-			</div>
-
-			<div class="panel panel-default">
-
-				<div class="panel-heading">
-
-					<h3 class="panel-title">Forum</h3>
-
-				</div>
-
-				<div class="panel-body">
-
-					<dl class="dl-horizontal">
-				
-						{% if user.signature != null %}
-							<dt>Signature</dt>
-							<dd class="well">{% set url = app.request.schemeAndHttpHost %}{{ user.signature|nl2br|mcode('parser', 'comments', url)|raw }}</dd>
+						
+						{% if user.city != null %}
+							<dt>Ville</dt>
+							<dd>{{ user.city }}</dd>
 						{% endif %}
 
 					</dl>
 
 				</div>
 
-			</div>
+				<div class="col-lg-12">
 
-			<div class="panel panel-default">
+					<div class="page-header">
 
-				<div class="panel-heading">
+						<h4>A propos</h4>
 
-					<h3 class="panel-title">Statistiques</h3>
+					</div>
 
 				</div>
 
-				<div class="panel-body">
+				<div class="col-md-10 col-md-offset-2">
 
 					<dl class="dl-horizontal">
 
-						<dt>Messages</dt>
-						<dd>{{ user.countPost }}</dd>
+						{% if user.website != null %}
+							<dt>Site web</dt>
+							<dd><a href="{{ user.website }}" target="_blank">{{ user.website }}</a></dd>
+						{% endif %}
+						
+					</dl>
 
-						<dt>Sujets</dt>
-						<dd>{{ user.countTopic }}</dd>
+					<dl class="dl-horizontal">
 
-						<dt>News</dt>
-						<dd>{{ user.countArticle }}</dd>
-
-						<dt>Commentaires</dt>
-						<dd>{{ user.countMessage }}</dd>
-
+						{% if user.signature != null %}
+							<dt>Signature</dt>
+							<dd>{% set url = app.request.schemeAndHttpHost %}{{ user.signature|nl2br|mcode('parser', 'comments', url)|raw }}</dd>
+						{% endif %}
+						
 					</dl>
 
 				</div>

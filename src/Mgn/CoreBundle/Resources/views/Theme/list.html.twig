@@ -26,108 +26,421 @@
 
     <div class="row">
 
-        {% for theme in themes %}
+        {% if Config('theme') == 'Cerulean' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
 
-            {% if theme.slug == Config('theme') %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+        <div class="col-md-3">
 
-            <div class="col-md-4">
+            <section class="panel">
 
-                <section class="panel">
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/cerulean/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
 
-                    <div class="panel-body">
-                        <img src="{{ asset('themes/'~theme.slug~'/preview.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
-                    </div>
+                <div class="panel-footer">
 
-                    <div class="panel-footer">
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Cerrulean</span>
 
-                        <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}{{ theme.themeTitle }}</span>
+                    <span class="pull-right">
 
-                        <span class="pull-right">
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
 
-                            <button class="modal-with-zoom-anim modal-sizes btn btn-primary" href="#modal{{ theme.id }}">Détails</button>
-                            {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+                    </span>
 
-                        </span>
+                </div>
 
-                    </div>
+            </section>
 
-                </section>
+        </div>
 
-            </div>
+        {% if Config('theme') == 'Cosmo' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
 
-            <!-- Modal -->
-            <div id="modal{{ theme.id }}" class="zoom-anim-dialog modal-block modal-block-lg mfp-hide">
+        <div class="col-md-3">
 
-                <section class="panel">
+            <section class="panel">
 
-                    <div class="panel-body">
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/cosmo/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
 
-                        <div class="row">
+                <div class="panel-footer">
 
-                            <div class="col-lg-6">
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Cosmo</span>
 
-                                <img src="{{ asset('themes/'~theme.slug~'/preview.png') }}" alt="..." class="pull-left img-thumbnail" style="margin-right:10px; max-width: 100%;">
+                    <span class="pull-right">
 
-                            </div>
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
 
-                            <div class="col-lg-6">
+                    </span>
 
-                                <div class="row">
+                </div>
 
-                                    <div class="col-lg-12" style="height: 30px;">
+            </section>
 
-                                        {% if actif == true %}<p><span class="label label-primary">Thème actuel</span></p>{% endif %}
+        </div>
 
-                                    </div>
+        {% if Config('theme') == 'Cyborg' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
 
-                                    <div class="col-lg-12">
+        <div class="col-md-3">
 
-                                        <h1 class="modal-title" id="myModalLabel">{{ theme.themeTitle }} <small><small>Version : {{ theme.version }}</small></small></h1>
+            <section class="panel">
 
-                                    </div>
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/cyborg/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
 
-                                    <div class="col-lg-12" style="margin-top: 10px;">
+                <div class="panel-footer">
 
-                                        <p>Par <a href="{{ theme.url }}" target="_blank">{{ theme.author }}</a></p>
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Cyborg</span>
 
-                                    </div>
+                    <span class="pull-right">
 
-                                    <div class="col-lg-12" style="margin-top: 40px;">
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
 
-                                        <p>
-                                            {{ theme.description }}
-                                        </p>
+                    </span>
 
-                                    </div>
+                </div>
 
-                                </div>
+            </section>
 
-                            </div>
+        </div>
 
-                        </div>
+        {% if Config('theme') == 'Darkly' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
 
-                    </div>
+        <div class="col-md-3">
 
-                    <footer class="panel-footer">
+            <section class="panel">
 
-                        <div class="row">
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/darkly/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
 
-                            <div class="col-md-12 text-center">
+                <div class="panel-footer">
 
-                                <a class="btn btn-primary" href="{{ path('mgn_core_admin_editor_articles', {'theme': theme.id, 'file': 'articlesRead'}) }}">Editeur</a>
-                                <button class="btn btn-default modal-dismiss">Fermer</button>
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Darkly</span>
 
-                            </div>
+                    <span class="pull-right">
 
-                        </div>
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
 
-                    </footer>
+                    </span>
 
-                </section>
+                </div>
 
-            </div>
+            </section>
 
-        {% endfor %}
+        </div>
+
+        {% if Config('theme') == 'Flatly' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/flatly/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Flatly</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Journal' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/journal/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Journal</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Lumen' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/lumen/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Lumen</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Paper' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/paper/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Paper</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Readable' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/readable/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Readable</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Sandstone' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/sandstone/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Sandstone</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Simplex' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/simplex/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Simplex</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Slate' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/slate/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Slate</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Spacelab' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/spacelab/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Spacelab</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Superhero' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/superhero/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Superhero</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'United' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/united/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}United</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        {% if Config('theme') == 'Yeti' %}{% set actif = true %}{% else %}{% set actif = false %}{% endif %}
+
+        <div class="col-md-3">
+
+            <section class="panel">
+
+                <div class="panel-body">
+                    <img src="{{ asset('vendor/bootswatch/yeti/thumbnail.png') }}" alt="..." class="pull-left" style="margin-right:10px; max-width: 100%;">
+                </div>
+
+                <div class="panel-footer">
+
+                    <span class="lead text-primary">{% if actif == true %}<strong>Activé : </strong>{% endif %}Yeti</span>
+
+                    <span class="pull-right">
+
+                        {% if actif == false %}<a href="#" class="btn btn-default" role="button">Définir par défaut</a>{% endif %}
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </div>
 
     </div>
 

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="UTF-8" />
+
+		<title>{% block title %}{{ Config('siteTitle') }} - {{ Config('siteDescription') }}{% endblock %}</title>
+
+		<meta name="description" content="{{ Config('siteDescription') }}">
+		<meta name="author" content="KnoKosS.com">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+		<!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+
+		<link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" >
+		<link rel="stylesheet" href="{{ asset('vendor/foundation-icons/foundation-icons.css') }}" >
+
+		<link href="{{ asset('css/style.css') }}" rel="stylesheet" media="screen">
+		<link href="{{ asset('theme/css/theme.css') }}" rel="stylesheet" media="screen">
+		<link href="{{ asset('theme/css/theme-blog.css') }}" rel="stylesheet" media="screen">
+		<link href="{{ asset('theme/css/theme-elements.css') }}" rel="stylesheet" media="screen">
+		<link href="{{ asset('theme/css/theme-animate.css') }}" rel="stylesheet">
+		<link href="{{ asset('theme/css/blue.css') }}" rel="stylesheet" media="screen">
+		<link href="{{ asset('theme/css/theme-responsive.css') }}" rel="stylesheet">
+
+		<script src="{{ asset('theme/js/modernizr.js') }}"></script>
+		
+	</head>
+
+	<body>
+
+		<div class="body">
+
+			<header class="colored flat-menu">
+				<div class="header-top">
+					<div class="container">
+						{#<div class="search">
+							<form id="searchForm" action="page-search-results.html" method="get">
+								<div class="input-group">
+									<input type="text" class="form-control search" name="q" id="q" placeholder="Search...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button"><i class="icon icon-search"></i></button>
+									</span>
+								</div>
+							</form>
+						</div>#}
+						<div class="social-icons">
+							<ul class="social-icons">
+								<li class="facebook">
+									<a href="https://www.facebook.com/pages/aDnGaming/295404000557625" target="_blank" title="Facebook" class="tips" data-toggle="tooltip" data-placement="bottom">Facebook</a>
+								</li>
+								<li class="twitter">
+									<a href="https://twitter.com/aDnGaming/" target="_blank" title="Twitter" class="tips" data-toggle="tooltip" data-placement="bottom">Twitter</a>
+								</li>
+								<li class="steam">
+									<a href="http://steamcommunity.com/groups/adngaming" target="_blank" title="Steam" class="tips" data-toggle="tooltip" data-placement="bottom">Steam</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<h1 class="logo">
+						<a href="{{ path('mgn_home') }}">
+							<img alt="aDn" src="{{ asset('theme/img/logo.png') }}">
+						</a>
+					</h1>
+					<button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse">
+						<i class="fa fa-bars"></i>
+					</button>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				</div>
+				
+				{{ include("MgnCoreBundle:Theme:menu.html.twig") }}
+
+			</header>
+
+		    <div role="main" class="main">
+
+				<section class="page-top custom-product">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<ul class="breadcrumb">
+									<li><a href="#">aDn.Gaming</a></li> {% block arianne %}{% endblock %}
+								</ul>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<h1>{% if Config('homepage') == bundle %}Le jeu est dans tes gênes{% else %}{% block pagetitle %}{% endblock %}{% endif %}</h1>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			</div>
+
+		    <div class="container">
+
+				{% block body %}{% endblock %}
+
+		    </div>
+
+		    <footer class="short" id="footer">
+				<div class="container">
+					<div class="row">
+						<div class="footer-ribon">
+							<span>Entrer en contact</span>
+						</div>
+						<div class="col-md-8">
+							<h4>Au sujet d'aDn.Gaming</h4>
+							<p>Nous sommes un site traitant du jeu vidéo et de l'eSport plus particulièrement. Nous oeuvrons pour le développement de notre loisir préféré... <a href="#" class="btn-flat btn-xs">En voir plus <i class="fi-arrow-right"></i></a></p>
+							<hr class="light">
+						</div>
+						<div class="col-md-3 col-md-offset-1">
+							<h5 class="short">Contactez-nous</h5>
+							<span class="phone"><img alt="Mutagene Concept" src="{{ asset('theme/img/mumble-icon.png') }}"> <a href="mumble://94.23.56.56:64000">Mumble</a></span>
+							<p class="short">Téléphone: (+33) 662-292-466</p>
+							<ul class="list icons list-unstyled">
+								<li><i class="fi-mail"></i> <a href="mailto:contact@adngaming.com">{{ Config('email') }}</a></li>
+							</ul>
+							<div class="social-icons">
+								<ul class="social-icons">
+									<li class="facebook"><a href="https://www.facebook.com/pages/aDnGaming/295404000557625" target="_blank" title="Facebook">Facebook</a></li>
+									<li class="twitter"><a href="https://twitter.com/aDnGaming/" target="_blank" title="Twitter">Twitter</a></li>
+									<li class="steam"><a href="http://steamcommunity.com/groups/adngaming" target="_blank" title="Steam">Steam</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-copyright">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-1">
+								<a href="index.html" class="logo">
+									<img alt="Mutagene Concept" class="img-responsive" src="{{ asset('theme/img/logo-footer.png') }}">
+								</a>
+							</div>
+							<div class="col-md-11">
+								<p>Propulsé par <a href="http://www.mutagene.fr/" target="_blank">Mutagène</a>, Développé par <a href="http://www.knokoss.com/" target="_blank">KnoKosS !</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+
+		</div>
+
+		<script src="{{ asset('vendor/jquery/jquery-1.11.2.min.js') }}"></script>
+		<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+
+		<script src="{{ asset('vendor/mutagene/js/mgn.js') }}"></script>
+		<script src="{{ asset('vendor/mutagene/js/mgncode.js') }}"></script>
+
+		<script src="{{ asset('theme/js/plugins.js') }}"></script>
+		<script src="{{ asset('theme/js/jquery.easing.js') }}"></script>
+		<script src="{{ asset('theme/js/jquery.appear.js') }}"></script>
+		<script src="{{ asset('theme/js/jquery.cookie.js') }}"></script>
+
+		<script src="{{ asset('theme/js/bootstrap-datepicker.js') }}"></script>
+		<script src="{{ asset('theme/js/twitter.js') }}"></script>
+		<script src="{{ asset('theme/js/jquery.themepunch.plugins.min.js') }}"></script>
+		<script src="{{ asset('theme/js/jquery.themepunch.revolution.min.js') }}"></script>
+		<script src="{{ asset('theme/js/owl.carousel.js') }}"></script>
+		<script src="{{ asset('theme/js/jquery.flipshow.js') }}"></script>
+		<script src="{{ asset('theme/js/magnific-popup.js') }}"></script>
+		<script src="{{ asset('theme/js/jquery.validate.js') }}"></script>
+
+		<!-- Current Page Scripts -->
+		<script src="{{ asset('theme/js/view.home.js') }}"></script>
+
+		<!-- Theme Initializer -->
+		<script src="{{ asset('theme/js/theme.js') }}"></script>
+
+		<!-- Custom JS -->
+		<script src="{{ asset('theme/js/custom.js') }}"></script>
+
+		<script>
+		<!--
+		$(function(){
+
+		    $(".dropdown").hover(
+
+		        function() { $('.dropdown-menu', this).fadeIn("fast");},
+
+		        function() { $('.dropdown-menu', this).fadeOut("fast");}
+
+		    );
+
+		    $('.datepicker').datepicker();
+
+		    $('.tips').tooltip();
+
+		});
+		-->
+		</script>
+		
+	</body>
+
+</html>

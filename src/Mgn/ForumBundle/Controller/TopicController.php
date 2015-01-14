@@ -39,7 +39,7 @@ class TopicController extends Controller
 		$topic = $this->getDoctrine()
                         ->getManager()
                         ->getRepository('MgnForumBundle:Topic')
-                        ->findOneWithPosts($id, $page, $nb_posts_page);
+                        ->getWithMessages($id, $page, $nb_posts_page);
 		
 		// Si le forum n'existe pas, on affiche une erreur 404
         if( $topic === null )
@@ -406,7 +406,7 @@ class TopicController extends Controller
 		$em->flush();
 
 		//on appel le template
-        return $this->render('MgnForumBundle:Topics:readBlock.html.twig', array(
+        return $this->render('MgnForumBundle:Topics:read'.$config->get('forumAppearance').'.html.twig', array(
             'form' => $form->createView(),
             'page'     => $page,
             'nb_pages' => $nb_pages,

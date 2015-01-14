@@ -18,7 +18,7 @@ class HomeController extends Controller
 		}
 		else
 		{	
-			$response = $this->forward('MgnArticleBundle:Article:index');
+			$response = $this->forward('MgnArticleBundle:Article:index', array( 'page' => '1'));
 		}
 
 		return $response;

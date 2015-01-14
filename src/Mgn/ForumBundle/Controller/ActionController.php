@@ -132,7 +132,7 @@ class ActionController extends Controller
 	    }
 		
 		//on appel le template
-        return $this->render('MgnForumBundle:Topics:readBlock.html.twig', array(
+        return $this->render('MgnForumBundle:Topics:read'.$config->get('forumAppearance').'.html.twig', array(
             'form' => $form->createView(),
             'forum' => $forum,
         ));

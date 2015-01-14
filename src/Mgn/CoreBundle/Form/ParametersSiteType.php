@@ -12,6 +12,13 @@ class ParametersSiteType extends AbstractType
 			->add('siteTitle',    'text')
             ->add('siteDescription',    'text')
             ->add('email',    'text')
+            ->add('siteFacebook',    'text', array('required'  => false,))
+            ->add('siteTwitter',    'text', array('required'  => false,))
+            ->add('siteSteam',    'text', array('required'  => false,))
+            ->add('siteGoogleplus',    'text', array('required'  => false,))
+            ->add('siteTwitch',    'text', array('required'  => false,))
+            ->add('siteYoutube',    'text', array('required'  => false,))
+            
             ->add('save', 'submit');
             ;
     }

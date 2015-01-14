@@ -21,6 +21,7 @@ class ParametersForumsType extends AbstractType
                     'choices'   => array('Classic' => 'Classique', 'Bloc' => 'Bloc', 'Next' => 'Next'),
                     'required'  => true,
                 ))
+            ->add('forumLastMessageAvatarView', 'checkbox', array('required'  => false,))
             ->add('forumCounting', 'checkbox', array('required'  => false,))
             ->add('save', 'submit');
             ;
