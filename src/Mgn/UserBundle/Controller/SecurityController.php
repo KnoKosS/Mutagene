@@ -36,7 +36,15 @@ class SecurityController extends Controller
 
                 $config = $this->container->get('mgn.config');
 
-                $user->setTheme($config->get('theme'));
+                $countUsers = $this->getDoctrine()
+                         ->getManager()
+                         ->getRepository('MgnUserBundle:User')
+                         ->countUsers();
+
+                if( $countUsers == 0 )
+                {
+                    $user->addRole('ROLE_SUPER_ADMIN');
+                }
 
                 $em->persist($user);
                 $em->flush();

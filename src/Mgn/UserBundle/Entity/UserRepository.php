@@ -39,7 +39,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             // La méthode Query::getSingleResult() lance une exception
             // s'il n'y a pas d'entrée correspondante aux critères
             $user = $q->getSingleResult();
-        } 
+        }
         catch (NoResultException $e)
         {
             throw new UsernameNotFoundException("Une erreur d'authentification s'est produite.");
@@ -68,7 +68,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function findUserByUsernameOrEmail($username)
     {
         $qb = $this
-            
+
             ->createQueryBuilder('u')
             ->select('u')
             ->leftJoin('u.groups', 'to')
@@ -85,7 +85,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     /*public function findUserByEmailAndToken($email, $token)
     {
         $qb = $this
-            
+
             ->createQueryBuilder('u')
             ->select('u')
             ->leftJoin('u.groups', 'to')
@@ -141,5 +141,16 @@ class UserRepository extends EntityRepository implements UserProviderInterface
         }
 
         return $user;
+    }
+
+    public function countUsers()
+    {
+        $query = $this
+            ->createQueryBuilder('u')
+            ->select('COUNT(u)')
+            ->getQuery()
+            ;
+
+        return $query->getSingleScalarResult();
     }
 }

@@ -139,12 +139,12 @@ class User implements AdvancedUserInterface, \Serializable
 
     /**
      * @var string
-     * @ORM\Column(name="theme", type="string", nullable=false)
+     * @ORM\Column(name="theme", type="string", nullable=true)
      */
     private $theme;
 
     /**
-     * @ORM\Column(name="themeDate", type="datetime", nullable=false)
+     * @ORM\Column(name="themeDate", type="datetime", nullable=true)
      */
     private $themeDate;
 
