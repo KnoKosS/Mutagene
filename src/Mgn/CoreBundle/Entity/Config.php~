@@ -42,6 +42,12 @@ class Config {
 	protected $email;
 
     /**
+     * @var string
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     */
+    protected $phone;
+
+    /**
      * @var boolean
      * @ORM\Column(name="cmsForum", type="boolean", nullable=true)
      */
@@ -1248,5 +1254,143 @@ class Config {
     public function getForumLastMessageAvatarView()
     {
         return $this->forumLastMessageAvatarView;
+    }
+
+    /**
+     * Set siteFacebook
+     *
+     * @param string $siteFacebook
+     * @return Config
+     */
+    public function setSiteFacebook($siteFacebook)
+    {
+        $this->siteFacebook = $siteFacebook;
+
+        return $this;
+    }
+
+    /**
+     * Get siteFacebook
+     *
+     * @return string 
+     */
+    public function getSiteFacebook()
+    {
+        return $this->siteFacebook;
+    }
+
+    /**
+     * Set siteTwitter
+     *
+     * @param string $siteTwitter
+     * @return Config
+     */
+    public function setSiteTwitter($siteTwitter)
+    {
+        $this->siteTwitter = $siteTwitter;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTwitter
+     *
+     * @return string 
+     */
+    public function getSiteTwitter()
+    {
+        return $this->siteTwitter;
+    }
+
+    /**
+     * Set siteSteam
+     *
+     * @param string $siteSteam
+     * @return Config
+     */
+    public function setSiteSteam($siteSteam)
+    {
+        $this->siteSteam = $siteSteam;
+
+        return $this;
+    }
+
+    /**
+     * Get siteSteam
+     *
+     * @return string 
+     */
+    public function getSiteSteam()
+    {
+        return $this->siteSteam;
+    }
+
+    /**
+     * Set siteGoogleplus
+     *
+     * @param string $siteGoogleplus
+     * @return Config
+     */
+    public function setSiteGoogleplus($siteGoogleplus)
+    {
+        $this->siteGoogleplus = $siteGoogleplus;
+
+        return $this;
+    }
+
+    /**
+     * Get siteGoogleplus
+     *
+     * @return string 
+     */
+    public function getSiteGoogleplus()
+    {
+        return $this->siteGoogleplus;
+    }
+
+    /**
+     * Set siteTwitch
+     *
+     * @param string $siteTwitch
+     * @return Config
+     */
+    public function setSiteTwitch($siteTwitch)
+    {
+        $this->siteTwitch = $siteTwitch;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTwitch
+     *
+     * @return string 
+     */
+    public function getSiteTwitch()
+    {
+        return $this->siteTwitch;
+    }
+
+    /**
+     * Set siteYoutube
+     *
+     * @param string $siteYoutube
+     * @return Config
+     */
+    public function setSiteYoutube($siteYoutube)
+    {
+        $this->siteYoutube = $siteYoutube;
+
+        return $this;
+    }
+
+    /**
+     * Get siteYoutube
+     *
+     * @return string 
+     */
+    public function getSiteYoutube()
+    {
+        return $this->siteYoutube;
     }
 }

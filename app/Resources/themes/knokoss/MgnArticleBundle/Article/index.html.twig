@@ -1,0 +1,184 @@
+{% extends "MgnArticleBundle::layout.html.twig" %}
+
+{% block title %}Les articles - {{ parent() }}{% endblock %}
+
+{% block arianne %}
+
+    {{ parent() }}
+    <li class="active">Index</li>
+
+{% endblock %}
+
+{% block pagetitle %}
+
+    {% if Config('homepage') == 'article' %}
+
+        {{ Config('siteDescription') }}
+
+    {% else %}
+
+        Liste des articles
+
+    {% endif %}
+    
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <!--blog start-->
+        <div class="col-lg-12">
+
+            {% for article in articles %}
+        
+                <div class="blog-item">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-2">
+                            <div class="date-wrap">
+                                <span class="date">{{ article.date|date('d') }}</span>
+                                <span class="month">
+                                    {% if article.date|date('m') == 01 %}Janvier
+                                    {% elseif article.date|date('m') == 02 %}Février
+                                    {% elseif article.date|date('m') == 03 %}Mars
+                                    {% elseif article.date|date('m') == 04 %}Avril
+                                    {% elseif article.date|date('m') == 05 %}Mai
+                                    {% elseif article.date|date('m') == 06 %}Juin
+                                    {% elseif article.date|date('m') == 07 %}Juillet
+                                    {% elseif article.date|date('m') == 08 %}Août
+                                    {% elseif article.date|date('m') == 09 %}Septembre
+                                    {% elseif article.date|date('m') == 10 %}Octobre
+                                    {% elseif article.date|date('m') == 11 %}Novembre
+                                    {% elseif article.date|date('m') == 12 %}Décembre
+                                    {%endif%}
+                                </span>
+                            </div>
+                            <div class="comnt-wrap">
+                                <span class="comnt-ico">
+                                    <i class="fa fa-comments"></i>
+                                </span>
+                                <span class="value">{{ article.countComments }}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-sm-10">
+                            <div class="blog-img">
+                                {% set viewHeader = true %}
+                                {% set viewPosition = '999999999' %}
+                                {% set header = '<img style="max-width: 100%;" src="'~app.request.schemeAndHttpHost~'/theme/images/article_header_default.png" title="" />' %}
+
+                                {% for content in article.contents %}
+
+                                    {% if content.picture != null or content.video != null %}
+
+                                        {% if viewHeader == true or viewPosition >= content.position %}
+
+                                            {% if content.picture != null %}
+
+                                                {% set header = '<img class="img-responsive" src="'~content.picture~'" title="" />' %}
+
+                                                {% set viewPosition = content.position %}
+
+                                            {% elseif content.video != null %}
+
+                                                {% set header = '<img class="img-responsive" src="'~content.video|mcodevideothumb|raw~'" title="" />' %}
+
+                                                {% set viewPosition = content.position %}
+
+                                            {% endif %}
+
+                                        {% endif %}
+
+                                        {% set viewHeader = false %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                {{ header|raw }}
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-2 text-right">
+                            <div class="author">
+                                Par <a href="{{ path('mgn_user_profile', {'username': article.author.usernameCanonical}) }}">{{ article.author.username }}</a>
+                            </div>
+                            {#<ul class="list-unstyled">
+                                <li><a href=""><em>PlayBox One</em></a></li>
+                            </ul>#}
+                            <div class="shate-view">
+                                <ul class="list-unstyled">
+                                    <li><a href="javascript:;">{{ article.countViews }} {% if article.countViews <= 1 %}Vue{% else %}Vues{% endif %}</a></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-sm-10">
+
+                            <h1><a href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}">{{ article.title }}</a></h1>
+
+                            <p>
+
+                                {% set viewParagraph = true %}
+
+                                {% for content in article.contents %}
+
+                                    {% if content.paragraph != null %}
+
+                                        {% if viewParagraph == true %}
+
+                                            {{ content.paragraph | truncate(350, true, '...') }}
+
+                                        {% endif %}
+
+                                        {% set viewParagraph = false %}
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </p>
+                            <a href="{{ path('mgn_article_read', {'date': article.date|date('d-m-Y'), 'id': article.id, 'slug': article.slug, 'category': article.category.slug}) }}" class="btn btn-danger">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+                
+            {% else %}
+               
+                <div class="alert alert-info">
+
+                    Aucun article n'a été rédigé sur ce site.
+
+                </div>
+            
+            {% endfor %}
+
+            <div class="text-center">
+
+                    {% if page < countPages %}
+
+                        <a href="{{ path('mgn_article', {'page': page+1}) }}" class="btn btn-round btn-default"><span aria-hidden="true">&larr;</span> Plus anciens</a>
+
+                    {% endif %}
+
+                    {% if page > 1 %}
+
+                        {% if Config('homepage') == 'article' and page == 2 %}
+
+                            <a href="{{ path('mgn_home') }}" class="btn btn-round btn-default">Plus récents <span aria-hidden="true">&rarr;</span></a>
+
+                        {% else %}
+
+                            <a href="{{ path('mgn_article', {'page': page-1}) }}" class="btn btn-round btn-default">Plus récents <span aria-hidden="true">&rarr;</span></a>
+
+                        {% endif %}
+
+                    {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+    
+{% endblock %}

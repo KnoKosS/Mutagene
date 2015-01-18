@@ -42,6 +42,12 @@ class Config {
 	protected $email;
 
     /**
+     * @var string
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     */
+    protected $phone;
+
+    /**
      * @var boolean
      * @ORM\Column(name="cmsForum", type="boolean", nullable=true)
      */
@@ -1386,5 +1392,28 @@ class Config {
     public function getSiteYoutube()
     {
         return $this->siteYoutube;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Config
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
     }
 }

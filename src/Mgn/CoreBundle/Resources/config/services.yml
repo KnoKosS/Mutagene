@@ -14,7 +14,7 @@ services:
 
     mgn.config:
         class: Mgn\CoreBundle\Twig\Extension\ConfigExtension
-        arguments: [@doctrine]
+        arguments: [@doctrine, @service_container]
         tags:
             -  { name: twig.extension }
 

@@ -80,3 +80,7 @@ stof_doctrine_extensions:
 
 ornicar_gravatar:
     size: 150
+
+liip_theme:
+    themes: ['bootstrap', 'adngaming', 'knokoss']
+    active_theme: 'adngaming'

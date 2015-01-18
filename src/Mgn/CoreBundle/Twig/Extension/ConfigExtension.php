@@ -4,12 +4,14 @@
 namespace Mgn\CoreBundle\Twig\Extension;
 
 use Mgn\CoreBundle\Entity\Config;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
  
 class ConfigExtension extends \Twig_Extension
 {
 	protected $doctrine;
 	protected $config;
 	protected $em;
+	private $container;
 	
 	public function getName()
 	{
@@ -23,9 +25,10 @@ class ConfigExtension extends \Twig_Extension
         );
     }
 	
-	public function __construct($doctrine)
+	public function __construct($doctrine,Container $container)
 	{
 		$this->doctrine = $doctrine;
+		$this->container = $container;
 		
 		if ($this->config === null) {
 			$configConstruct = $this->doctrine
@@ -47,6 +50,9 @@ class ConfigExtension extends \Twig_Extension
             }
 
             $this->config = $configConstruct;
+
+            $activeTheme = $this->container->get('liip_theme.active_theme');
+            $activeTheme->setName($this->config->getTheme());
 		}
 	}
 

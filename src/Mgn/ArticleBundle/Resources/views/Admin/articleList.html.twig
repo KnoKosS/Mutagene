@@ -105,53 +105,64 @@
 		                </tr>
 		            </thead>
 		            <tbody>
-		                {% for article in articles %}
-		                
-		                <tr>
-		                
-		                    <td>
+		                {% if articles is empty %}
 
-		                    	<h5><a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}"><strong>{{ article.title }}</strong></a>{% if article.status == 0 %}<small>{% if article.status == 'publish' %} - Publié{% endif %}{% if article.status == 'pending' %} - En attente{% endif %}{% if article.status == 'draft' %} - Brouillon{% endif %}</small>{% endif %}</h5>
+		                	<div class="alert alert-primary">
+						        Aucun article.
+						    </div>
 
-		                    	<span class="hidde">
+		                {% else %}
 
-		                    		<small>
-		                    			<a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}">Modifier</a> | <a href="#modalDelete{{ article.id }}" role="button" class="text-danger" data-toggle="modal">Mettre à la corbeille</a>
-		                    		</small>
+			                {% for article in articles %}
+			                
+			                <tr>
+			                
+			                    <td>
 
-		                    	</span>
+			                    	<h5><a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}"><strong>{{ article.title }}</strong></a>{% if article.status == 0 %}<small>{% if article.status == 'publish' %} - Publié{% endif %}{% if article.status == 'pending' %} - En attente{% endif %}{% if article.status == 'draft' %} - Brouillon{% endif %}</small>{% endif %}</h5>
 
-		                    </td>
+			                    	<span class="hidde">
 
-		                    <td>{{ article.author.username }}</td>
-		                    <td>{{ article.category.name }}</td>
-		                    <td>{{ article.countComments }}</td>
-		                    <td>
-		                    	{% if article.status != 'publish' %}Dernière modification :{% else %}Publié :{% endif %}</br>
-		                    	{{ article.date|datetime }}
-		                    </td>
-		                </tr>
+			                    		<small>
+			                    			<a href="{{ path('mgn_admin_article_edition', {'id': article.id}) }}">Modifier</a> | <a href="#modalDelete{{ article.id }}" role="button" class="text-danger" data-toggle="modal">Mettre à la corbeille</a>
+			                    		</small>
 
-		                <!-- Modal -->
-		                <div id="modalDelete{{ article.id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		                	<div class="modal-dialog">
-		                		<div class="modal-content">
-		                			<div class="modal-header">
-		                				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		                				<h4 class="modal-title" id="myModalLabel">Supprimer l'article #{{ article.id }}</h4>
-									</div>
-									<div class="modal-body">
-										Etes-vous sûr de vouloir supprimer l'article "<strong>{{ article.title }}</strong>" ? Cette action est irréversible !
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-										<a class="btn btn-danger" href="{{ path('mgn_admin_article_delete', {'id': article.id}) }}">Supprimer</a>
-									</div>
-								</div><!-- /.modal-content -->
-							</div><!-- /.modal-dialog -->
-						</div><!-- /.modal -->
-		                
-		                {% endfor %}
+			                    	</span>
+
+			                    </td>
+
+			                    <td>{{ article.author.username }}</td>
+			                    <td>{{ article.category.name }}</td>
+			                    <td>{{ article.countComments }}</td>
+			                    <td>
+			                    	{% if article.status != 'publish' %}Dernière modification :{% else %}Publié :{% endif %}</br>
+			                    	{{ article.date|datetime }}
+			                    </td>
+			                </tr>
+
+			                <!-- Modal -->
+			                <div id="modalDelete{{ article.id }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			                	<div class="modal-dialog">
+			                		<div class="modal-content">
+			                			<div class="modal-header">
+			                				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			                				<h4 class="modal-title" id="myModalLabel">Supprimer l'article #{{ article.id }}</h4>
+										</div>
+										<div class="modal-body">
+											Etes-vous sûr de vouloir supprimer l'article "<strong>{{ article.title }}</strong>" ? Cette action est irréversible !
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+											<a class="btn btn-danger" href="{{ path('mgn_admin_article_delete', {'id': article.id}) }}">Supprimer</a>
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
+			                
+			                {% endfor %}
+
+		    			{% endif %}
+
 		            </tbody>
 		        </table>
 

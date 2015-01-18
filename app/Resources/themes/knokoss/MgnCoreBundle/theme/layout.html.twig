@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+
+	    <meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <meta name="description" content="{{ Config('siteDescription') }}">
+	    <meta name="author" content="KnoKosS.com">
+	    <link rel="shortcut icon" href="img/favicon.png">
+
+	    <title>{% block title %}{{ Config('siteTitle') }} | {{ Config('siteDescription') }}{% endblock %}</title>
+
+	    <!-- Bootstrap core CSS -->
+		<link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+	    <link href="{{ asset('themes/knokoss/css/theme.css') }}" rel="stylesheet">
+	    <link href="{{ asset('themes/knokoss/css/bootstrap-reset.css') }}" rel="stylesheet">
+	    <!--external css-->
+		<link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+		<link href="{{ asset('vendor/foundation-icons/foundation-icons.css') }}" rel="stylesheet">
+
+	    <link href="{{ asset('themes/knokoss/css/flexslider.css') }}" rel="stylesheet"/>
+	    <link href="{{ asset('themes/knokoss/assets/bxslider/jquery.bxslider.css') }}" rel="stylesheet" />
+
+
+	      <!-- Custom styles for this template -->
+	    <link href="{{ asset('themes/knokoss/css/style.css') }}" rel="stylesheet">
+	    <link href="{{ asset('themes/knokoss/css/style-responsive.css') }}" rel="stylesheet" />
+
+        <link rel="stylesheet" href="{{ asset('vendor/mutagene/css/mgn.css') }}" />
+
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+	    <!--[if lt IE 9]>
+	      <script src="js/html5shiv.js"></script>
+	      <script src="js/respond.min.js"></script>
+	    <![endif]-->
+
+  </head>
+
+  <body>
+     <!--header start-->
+    <header class="header-frontend">
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                        <span class="fa fa-bar"></span>
+                    </button>
+
+                    {% set countTile = Config('siteTitle')|length / 2 %}
+                    {% set countTile = countTile|round(0, 'floor') %}
+
+                    <a class="navbar-brand" href="{{ path('mgn_home') }}">{{ Config('siteTitle')[:countTile] }}<span>{{ Config('siteTitle')[countTile:] }}</span></a>
+                </div>
+
+                {{ include("MgnCoreBundle:Theme:menu.html.twig") }}
+                
+            </div>
+        </div>
+    </header>
+    <!--header end-->
+
+    <!--breadcrumbs start-->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-4">
+                    <h1>
+                    	{% if bundle == 'article' %}Blog
+                    	{% elseif bundle == 'user' %}Mon compte
+                    	{% elseif bundle == 'forum' %}Forums
+                    	{% endif %}
+                    </h1>
+                </div>
+                <div class="col-lg-8 col-sm-8">
+                    <ol class="breadcrumb pull-right">
+                        <li><a href="#">{{ Config('siteTitle') }}</a></li>
+                        {% block arianne %}{% endblock %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs end-->
+
+    <!--container start-->
+    <div class="container">
+        
+        {% block body %}{% endblock %}
+
+    </div>
+    <!--container end-->
+
+     <!--footer start-->
+     <footer class="footer">
+         <div class="container">
+             <div class="row">
+                 <div class="col-lg-3 col-sm-3">
+                     <h1>Information de contact</h1>
+                     <address>
+						{% if Config('phone') != null %}
+							<p>Tél. : {{ Config('phone') }}</p>
+						{% endif %}
+                        {% if Config('email') != null %}
+							<p>Email : <a href="mailto:{{ Config('email') }}">{{ Config('email') }}</a></p>
+						{% endif %}
+                     </address>
+                 </div>
+                 <div class="col-lg-5 col-sm-5">
+                     <h1>dernier tweet</h1>
+                     <div class="tweet-box">
+                         <i class="fa fa-twitter"></i>
+                         <em>
+                             <p><a href="https://twitter.com/hashtag/Concours?src=hash">#Concours</a> : 3 JDGBox à gagner ! &#10;&#10;Pour participer <a href="https://twitter.com/hashtag/RT?src=hash">#RT</a> + FOLLOW <a href="https://twitter.com/OMGSERV">@OMGSERV</a> et <a href="https://twitter.com/JDGBox">@JDGBox</a> ! <a href="http://t.co/s3qLOA2NAL">pic.twitter.com/s3qLOA2NAL</a>
+                             </p>
+                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                         </em>
+                     </div>
+                 </div>
+                 <div class="col-lg-3 col-sm-3 col-lg-offset-1">
+                     <h1>Suivez-moi</h1>
+                     <ul class="social-link-footer list-unstyled">
+						{% if Config('siteFacebook') != null %}<li><a href="{{ Config('siteFacebook') }}"><i class="fa fa-facebook"></i></a></li>{% endif %}
+						{% if Config('siteTwitter') != null %}<li><a href="{{ Config('siteTwitter') }}"><i class="fa fa-twitter"></i></a></li>{% endif %}
+						{% if Config('siteSteam') != null %}{% endif %}
+						{% if Config('siteGoogleplus') != null %}<li><a href="{{ Config('siteGoogleplus') }}"><i class="fa fa-google-plus"></i></a></li>{% endif %}
+						{% if Config('siteTwitch') != null %}{% endif %}
+						{% if Config('siteYoutube') != null %}<li><a href="{{ Config('siteYoutube') }}"><i class="fa fa-youtube"></i></a></li>{% endif %}
+                         
+                        {#<li><a href="fr.linkedin.com/pub/sylvain-meunier/ab/430/98/"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="https://github.com/KnoKosS"><i class="fa fa-github"></i></a></li>#}
+                         
+                     </ul>
+                 </div>
+             </div>
+         </div>
+     </footer>
+     <!--footer end-->
+
+  	<!-- js placed at the end of the document so the pages load faster -->
+	<script src="{{ asset('vendor/jquery/jquery-1.11.2.min.js') }}"></script>
+	<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('themes/knokoss/js/hover-dropdown.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('themes/knokoss/js/jquery.flexslider.js') }}" defer></script>
+    <script src="{{ asset('themes/knokoss/assets/bxslider/jquery.bxslider.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('themes/knokoss/js/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('themes/knokoss/js/link-hover.js') }}"></script>
+
+    <!--common script for all pages-->
+    <script src="{{ asset('themes/knokoss/js/common-scripts.js') }}"></script>
+
+  <script>
+
+  </script>
+
+  </body>
+</html>

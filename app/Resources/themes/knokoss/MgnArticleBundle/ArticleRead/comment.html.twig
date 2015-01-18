@@ -1,0 +1,36 @@
+<div class="media col-lg-12">
+
+	<a class="pull-left" href="javascript:;">
+
+	    {{ message.author.avatar|avatar(message.author.avatarPath, message.author.email, '150', 'media-object')|raw }}
+
+	</a>
+
+	<div class="media-body">
+
+	    <h4 class="media-heading">
+
+	        <a href="{{ path('mgn_user_profile', {'username': message.author.usernameCanonical}) }}">{{ message.author.username }}</a> <span>|</span>
+	        <span>{{ message.date|datetime|capitalize }} </span>
+
+	    </h4>
+
+	    {% if message.messageLock == 1 %}
+		  
+			<p class="text-error">Ce commentaire a été modéré.</p>
+	  
+		{% else %}
+	  
+			<p>
+
+				{{ message.contents|nl2br }}
+
+			</p>
+	  
+		{% endif %}
+
+		{% if loop.last != true %}<hr>{% endif %}
+
+	</div>
+
+</div>

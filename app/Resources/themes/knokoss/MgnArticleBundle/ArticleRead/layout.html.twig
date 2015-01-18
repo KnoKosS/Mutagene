@@ -1,0 +1,90 @@
+<article class="row">
+
+	<div class="col-lg-12">
+
+		<div class="blog-item">
+
+			<div class="row">
+
+				<div class="col-lg-2 col-sm-2">
+
+				    <div class="row">
+				        <div class="col-lg-12 col-sm-12">
+				            <div class="date-wrap">
+				                <span class="date">{{ article.date|date('d') }}</span>
+				                <span class="month">
+                                    {% if article.date|date('m') == 01 %}Janvier
+                                    {% elseif article.date|date('m') == 02 %}Février
+                                    {% elseif article.date|date('m') == 03 %}Mars
+                                    {% elseif article.date|date('m') == 04 %}Avril
+                                    {% elseif article.date|date('m') == 05 %}Mai
+                                    {% elseif article.date|date('m') == 06 %}Juin
+                                    {% elseif article.date|date('m') == 07 %}Juillet
+                                    {% elseif article.date|date('m') == 08 %}Août
+                                    {% elseif article.date|date('m') == 09 %}Septembre
+                                    {% elseif article.date|date('m') == 10 %}Octobre
+                                    {% elseif article.date|date('m') == 11 %}Novembre
+                                    {% elseif article.date|date('m') == 12 %}Décembre
+                                    {%endif%}
+                                </span>
+				            </div>
+				            <div class="comnt-wrap">
+				                <span class="comnt-ico">
+				                    <i class="fa fa-comments"></i>
+				                </span>
+				                <span class="value">{{ article.countComments }}</span>
+				            </div>
+				        </div>
+				    </div>
+
+				    <div class="row">
+				        <div class="col-lg-12 col-sm-12 text-right">
+				            <div class="author">
+				            	<div class="media">
+					                {{ article.author.avatar|avatar(article.author.avatarPath, article.author.email, '150', 'media-object')|raw }}
+				            	</div>
+				                Par <a href="{{ path('mgn_user_profile', {'username': article.author.usernameCanonical}) }}">{{ article.author.username }}</a>
+				            </div>
+				            {#<ul class="list-unstyled">
+				                <li><a href=""><em>Général</em></a></li>
+				            </ul>#}
+				            <div class="shate-view">
+				                <ul class="list-unstyled">
+				                    <li>{{ article.countViews }} {% if article.countViews <= 1 %}Vue{% else %}Vues{% endif %}</li>
+
+				                </ul>
+				            </div>
+				        </div>
+				    </div>
+
+				</div>
+
+		        <div class="col-lg-10 col-sm-10">
+
+		            <div class="row">
+
+		        		{{ include("MgnArticleBundle:ArticleRead:title.html.twig") }}
+
+		            </div>
+
+		            <div class="row">
+
+		            	{{ include("MgnArticleBundle:ArticleRead:contents.html.twig") }}
+
+		            </div>
+
+					<div class="row" id="comments">
+
+						{{ include("MgnArticleBundle:ArticleRead:listComments.html.twig") }}
+
+					</div>
+
+		        </div>
+
+		    </div>
+
+		</div>
+
+	</div>
+
+</article>

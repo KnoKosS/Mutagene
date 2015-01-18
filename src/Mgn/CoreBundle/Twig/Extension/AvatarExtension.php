@@ -20,7 +20,7 @@ class AvatarExtension extends \Twig_Extension
     {
         if ($avatarType == 'gravatar')
         {
-            return '<img src="http://www.gravatar.com/avatar/'.md5( strtolower( trim( $email ) ) ).'?s='.$size.'&r=g&d=mm" alt="avatar" style="width: '.$size.'px;" class="'.$class.'" />';
+            return '<img src="http://www.gravatar.com/avatar/'.md5( strtolower( trim( $email ) ) ).'?s='.$size.'&r=g&d=mm" alt="avatar" class="'.$class.'" />';
         }
         elseif ($avatarType == 'personal')
         {
