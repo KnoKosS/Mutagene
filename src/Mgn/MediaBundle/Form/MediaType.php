@@ -4,7 +4,7 @@ namespace Mgn\MediaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class PictureType extends AbstractType
+class MediaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -15,7 +15,7 @@ class PictureType extends AbstractType
             ->add('gallery', 'entity', array(
                                         'class' => 'MgnMediaBundle:Gallery', 
                                         'property' => 'name',
-                                        'query_builder' => function (EntityRepository $repository) 
+                                        'query_builder' => function ($repository) 
                                         {
                                             $qb = $repository->createQueryBuilder('g'); 
                                             $qb->add('orderBy', 'g.name'); 
@@ -28,13 +28,13 @@ class PictureType extends AbstractType
 
     public function getName()
     {
-        return 'mgn_mediabundle_picturetype';
+        return 'mgn_mediabundle_mediatype';
     }
 
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'Mgn\MediaBundle\Entity\Picture',
+            'data_class' => 'Mgn\MediaBundle\Entity\Media',
         );
     }
 }

@@ -25,5 +25,5 @@ mgn_admin_media_gallery_delete:
         id:  \d+
 
 mgn_admin_media_picture_add:
-    pattern:   /admin/medias/ajouter
+    pattern:   /admin/medias/{gallerySelect}/ajouter
     defaults:  { _controller: MgnMediaBundle:Admin:addPicture }

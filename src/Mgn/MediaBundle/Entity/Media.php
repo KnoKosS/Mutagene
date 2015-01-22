@@ -73,7 +73,7 @@ class Media
     /**
      * @var integer $gallery
      *
-     * @ORM\ManyToOne(targetEntity="Mgn\MediaBundle\Entity\Gallery", inversedBy="pictures")
+     * @ORM\ManyToOne(targetEntity="Mgn\MediaBundle\Entity\Gallery", inversedBy="medias")
      */
     private $gallery;
 
@@ -369,5 +369,17 @@ class Media
     public function getType()
     {
         return $this->type;
+    }
+    
+    public function setFile($File)
+    {
+        $this->file = $File;
+
+        return $this;
+    }
+    
+    public function getFile()
+    {
+        return $this->file;
     }
 }

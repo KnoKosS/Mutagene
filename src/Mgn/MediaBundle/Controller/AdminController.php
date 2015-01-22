@@ -5,8 +5,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Mgn\MediaBundle\Entity\Gallery;
 use Mgn\MediaBundle\Form\GalleryType;
-use Mgn\MediaBundle\Entity\Picture;
-use Mgn\MediaBundle\Form\PictureType;
+use Mgn\MediaBundle\Entity\Media;
+use Mgn\MediaBundle\Form\MediaType;
 
 class AdminController extends Controller
 {
@@ -170,9 +170,9 @@ class AdminController extends Controller
 
 		$user = $this->container->get('security.context')->getToken()->getUser();
 
-		$picture = new Picture;
+		$media = new Media;
 
-        $form = $this->createForm(new PictureType, $picture);
+        $form = $this->createForm(new MediaType, $media);
 
         $request = $this->get('request');
 
